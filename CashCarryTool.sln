@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashCarryTool", "CashCarryTool\CashCarryTool.csproj", "{C74EE449-FCF0-4E81-B97E-71F2EAAC0BCD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C74EE449-FCF0-4E81-B97E-71F2EAAC0BCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C74EE449-FCF0-4E81-B97E-71F2EAAC0BCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C74EE449-FCF0-4E81-B97E-71F2EAAC0BCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C74EE449-FCF0-4E81-B97E-71F2EAAC0BCD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0FC6D992-EAF9-4B1F-8126-AB06A77D3E3B}
+	EndGlobalSection
+EndGlobal
