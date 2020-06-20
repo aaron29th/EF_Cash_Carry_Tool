@@ -82,6 +82,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\ComboboxItem.cs" />
     <Compile Include="Models\FrontSheetLabels\GeneralDetailsQuickSelect.cs" />
     <Compile Include="Models\FrontSheetLabels\Pallet.cs" />
     <Compile Include="Models\FrontSheetLabels\PalletType.cs" />
@@ -147,6 +148,7 @@
       <DependentUpon>LabelDetailsControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels.Pallet.datasource" />
     <None Include="Properties\DataSources\Eden_Farm_Cash___Carry_Tool.Models.StringValue.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
