@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 {
-	enum PalletType : ushort
+	public enum PalletType : ushort
 	{
 		Ice,
 		Bulk,

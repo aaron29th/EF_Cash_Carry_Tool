@@ -83,12 +83,16 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ComboboxItem.cs" />
+    <Compile Include="Models\FormattedTextHelper.cs" />
+    <Compile Include="Models\FrontSheetLabels\FrontSheet.cs" />
     <Compile Include="Models\FrontSheetLabels\GeneralDetailsQuickSelect.cs" />
+    <Compile Include="Models\FrontSheetLabels\Label.cs" />
     <Compile Include="Models\FrontSheetLabels\Pallet.cs" />
     <Compile Include="Models\FrontSheetLabels\PalletType.cs" />
     <Compile Include="Models\StringValue.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StaticClasses\LayoutHelper.cs" />
     <Compile Include="StaticClasses\ResourcesDirectory.cs" />
     <Compile Include="UserControls\FrontSheetLabelsControl.cs">
       <SubType>UserControl</SubType>
@@ -164,6 +168,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="res\labelLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -10,7 +10,7 @@ using Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels;
 
 namespace Eden_Farm_Cash___Carry_Tool.StaticClasses
 {
-	class ResourcesDirectory
+	public static class ResourcesDirectory
 	{
 		private static string _path;
 
@@ -30,15 +30,13 @@ namespace Eden_Farm_Cash___Carry_Tool.StaticClasses
 
 		public class FrontSheetLabel
 		{
-			private static string _generalDetailsQuickSelectPath;
-
 			public static string GeneralDetailsQuickSelectPath
 			{
 				get
 				{
-					_generalDetailsQuickSelectPath = $"{Path}\\bulkLabelQuickSelects.csv";
+					string path = $"{Path}\\quickSelects.csv";
 
-					if (File.Exists(_generalDetailsQuickSelectPath)) return _generalDetailsQuickSelectPath;
+					if (File.Exists(path)) return path;
 
 					var records = new List<GeneralDetailsQuickSelect>
 					{
@@ -46,13 +44,23 @@ namespace Eden_Farm_Cash___Carry_Tool.StaticClasses
 						new GeneralDetailsQuickSelect {SelectionText = "Hadfield - Batleys", Title = "Batleys Hadfield", CustomerCode = "BES970"},
 					};
 
-					using (var writer = new StreamWriter(_generalDetailsQuickSelectPath))
+					using (var writer = new StreamWriter(path))
 					using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
 					{
 						csv.WriteRecords(records);
 					}
 
-					return _generalDetailsQuickSelectPath;
+					return path;
+				}
+			}
+
+			public static string LogoPath
+			{
+				get
+				{
+					string path = $"{Path}\\labelLogo.png";
+
+					return path;
 				}
 			}
 		}

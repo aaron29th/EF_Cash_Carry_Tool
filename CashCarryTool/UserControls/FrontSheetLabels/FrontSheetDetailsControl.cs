@@ -14,6 +14,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 	public partial class FrontSheetDetailsControl : UserControl
 	{
 		private readonly BindingList<StringValue> _invoiceNumbers = new BindingList<StringValue>();
+		public List<string> InvoiceNumbers => _invoiceNumbers.Select(x => x.Value).ToList();
 
 		private void DetailsUpdated()
 		{

@@ -19,6 +19,10 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 	{
 		private BindingList<GeneralDetailsQuickSelect> _quickSelects;
 
+		public string Title { get; private set; }
+		public string CustomerCode { get; private set; }
+		public string DeliveryDate { get; private set; }
+
 		private void InitQuickSelects()
 		{
 			try
@@ -47,6 +51,10 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		{
 			InitializeComponent();
 
+			// Init properties
+			Title = "";
+			CustomerCode = "";
+
 			// Init quick selects
 			InitQuickSelects();
 
@@ -56,11 +64,13 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 
 		private void TitleTxt_TextChanged(object sender, EventArgs e)
 		{
+			Title = TitleTxt.Text;
 			DetailsUpdated();
 		}
 
 		private void CustomerCodeTxt_TextChanged(object sender, EventArgs e)
 		{
+			CustomerCode = CustomerCodeTxt.Text;
 			DetailsUpdated();
 		}
 
@@ -75,6 +85,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 
 		private void DeliveryDateSel_ValueChanged(object sender, EventArgs e)
 		{
+			DeliveryDate = DeliveryDateSel.Value.ToString("ddd dd MMM yyyy");
 			DetailsUpdated();
 		}
 

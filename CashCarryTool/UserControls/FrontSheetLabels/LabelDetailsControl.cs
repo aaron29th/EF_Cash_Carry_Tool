@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,21 +15,28 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 {
 	public partial class LabelDetailsControl : UserControl
 	{
-		private BindingList<Pallet> _pallets = new BindingList<Pallet>();
-		private int _totalIce = 0;
-		private int _totalBulk = 0;
-		private int _totalMixed = 0;
+		private readonly BindingList<Pallet> _pallets = new BindingList<Pallet>();
+		public List<Pallet> Pallets => _pallets.ToList();
+
+		public int TotalIce { get; private set; }
+		public int TotalBulk { get; private set; }
+		public int TotalMixed { get; private set; }
+
+		public int NumLabelsPerPallet { get; set; }
+
+		public bool SecondRun { get; private set; }
+		public string VehicleRegistration { get; private set; }
 
 		private void UpdatePalletTotals()
 		{
-			_totalIce = _pallets.Count(x => x.Type == PalletType.Ice);
-			NumIcePalletsSpin.Value = _totalIce;
+			TotalIce = _pallets.Count(x => x.Type == PalletType.Ice);
+			NumIcePalletsSpin.Value = TotalIce;
 
-			_totalBulk = _pallets.Count(x => x.Type == PalletType.Bulk);
-			NumBulkPalletsSpin.Value = _totalBulk;
+			TotalBulk = _pallets.Count(x => x.Type == PalletType.Bulk);
+			NumBulkPalletsSpin.Value = TotalBulk;
 			
-			_totalMixed = _pallets.Count(x => x.Type == PalletType.Mixed);
-			NumMixedPalletsSpin.Value = _totalMixed;
+			TotalMixed = _pallets.Count(x => x.Type == PalletType.Mixed);
+			NumMixedPalletsSpin.Value = TotalMixed;
 		}
 
 		private void UpdatePallets()
@@ -38,13 +46,13 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			int newTotalMixed = (int) NumMixedPalletsSpin.Value;
 
 			// Add pallets
-			while (newTotalIce > _totalIce)
+			while (newTotalIce > TotalIce)
 			{
 				_pallets.Insert(0, new Pallet() {Type = PalletType.Ice});
-				_totalIce++;
+				TotalIce++;
 			}
 
-			while (newTotalBulk > _totalBulk)
+			while (newTotalBulk > TotalBulk)
 			{
 				// Add bulk pallets after last ice pallet
 				int index = 0;
@@ -52,35 +60,34 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 				if (lastIce != null) index = _pallets.IndexOf(lastIce) + 1;
 
 				_pallets.Insert(index, new Pallet() { Type = PalletType.Bulk });
-				_totalBulk++;
+				TotalBulk++;
 			}
 
-			while (newTotalMixed > _totalMixed)
+			while (newTotalMixed > TotalMixed)
 			{
 				// Add mixed pallets to end
 				_pallets.Add(new Pallet() { Type = PalletType.Mixed });
-				_totalMixed++;
+				TotalMixed++;
 			}
 
 			// Remove pallets
-			while (newTotalIce < _totalIce)
+			while (newTotalIce < TotalIce)
 			{
 				_pallets.Remove(_pallets.Last(x => x.Type == PalletType.Ice));
-				_totalIce--;
+				TotalIce--;
 			}
 
-			while (newTotalBulk < _totalBulk)
+			while (newTotalBulk < TotalBulk)
 			{
 				_pallets.Remove(_pallets.Last(x => x.Type == PalletType.Bulk));
-				_totalBulk--;
+				TotalBulk--;
 			}
 
-			while (newTotalMixed < _totalMixed)
+			while (newTotalMixed < TotalMixed)
 			{
 				_pallets.Remove(_pallets.Last(x => x.Type == PalletType.Mixed));
-				_totalMixed--;
+				TotalMixed--;
 			}
-
 
 			int totalPallets = newTotalIce + newTotalBulk + newTotalMixed;
 			TotalPalletsLabel.Text = $"Total Pallets: {totalPallets}";
@@ -94,6 +101,11 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		public LabelDetailsControl()
 		{
 			InitializeComponent();
+
+			// Init properties
+			NumLabelsPerPallet = 4;
+			SecondRun = false;
+			VehicleRegistration = "";
 
 			// Init pallet type column
 			List<ComboboxItem> palletTypeItems = new List<ComboboxItem>()
@@ -230,6 +242,24 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 				pallet.Selected = false;
 			}
 			PalletsGridView.InvalidateColumn(PalletsGridViewSelectedColumn.Index);
+		}
+
+		private void SecondRunCheck_CheckedChanged(object sender, EventArgs e)
+		{
+			SecondRunVehicleTxt.Enabled = SecondRun = SecondRunCheck.Checked;
+			DetailsUpdated();
+		}
+
+		private void SecondRunVehicleTxt_TextChanged(object sender, EventArgs e)
+		{
+			VehicleRegistration = SecondRunVehicleTxt.Text;
+			DetailsUpdated();
+		}
+
+		private void NumLabelsPerPalletSpin_ValueChanged(object sender, EventArgs e)
+		{
+			NumLabelsPerPallet = (int)NumLabelsPerPalletSpin.Value;
+			DetailsUpdated();
 		}
 	}
 }

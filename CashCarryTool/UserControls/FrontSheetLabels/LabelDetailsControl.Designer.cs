@@ -32,13 +32,24 @@
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.panel3 = new System.Windows.Forms.Panel();
 			this.PalletsGridView = new System.Windows.Forms.DataGridView();
+			this.PalletsGridViewSelectedColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.PalletsGridViewTypeColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+			this.palletBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.label7 = new System.Windows.Forms.Label();
 			this.SecondRunVehicleTxt = new System.Windows.Forms.TextBox();
 			this.SecondRunCheck = new System.Windows.Forms.CheckBox();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.PalletsUncheckAll = new System.Windows.Forms.Button();
+			this.PalletsCheckAll = new System.Windows.Forms.Button();
+			this.MixedPalletsUncheckAll = new System.Windows.Forms.Button();
+			this.MixedPalletsCheckAll = new System.Windows.Forms.Button();
+			this.BulkPalletsUncheckAll = new System.Windows.Forms.Button();
+			this.BulkPalletsCheckAll = new System.Windows.Forms.Button();
+			this.IcePalletsUncheckAll = new System.Windows.Forms.Button();
+			this.IcePalletsCheckAll = new System.Windows.Forms.Button();
 			this.label3 = new System.Windows.Forms.Label();
-			this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+			this.NumLabelsPerPalletSpin = new System.Windows.Forms.NumericUpDown();
 			this.TotalPalletsLabel = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.NumBulkPalletsSpin = new System.Windows.Forms.NumericUpDown();
@@ -46,27 +57,16 @@
 			this.NumIcePalletsSpin = new System.Windows.Forms.NumericUpDown();
 			this.label4 = new System.Windows.Forms.Label();
 			this.NumMixedPalletsSpin = new System.Windows.Forms.NumericUpDown();
-			this.IcePalletsCheckAll = new System.Windows.Forms.Button();
-			this.IcePalletsUncheckAll = new System.Windows.Forms.Button();
-			this.BulkPalletsUncheckAll = new System.Windows.Forms.Button();
-			this.BulkPalletsCheckAll = new System.Windows.Forms.Button();
-			this.MixedPalletsUncheckAll = new System.Windows.Forms.Button();
-			this.MixedPalletsCheckAll = new System.Windows.Forms.Button();
-			this.PalletsUncheckAll = new System.Windows.Forms.Button();
-			this.PalletsCheckAll = new System.Windows.Forms.Button();
-			this.palletBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.PalletsGridViewSelectedColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-			this.PalletsGridViewTypeColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
 			this.groupBox3.SuspendLayout();
 			this.panel3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.PalletsGridView)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.palletBindingSource)).BeginInit();
 			this.panel2.SuspendLayout();
 			this.panel1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.NumLabelsPerPalletSpin)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.NumBulkPalletsSpin)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.NumIcePalletsSpin)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.NumMixedPalletsSpin)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.palletBindingSource)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBox3
@@ -113,6 +113,26 @@
 			this.PalletsGridView.CurrentCellDirtyStateChanged += new System.EventHandler(this.PalletsGridView_CurrentCellDirtyStateChanged);
 			this.PalletsGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.PalletsGridView_DataBindingComplete);
 			// 
+			// PalletsGridViewSelectedColumn
+			// 
+			this.PalletsGridViewSelectedColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.PalletsGridViewSelectedColumn.DataPropertyName = "Selected";
+			this.PalletsGridViewSelectedColumn.HeaderText = "Selected";
+			this.PalletsGridViewSelectedColumn.Name = "PalletsGridViewSelectedColumn";
+			// 
+			// PalletsGridViewTypeColumn
+			// 
+			this.PalletsGridViewTypeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.PalletsGridViewTypeColumn.DataPropertyName = "Type";
+			this.PalletsGridViewTypeColumn.HeaderText = "Type";
+			this.PalletsGridViewTypeColumn.Name = "PalletsGridViewTypeColumn";
+			this.PalletsGridViewTypeColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.PalletsGridViewTypeColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			// 
+			// palletBindingSource
+			// 
+			this.palletBindingSource.DataSource = typeof(Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels.Pallet);
+			// 
 			// panel2
 			// 
 			this.panel2.Controls.Add(this.label7);
@@ -144,6 +164,7 @@
 			this.SecondRunVehicleTxt.Name = "SecondRunVehicleTxt";
 			this.SecondRunVehicleTxt.Size = new System.Drawing.Size(271, 20);
 			this.SecondRunVehicleTxt.TabIndex = 8;
+			this.SecondRunVehicleTxt.TextChanged += new System.EventHandler(this.SecondRunVehicleTxt_TextChanged);
 			// 
 			// SecondRunCheck
 			// 
@@ -154,6 +175,7 @@
 			this.SecondRunCheck.TabIndex = 7;
 			this.SecondRunCheck.Text = "Second Run";
 			this.SecondRunCheck.UseVisualStyleBackColor = true;
+			this.SecondRunCheck.CheckedChanged += new System.EventHandler(this.SecondRunCheck_CheckedChanged);
 			// 
 			// panel1
 			// 
@@ -166,7 +188,7 @@
 			this.panel1.Controls.Add(this.IcePalletsUncheckAll);
 			this.panel1.Controls.Add(this.IcePalletsCheckAll);
 			this.panel1.Controls.Add(this.label3);
-			this.panel1.Controls.Add(this.numericUpDown1);
+			this.panel1.Controls.Add(this.NumLabelsPerPalletSpin);
 			this.panel1.Controls.Add(this.TotalPalletsLabel);
 			this.panel1.Controls.Add(this.label1);
 			this.panel1.Controls.Add(this.NumBulkPalletsSpin);
@@ -180,6 +202,94 @@
 			this.panel1.Size = new System.Drawing.Size(278, 190);
 			this.panel1.TabIndex = 0;
 			// 
+			// PalletsUncheckAll
+			// 
+			this.PalletsUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.PalletsUncheckAll.Location = new System.Drawing.Point(202, 0);
+			this.PalletsUncheckAll.Name = "PalletsUncheckAll";
+			this.PalletsUncheckAll.Size = new System.Drawing.Size(73, 23);
+			this.PalletsUncheckAll.TabIndex = 31;
+			this.PalletsUncheckAll.Text = "Uncheck All";
+			this.PalletsUncheckAll.UseVisualStyleBackColor = true;
+			this.PalletsUncheckAll.Click += new System.EventHandler(this.PalletsUncheckAll_Click);
+			// 
+			// PalletsCheckAll
+			// 
+			this.PalletsCheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.PalletsCheckAll.Location = new System.Drawing.Point(123, 0);
+			this.PalletsCheckAll.Name = "PalletsCheckAll";
+			this.PalletsCheckAll.Size = new System.Drawing.Size(73, 23);
+			this.PalletsCheckAll.TabIndex = 30;
+			this.PalletsCheckAll.Text = "Check All";
+			this.PalletsCheckAll.UseVisualStyleBackColor = true;
+			this.PalletsCheckAll.Click += new System.EventHandler(this.PalletsCheckAll_Click);
+			// 
+			// MixedPalletsUncheckAll
+			// 
+			this.MixedPalletsUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.MixedPalletsUncheckAll.Location = new System.Drawing.Point(202, 106);
+			this.MixedPalletsUncheckAll.Name = "MixedPalletsUncheckAll";
+			this.MixedPalletsUncheckAll.Size = new System.Drawing.Size(73, 23);
+			this.MixedPalletsUncheckAll.TabIndex = 29;
+			this.MixedPalletsUncheckAll.Text = "Uncheck All";
+			this.MixedPalletsUncheckAll.UseVisualStyleBackColor = true;
+			this.MixedPalletsUncheckAll.Click += new System.EventHandler(this.MixedPalletsUncheckAll_Click);
+			// 
+			// MixedPalletsCheckAll
+			// 
+			this.MixedPalletsCheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.MixedPalletsCheckAll.Location = new System.Drawing.Point(123, 106);
+			this.MixedPalletsCheckAll.Name = "MixedPalletsCheckAll";
+			this.MixedPalletsCheckAll.Size = new System.Drawing.Size(73, 23);
+			this.MixedPalletsCheckAll.TabIndex = 28;
+			this.MixedPalletsCheckAll.Text = "Check All";
+			this.MixedPalletsCheckAll.UseVisualStyleBackColor = true;
+			this.MixedPalletsCheckAll.Click += new System.EventHandler(this.MixedPalletsCheckAll_Click);
+			// 
+			// BulkPalletsUncheckAll
+			// 
+			this.BulkPalletsUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.BulkPalletsUncheckAll.Location = new System.Drawing.Point(202, 69);
+			this.BulkPalletsUncheckAll.Name = "BulkPalletsUncheckAll";
+			this.BulkPalletsUncheckAll.Size = new System.Drawing.Size(73, 23);
+			this.BulkPalletsUncheckAll.TabIndex = 27;
+			this.BulkPalletsUncheckAll.Text = "Uncheck All";
+			this.BulkPalletsUncheckAll.UseVisualStyleBackColor = true;
+			this.BulkPalletsUncheckAll.Click += new System.EventHandler(this.BulkPalletsUncheckAll_Click);
+			// 
+			// BulkPalletsCheckAll
+			// 
+			this.BulkPalletsCheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.BulkPalletsCheckAll.Location = new System.Drawing.Point(123, 69);
+			this.BulkPalletsCheckAll.Name = "BulkPalletsCheckAll";
+			this.BulkPalletsCheckAll.Size = new System.Drawing.Size(73, 23);
+			this.BulkPalletsCheckAll.TabIndex = 26;
+			this.BulkPalletsCheckAll.Text = "Check All";
+			this.BulkPalletsCheckAll.UseVisualStyleBackColor = true;
+			this.BulkPalletsCheckAll.Click += new System.EventHandler(this.BulkPalletsCheckAll_Click);
+			// 
+			// IcePalletsUncheckAll
+			// 
+			this.IcePalletsUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.IcePalletsUncheckAll.Location = new System.Drawing.Point(202, 32);
+			this.IcePalletsUncheckAll.Name = "IcePalletsUncheckAll";
+			this.IcePalletsUncheckAll.Size = new System.Drawing.Size(73, 23);
+			this.IcePalletsUncheckAll.TabIndex = 25;
+			this.IcePalletsUncheckAll.Text = "Uncheck All";
+			this.IcePalletsUncheckAll.UseVisualStyleBackColor = true;
+			this.IcePalletsUncheckAll.Click += new System.EventHandler(this.IcePalletsUncheckAll_Click);
+			// 
+			// IcePalletsCheckAll
+			// 
+			this.IcePalletsCheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.IcePalletsCheckAll.Location = new System.Drawing.Point(123, 32);
+			this.IcePalletsCheckAll.Name = "IcePalletsCheckAll";
+			this.IcePalletsCheckAll.Size = new System.Drawing.Size(73, 23);
+			this.IcePalletsCheckAll.TabIndex = 24;
+			this.IcePalletsCheckAll.Text = "Check All";
+			this.IcePalletsCheckAll.UseVisualStyleBackColor = true;
+			this.IcePalletsCheckAll.Click += new System.EventHandler(this.IcePalletsCheckAll_Click);
+			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
@@ -190,30 +300,31 @@
 			this.label3.TabIndex = 23;
 			this.label3.Text = "Labels Per Pallet";
 			// 
-			// numericUpDown1
+			// NumLabelsPerPalletSpin
 			// 
-			this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.NumLabelsPerPalletSpin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.numericUpDown1.Location = new System.Drawing.Point(5, 156);
-			this.numericUpDown1.Margin = new System.Windows.Forms.Padding(2);
-			this.numericUpDown1.Maximum = new decimal(new int[] {
+			this.NumLabelsPerPalletSpin.Location = new System.Drawing.Point(5, 156);
+			this.NumLabelsPerPalletSpin.Margin = new System.Windows.Forms.Padding(2);
+			this.NumLabelsPerPalletSpin.Maximum = new decimal(new int[] {
             20,
             0,
             0,
             0});
-			this.numericUpDown1.Minimum = new decimal(new int[] {
+			this.NumLabelsPerPalletSpin.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-			this.numericUpDown1.Name = "numericUpDown1";
-			this.numericUpDown1.Size = new System.Drawing.Size(271, 20);
-			this.numericUpDown1.TabIndex = 22;
-			this.numericUpDown1.Value = new decimal(new int[] {
+			this.NumLabelsPerPalletSpin.Name = "NumLabelsPerPalletSpin";
+			this.NumLabelsPerPalletSpin.Size = new System.Drawing.Size(271, 20);
+			this.NumLabelsPerPalletSpin.TabIndex = 22;
+			this.NumLabelsPerPalletSpin.Value = new decimal(new int[] {
             4,
             0,
             0,
             0});
+			this.NumLabelsPerPalletSpin.ValueChanged += new System.EventHandler(this.NumLabelsPerPalletSpin_ValueChanged);
 			// 
 			// TotalPalletsLabel
 			// 
@@ -288,114 +399,6 @@
 			this.NumMixedPalletsSpin.TabIndex = 15;
 			this.NumMixedPalletsSpin.ValueChanged += new System.EventHandler(this.NumMixedPalletsSpin_ValueChanged);
 			// 
-			// IcePalletsCheckAll
-			// 
-			this.IcePalletsCheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.IcePalletsCheckAll.Location = new System.Drawing.Point(123, 32);
-			this.IcePalletsCheckAll.Name = "IcePalletsCheckAll";
-			this.IcePalletsCheckAll.Size = new System.Drawing.Size(73, 23);
-			this.IcePalletsCheckAll.TabIndex = 24;
-			this.IcePalletsCheckAll.Text = "Check All";
-			this.IcePalletsCheckAll.UseVisualStyleBackColor = true;
-			this.IcePalletsCheckAll.Click += new System.EventHandler(this.IcePalletsCheckAll_Click);
-			// 
-			// IcePalletsUncheckAll
-			// 
-			this.IcePalletsUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.IcePalletsUncheckAll.Location = new System.Drawing.Point(202, 32);
-			this.IcePalletsUncheckAll.Name = "IcePalletsUncheckAll";
-			this.IcePalletsUncheckAll.Size = new System.Drawing.Size(73, 23);
-			this.IcePalletsUncheckAll.TabIndex = 25;
-			this.IcePalletsUncheckAll.Text = "Uncheck All";
-			this.IcePalletsUncheckAll.UseVisualStyleBackColor = true;
-			this.IcePalletsUncheckAll.Click += new System.EventHandler(this.IcePalletsUncheckAll_Click);
-			// 
-			// BulkPalletsUncheckAll
-			// 
-			this.BulkPalletsUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.BulkPalletsUncheckAll.Location = new System.Drawing.Point(202, 69);
-			this.BulkPalletsUncheckAll.Name = "BulkPalletsUncheckAll";
-			this.BulkPalletsUncheckAll.Size = new System.Drawing.Size(73, 23);
-			this.BulkPalletsUncheckAll.TabIndex = 27;
-			this.BulkPalletsUncheckAll.Text = "Uncheck All";
-			this.BulkPalletsUncheckAll.UseVisualStyleBackColor = true;
-			this.BulkPalletsUncheckAll.Click += new System.EventHandler(this.BulkPalletsUncheckAll_Click);
-			// 
-			// BulkPalletsCheckAll
-			// 
-			this.BulkPalletsCheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.BulkPalletsCheckAll.Location = new System.Drawing.Point(123, 69);
-			this.BulkPalletsCheckAll.Name = "BulkPalletsCheckAll";
-			this.BulkPalletsCheckAll.Size = new System.Drawing.Size(73, 23);
-			this.BulkPalletsCheckAll.TabIndex = 26;
-			this.BulkPalletsCheckAll.Text = "Check All";
-			this.BulkPalletsCheckAll.UseVisualStyleBackColor = true;
-			this.BulkPalletsCheckAll.Click += new System.EventHandler(this.BulkPalletsCheckAll_Click);
-			// 
-			// MixedPalletsUncheckAll
-			// 
-			this.MixedPalletsUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.MixedPalletsUncheckAll.Location = new System.Drawing.Point(202, 106);
-			this.MixedPalletsUncheckAll.Name = "MixedPalletsUncheckAll";
-			this.MixedPalletsUncheckAll.Size = new System.Drawing.Size(73, 23);
-			this.MixedPalletsUncheckAll.TabIndex = 29;
-			this.MixedPalletsUncheckAll.Text = "Uncheck All";
-			this.MixedPalletsUncheckAll.UseVisualStyleBackColor = true;
-			this.MixedPalletsUncheckAll.Click += new System.EventHandler(this.MixedPalletsUncheckAll_Click);
-			// 
-			// MixedPalletsCheckAll
-			// 
-			this.MixedPalletsCheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.MixedPalletsCheckAll.Location = new System.Drawing.Point(123, 106);
-			this.MixedPalletsCheckAll.Name = "MixedPalletsCheckAll";
-			this.MixedPalletsCheckAll.Size = new System.Drawing.Size(73, 23);
-			this.MixedPalletsCheckAll.TabIndex = 28;
-			this.MixedPalletsCheckAll.Text = "Check All";
-			this.MixedPalletsCheckAll.UseVisualStyleBackColor = true;
-			this.MixedPalletsCheckAll.Click += new System.EventHandler(this.MixedPalletsCheckAll_Click);
-			// 
-			// PalletsUncheckAll
-			// 
-			this.PalletsUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.PalletsUncheckAll.Location = new System.Drawing.Point(202, 0);
-			this.PalletsUncheckAll.Name = "PalletsUncheckAll";
-			this.PalletsUncheckAll.Size = new System.Drawing.Size(73, 23);
-			this.PalletsUncheckAll.TabIndex = 31;
-			this.PalletsUncheckAll.Text = "Uncheck All";
-			this.PalletsUncheckAll.UseVisualStyleBackColor = true;
-			this.PalletsUncheckAll.Click += new System.EventHandler(this.PalletsUncheckAll_Click);
-			// 
-			// PalletsCheckAll
-			// 
-			this.PalletsCheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.PalletsCheckAll.Location = new System.Drawing.Point(123, 0);
-			this.PalletsCheckAll.Name = "PalletsCheckAll";
-			this.PalletsCheckAll.Size = new System.Drawing.Size(73, 23);
-			this.PalletsCheckAll.TabIndex = 30;
-			this.PalletsCheckAll.Text = "Check All";
-			this.PalletsCheckAll.UseVisualStyleBackColor = true;
-			this.PalletsCheckAll.Click += new System.EventHandler(this.PalletsCheckAll_Click);
-			// 
-			// palletBindingSource
-			// 
-			this.palletBindingSource.DataSource = typeof(Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels.Pallet);
-			// 
-			// PalletsGridViewSelectedColumn
-			// 
-			this.PalletsGridViewSelectedColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.PalletsGridViewSelectedColumn.DataPropertyName = "Selected";
-			this.PalletsGridViewSelectedColumn.HeaderText = "Selected";
-			this.PalletsGridViewSelectedColumn.Name = "PalletsGridViewSelectedColumn";
-			// 
-			// PalletsGridViewTypeColumn
-			// 
-			this.PalletsGridViewTypeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.PalletsGridViewTypeColumn.DataPropertyName = "Type";
-			this.PalletsGridViewTypeColumn.HeaderText = "Type";
-			this.PalletsGridViewTypeColumn.Name = "PalletsGridViewTypeColumn";
-			this.PalletsGridViewTypeColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.PalletsGridViewTypeColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			// 
 			// LabelDetailsControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -406,15 +409,15 @@
 			this.groupBox3.ResumeLayout(false);
 			this.panel3.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.PalletsGridView)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.palletBindingSource)).EndInit();
 			this.panel2.ResumeLayout(false);
 			this.panel2.PerformLayout();
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.NumLabelsPerPalletSpin)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.NumBulkPalletsSpin)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.NumIcePalletsSpin)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.NumMixedPalletsSpin)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.palletBindingSource)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -436,7 +439,7 @@
 		private System.Windows.Forms.TextBox SecondRunVehicleTxt;
 		private System.Windows.Forms.CheckBox SecondRunCheck;
 		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.NumericUpDown numericUpDown1;
+		private System.Windows.Forms.NumericUpDown NumLabelsPerPalletSpin;
 		private System.Windows.Forms.DataGridView PalletsGridView;
 		private System.Windows.Forms.BindingSource palletBindingSource;
 		private System.Windows.Forms.Button PalletsUncheckAll;
