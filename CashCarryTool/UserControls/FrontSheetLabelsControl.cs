@@ -33,9 +33,29 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 
 		}
 
+		public void Reload()
+		{
+			InitLabel();
+		}
+
+		public void DetailsUpdate()
+		{
+			if (FrontSheetLabelsPreviewControl.LiveReload) Reload();
+		}
+
+		public void SetPreviewPageNumber(int pageNumber)
+		{
+			FrontSheetLabelsPreviewControl.SetPreviewPageNumber(pageNumber);
+		}
+
 		public FrontSheetLabelsControl()
 		{
 			InitializeComponent();
+
+			GeneralDetailsControl.SetParent(this);
+			FrontSheetDetailsControl.SetParent(this);
+			LabelDetailsControl.SetParent(this);
+			FrontSheetLabelsPreviewControl.SetParent(this);
 		}
 
 		private void button1_Click(object sender, EventArgs e)

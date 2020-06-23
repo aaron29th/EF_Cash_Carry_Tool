@@ -13,7 +13,7 @@ using Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels;
 
 namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 {
-	public partial class LabelDetailsControl : UserControl
+	public partial class LabelDetailsControl : FrontSheetLabelsBase
 	{
 		private readonly BindingList<Pallet> _pallets = new BindingList<Pallet>();
 		public List<Pallet> Pallets => _pallets.ToList();
@@ -91,11 +91,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 
 			int totalPallets = newTotalIce + newTotalBulk + newTotalMixed;
 			TotalPalletsLabel.Text = $"Total Pallets: {totalPallets}";
-		}
-
-		private void DetailsUpdated()
-		{
-
+			DetailsUpdated();
 		}
 
 		public LabelDetailsControl()
@@ -122,6 +118,8 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			PalletsGridView.DataSource = _pallets;
 		}
 
+		#region Spin edits
+
 		private void NumIcePalletsSpin_ValueChanged(object sender, EventArgs e)
 		{
 			UpdatePallets();
@@ -136,6 +134,16 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		{
 			UpdatePallets();
 		}
+
+		private void NumLabelsPerPalletSpin_ValueChanged(object sender, EventArgs e)
+		{
+			NumLabelsPerPallet = (int)NumLabelsPerPalletSpin.Value;
+			DetailsUpdated();
+		}
+
+		#endregion
+
+		#region Pallets GridView
 
 		private void PalletsGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
 		{
@@ -164,6 +172,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		{
 			if (e.ColumnIndex == -1 || e.RowIndex == -1) return;
 			UpdatePalletTotals();
+			DetailsUpdated();
 		}
 
 		private void PalletsGridView_CurrentCellDirtyStateChanged(object sender, EventArgs e)
@@ -171,6 +180,10 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			// Commit comboxbox change straight away
 			PalletsGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
 		}
+
+		#endregion
+
+		#region Check / uncheck all
 
 		private void PalletsCheckAll_Click(object sender, EventArgs e)
 		{
@@ -244,6 +257,10 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			PalletsGridView.InvalidateColumn(PalletsGridViewSelectedColumn.Index);
 		}
 
+		#endregion
+
+		#region Second run
+
 		private void SecondRunCheck_CheckedChanged(object sender, EventArgs e)
 		{
 			SecondRunVehicleTxt.Enabled = SecondRun = SecondRunCheck.Checked;
@@ -256,10 +273,17 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			DetailsUpdated();
 		}
 
-		private void NumLabelsPerPalletSpin_ValueChanged(object sender, EventArgs e)
+		#endregion
+
+		private void PalletsGridView_DoubleClick(object sender, EventArgs e)
 		{
-			NumLabelsPerPallet = (int)NumLabelsPerPalletSpin.Value;
-			DetailsUpdated();
+			if (PalletsGridView.SelectedRows.Count == 0) return;
+
+			int palletIndex = PalletsGridView.SelectedRows[0].Index;
+			if (!_pallets[palletIndex].Selected) return;
+
+			int pageNumber = _pallets.Take(palletIndex + 1).Count(x => x.Selected = true);
+			_parent?.SetPreviewPageNumber(pageNumber);
 		}
 	}
 }

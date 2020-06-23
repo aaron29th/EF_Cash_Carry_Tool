@@ -15,7 +15,7 @@ using Eden_Farm_Cash___Carry_Tool.StaticClasses;
 
 namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 {
-	public partial class GeneralDetailsControl : UserControl
+	public partial class GeneralDetailsControl : FrontSheetLabelsBase
 	{
 		private BindingList<GeneralDetailsQuickSelect> _quickSelects;
 
@@ -40,11 +40,6 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			{
 
 			}
-		}
-
-		private void DetailsUpdated()
-		{
-
 		}
 
 		public GeneralDetailsControl()

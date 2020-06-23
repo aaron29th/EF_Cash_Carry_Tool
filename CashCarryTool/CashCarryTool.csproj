@@ -106,6 +106,9 @@
     <Compile Include="UserControls\FrontSheetLabels\FrontSheetDetailsControl.Designer.cs">
       <DependentUpon>FrontSheetDetailsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\FrontSheetLabels\FrontSheetLabelsBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UserControls\FrontSheetLabels\FrontSheetLabelsPreviewControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

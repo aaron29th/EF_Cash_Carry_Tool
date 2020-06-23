@@ -112,6 +112,7 @@
 			this.PalletsGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.PalletsGridView_CellValueChanged);
 			this.PalletsGridView.CurrentCellDirtyStateChanged += new System.EventHandler(this.PalletsGridView_CurrentCellDirtyStateChanged);
 			this.PalletsGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.PalletsGridView_DataBindingComplete);
+			this.PalletsGridView.DoubleClick += new System.EventHandler(this.PalletsGridView_DoubleClick);
 			// 
 			// PalletsGridViewSelectedColumn
 			// 
