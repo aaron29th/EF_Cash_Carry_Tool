@@ -398,6 +398,11 @@
 			this.NumMixedPalletsSpin.Name = "NumMixedPalletsSpin";
 			this.NumMixedPalletsSpin.Size = new System.Drawing.Size(113, 20);
 			this.NumMixedPalletsSpin.TabIndex = 15;
+			this.NumMixedPalletsSpin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			this.NumMixedPalletsSpin.ValueChanged += new System.EventHandler(this.NumMixedPalletsSpin_ValueChanged);
 			// 
 			// LabelDetailsControl

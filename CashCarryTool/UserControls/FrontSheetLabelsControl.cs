@@ -21,7 +21,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 				DeliveryDate = GeneralDetailsControl.DeliveryDate,
 
 				Pallets = LabelDetailsControl.Pallets,
-				NumCopiesPerPallet = LabelDetailsControl.NumLabelsPerPallet,
+				NumCopiesPerPallet = FrontSheetLabelsPreviewControl.HideDuplicatePages ? 1 : LabelDetailsControl.NumLabelsPerPallet,
 
 				SecondRun = LabelDetailsControl.SecondRun,
 				VehicleRegistration = LabelDetailsControl.VehicleRegistration
@@ -56,6 +56,8 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 			FrontSheetDetailsControl.SetParent(this);
 			LabelDetailsControl.SetParent(this);
 			FrontSheetLabelsPreviewControl.SetParent(this);
+
+			Reload();
 		}
 
 		private void button1_Click(object sender, EventArgs e)

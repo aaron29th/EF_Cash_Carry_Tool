@@ -15,7 +15,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 {
 	public partial class LabelDetailsControl : FrontSheetLabelsBase
 	{
-		private readonly BindingList<Pallet> _pallets = new BindingList<Pallet>();
+		private readonly BindingList<Pallet> _pallets = new BindingList<Pallet>() { new Pallet() {Selected = true, Type = PalletType.Mixed }};
 		public List<Pallet> Pallets => _pallets.ToList();
 
 		public int TotalIce { get; private set; }
@@ -99,6 +99,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			InitializeComponent();
 
 			// Init properties
+			TotalMixed = 1;
 			NumLabelsPerPallet = 4;
 			SecondRun = false;
 			VehicleRegistration = "";
