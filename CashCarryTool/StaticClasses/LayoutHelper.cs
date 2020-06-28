@@ -67,14 +67,22 @@ namespace Eden_Farm_Cash___Carry_Tool.StaticClasses
 			Table table = section.AddTable();
 			table.Format.Borders.Color = Colors.Black;
 			table.Format.Borders.Width = borderWidth;
-			// Fix double border between columns
-			table.Format.LeftIndent = -borderWidth;
+			
+			// Fix double border between columns and rows
+			//table.Format.Borders.Left.Width = 0;
+			//table.Format.LeftIndent = -3;
+			table.LeftPadding = -borderWidth;
+			//table.Format.RightIndent = -3;
+			table.Format.SpaceBefore = -borderWidth;
 
 			foreach (var width in columnWidths)
 			{
 				Column column = table.AddColumn();
 				column.Width = width;
 			}
+
+			// Fix missing left border for first column
+			//table.Columns[0].Format.Borders.Left.Width = borderWidth;
 
 			for (int i = 0; i < numRows; i++)
 			{

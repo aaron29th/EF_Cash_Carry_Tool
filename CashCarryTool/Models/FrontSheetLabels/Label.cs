@@ -83,9 +83,8 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 		private void AddPalletNumberAndLogo(int palletNumber)
 		{
 			Table table = LayoutHelper.AddTable(
-				new List<float>() { 320, 100, 280 }, 1, _currentSection);
+				new List<float>() { 320, 100, 280 }, 1, _currentSection, 5);
 			table.Format.Font.Size = 40;
-			table.Format.Borders.Width = 5;
 
 			var row = table.Rows[0];
 
@@ -185,13 +184,14 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 				{
 					_currentSection = Document.AddSection();
 					_currentSection.PageSetup.PageFormat = PageFormat.A4;
+					_currentSection.PageSetup.Orientation = Orientation.Landscape;
 					_currentSection.PageSetup.TopMargin = 40;
 
 					AddTitle();
 					AddSpace(20);
 
 					AddCustomerCode();
-					AddSpace(5);
+					AddSpace(10);
 
 					AddDeliveryDate();
 					AddSpace(20);

@@ -11,6 +11,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models
 	{
 		public FormattedTextHelper(string text)
 		{
+			if (text == null) return;
 			AddText(text);
 		}
 
