@@ -26,7 +26,18 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			HideDuplicatePages = HideDuplicatePagesCheck.Checked;
 		}
 
-		public void LoadPreview(Document doc)
+		public void LoadFrontSheetPreview(Document doc)
+		{
+			if (doc == null)
+			{
+				doc = new Document();
+			};
+
+			string ddl = MigraDoc.DocumentObjectModel.IO.DdlWriter.WriteToString(doc);
+			FrontSheetPreview.Ddl = ddl;
+		}
+
+		public void LoadLabelPreview(Document doc)
 		{
 			if (doc == null)
 			{
@@ -34,11 +45,16 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			};
 			
 			string ddl = MigraDoc.DocumentObjectModel.IO.DdlWriter.WriteToString(doc);
-			DocumentPreview.Ddl = ddl;
+			LabelsPreview.Ddl = ddl;
 
-			PageNumberLabel.Text = $"Page: {DocumentPreview.Page} of {DocumentPreview.PageCount}";
-			PreviousPageBtn.Enabled = DocumentPreview.Page > 1;
-			NextPageBtn.Enabled = DocumentPreview.Page < DocumentPreview.PageCount;
+			SetPageNumberControls(LabelsPreview.Page, LabelsPreview.PageCount);
+		}
+
+		private void SetPageNumberControls(int pageNumber, int totalPages)
+		{
+			PageNumberLabel.Text = $"Page: {pageNumber} of {totalPages}";
+			PreviousPageBtn.Enabled = pageNumber > 1;
+			NextPageBtn.Enabled = pageNumber < totalPages;
 		}
 
 		private void HideDuplicatePagesCheck_CheckedChanged(object sender, EventArgs e)
@@ -59,30 +75,34 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 
 		public void SetPreviewPageNumber(int pageNumber)
 		{
-			if (pageNumber < 0 && pageNumber > DocumentPreview.PageCount) return;
-			DocumentPreview.Page = pageNumber;
+			if (pageNumber < 0 && pageNumber > LabelsPreview.PageCount) return;
+			LabelsPreview.Page = pageNumber;
 		}
 
 		private void PreviousPageBtn_Click(object sender, EventArgs e)
 		{
-			SetPreviewPageNumber(DocumentPreview.Page - 1);
+			SetPreviewPageNumber(LabelsPreview.Page - 1);
 		}
 
 		private void NextPageBtn_Click(object sender, EventArgs e)
 		{
-			SetPreviewPageNumber(DocumentPreview.Page + 1);
+			SetPreviewPageNumber(LabelsPreview.Page + 1);
 		}
 
 		private void DocumentPreview_PageChanged(object sender, EventArgs e)
 		{
-			PageNumberLabel.Text = $"Page: {DocumentPreview.Page} of {DocumentPreview.PageCount}";
-			PreviousPageBtn.Enabled = DocumentPreview.Page > 1;
-			NextPageBtn.Enabled = DocumentPreview.Page < DocumentPreview.PageCount;
+			SetPageNumberControls(LabelsPreview.Page, LabelsPreview.PageCount);
 		}
 
 		private void PrintBothButton_Click(object sender, EventArgs e)
 		{
 			
+		}
+
+		private void PreviewTabControl_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (PreviewTabControl.SelectedTab.Name == "LabelsTab") SetPageNumberControls(LabelsPreview.Page, LabelsPreview.PageCount);
+			else SetPageNumberControls(1, 1);
 		}
 	}
 }

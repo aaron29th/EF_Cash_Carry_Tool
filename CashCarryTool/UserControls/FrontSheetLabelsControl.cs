@@ -7,12 +7,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels;
 
 namespace Eden_Farm_Cash___Carry_Tool.UserControls
 {
 	public partial class FrontSheetLabelsControl : UserControl
 	{
-		private void InitLabel()
+		private void LoadFrontSheet()
+		{
+			var frontSheet = new FrontSheet()
+			{
+				Title = GeneralDetailsControl.Title,
+				CustomerCode = GeneralDetailsControl.CustomerCode,
+				DeliveryDate = GeneralDetailsControl.DeliveryDate,
+
+				Pallets = LabelDetailsControl.Pallets,
+				NumCopiesPerPallet = FrontSheetLabelsPreviewControl.HideDuplicatePages
+					? 1
+					: LabelDetailsControl.NumLabelsPerPallet,
+
+				SecondRun = LabelDetailsControl.SecondRun,
+				VehicleRegistration = LabelDetailsControl.VehicleRegistration,
+
+				InvoiceNumbers = FrontSheetDetailsControl.InvoiceNumbers
+			};
+
+			frontSheet.AddFrontSheet();
+
+			FrontSheetLabelsPreviewControl.LoadFrontSheetPreview(frontSheet.Document);
+		}
+
+		private void LoadLabel()
 		{
 			var label = new Models.FrontSheetLabels.Label
 			{
@@ -21,21 +46,24 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 				DeliveryDate = GeneralDetailsControl.DeliveryDate,
 
 				Pallets = LabelDetailsControl.Pallets,
-				NumCopiesPerPallet = FrontSheetLabelsPreviewControl.HideDuplicatePages ? 1 : LabelDetailsControl.NumLabelsPerPallet,
+				NumCopiesPerPallet = FrontSheetLabelsPreviewControl.HideDuplicatePages
+					? 1
+					: LabelDetailsControl.NumLabelsPerPallet,
 
 				SecondRun = LabelDetailsControl.SecondRun,
 				VehicleRegistration = LabelDetailsControl.VehicleRegistration
 			};
 
-			label.AddLabel("testPdf.pdf");
+			label.AddLabel();
 
-			FrontSheetLabelsPreviewControl.LoadPreview(label.Document);
+			FrontSheetLabelsPreviewControl.LoadLabelPreview(label.Document);
 
 		}
 
 		public void Reload()
 		{
-			InitLabel();
+			LoadFrontSheet();
+			LoadLabel();
 		}
 
 		public void DetailsUpdate()
@@ -58,11 +86,6 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 			FrontSheetLabelsPreviewControl.SetParent(this);
 
 			Reload();
-		}
-
-		private void button1_Click(object sender, EventArgs e)
-		{
-			InitLabel();
 		}
 	}
 }

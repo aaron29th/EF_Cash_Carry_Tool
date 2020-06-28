@@ -134,6 +134,8 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 
 		private void InitDocument()
 		{
+			if (Document != null) return;
+
 			// Create a new MigraDoc document
 			Document = new Document();
 
@@ -165,7 +167,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 			}
 		}
 
-		public void AddLabel(string fileName)
+		public void AddLabel()
 		{
 			if (Pallets == null || Pallets.Count == 0)
 			{
@@ -212,8 +214,6 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 					AddFooter();
 				}
 			}
-
-			//GenFile(fileName);
 		}
 	}
 }

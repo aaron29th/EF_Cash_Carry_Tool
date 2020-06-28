@@ -44,10 +44,14 @@ namespace Eden_Farm_Cash___Carry_Tool.StaticClasses
 			return AddTable(columnWidths, numRows, section, borderWidth);
 		}
 
-		public static Table AddEqualWidthTable(int numColumns, int numRows, Section section, float borderWidth = 0)
+		public static Table AddEqualWidthTable(int numColumns, int numRows, Section section, float borderWidth = 0, bool noHorizontalInternalBorders = false)
 		{
 			Document doc = section.Document;
-			float sectionWidth = doc.DefaultPageSetup.PageHeight - doc.DefaultPageSetup.LeftMargin - doc.DefaultPageSetup.RightMargin;
+			
+			float sectionWidth;
+			if (section.PageSetup.Orientation == Orientation.Portrait) sectionWidth = doc.DefaultPageSetup.PageWidth - doc.DefaultPageSetup.LeftMargin - doc.DefaultPageSetup.RightMargin;
+			else sectionWidth = doc.DefaultPageSetup.PageHeight - doc.DefaultPageSetup.LeftMargin - doc.DefaultPageSetup.RightMargin;
+
 			float columnWidth = sectionWidth / numColumns;
 			List<float> columnWidths = new List<float>();
 			for (int i = 0; i < numColumns; i++)
@@ -55,10 +59,10 @@ namespace Eden_Farm_Cash___Carry_Tool.StaticClasses
 				columnWidths.Add(columnWidth);
 			}
 
-			return AddTable(columnWidths, numRows, section, borderWidth);
+			return AddTable(columnWidths, numRows, section, borderWidth, noHorizontalInternalBorders);
 		}
 
-		public static Table AddTable(List<float> columnWidths, int numRows, Section section, float borderWidth = 0)
+		public static Table AddTable(List<float> columnWidths, int numRows, Section section, float borderWidth = 0 , bool noHorizontalInternalBorders = false)
 		{
 			Table table = section.AddTable();
 			table.Format.Borders.Color = Colors.Black;
@@ -75,6 +79,15 @@ namespace Eden_Farm_Cash___Carry_Tool.StaticClasses
 			for (int i = 0; i < numRows; i++)
 			{
 				table.AddRow();
+			}
+
+			if (noHorizontalInternalBorders && numRows > 0)
+			{
+				table.Format.Borders.Bottom.Width = 0;
+				table.Format.Borders.Top.Width = 0;
+
+				table.Rows[0].Format.Borders.Top.Width = borderWidth;
+				table.Rows[numRows - 1].Format.Borders.Bottom.Width = borderWidth;
 			}
 
 			return table;
