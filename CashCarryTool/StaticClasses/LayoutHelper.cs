@@ -70,8 +70,8 @@ namespace Eden_Farm_Cash___Carry_Tool.StaticClasses
 			
 			// Fix double border between columns and rows
 			//table.Format.Borders.Left.Width = 0;
-			//table.Format.LeftIndent = -3;
-			table.LeftPadding = -borderWidth;
+			table.Format.LeftIndent = -3;
+			//table.LeftPadding = -borderWidth;
 			//table.Format.RightIndent = -3;
 			table.Format.SpaceBefore = -borderWidth;
 

@@ -31,9 +31,10 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 			LayoutHelper.AddSpaceAfter(_currentSection, space);
 		}
 
-		private void AddCustomer()
+		private void AddCustomerAndDates()
 		{
-			var table = LayoutHelper.AddEqualWidthTable(2, 2, _currentSection, _borderWidth, true);
+			var table = LayoutHelper.AddEqualWidthTable(2, 4, _currentSection, _borderWidth, true);
+			// Customer
 			table.Rows[0].Format.Font.Size = 12;
 			table.Rows[1].Format.Font.Size = 20;
 
@@ -42,6 +43,18 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[1], "Account");
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[1], CustomerCode);
+
+			// Dates
+			table.Rows[2].Borders.Top.Width = _borderWidth;
+			table.Rows[2].Format.SpaceBefore = 20;
+			table.Rows[2].Format.Font.Size = 12;
+			table.Rows[3].Format.Font.Size = 20;
+
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[0], $"Date Picked");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[3].Cells[0], Title);
+
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[1], "Delivery Date");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[3].Cells[1], CustomerCode);
 		}
 
 		private void AddInvoiceNumbers()
@@ -157,7 +170,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 			_currentSection.PageSetup.PageFormat = PageFormat.A4;
 			_currentSection.PageSetup.TopMargin = 40;
 
-			AddCustomer();
+			AddCustomerAndDates();
 			AddSpace(20);
 
 			AddInvoiceNumbers();

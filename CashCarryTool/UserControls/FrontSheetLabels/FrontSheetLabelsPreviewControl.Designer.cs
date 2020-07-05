@@ -216,7 +216,8 @@
 			this.FrontSheetPreview.PageSize = new System.Drawing.Size(595, 842);
 			this.FrontSheetPreview.Size = new System.Drawing.Size(1045, 706);
 			this.FrontSheetPreview.TabIndex = 0;
-			this.FrontSheetPreview.ZoomPercent = 60;
+			this.FrontSheetPreview.Zoom = MigraDoc.Rendering.Forms.Zoom.OriginalSize;
+			this.FrontSheetPreview.ZoomPercent = 118;
 			// 
 			// LabelsTab
 			// 
