@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Eden_Farm_Cash___Carry_Tool.Models;
 using Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels;
+using MigraDoc.DocumentObjectModel;
 
 namespace Eden_Farm_Cash___Carry_Tool.UserControls
 {
@@ -55,10 +56,12 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 			};
 		}
 
-		private Models.FrontSheetLabels.Label InitLabel(bool hideDuplicates)
+		private Models.FrontSheetLabels.Label InitLabel(bool hideDuplicates, Document doc = null)
 		{
 			return new Models.FrontSheetLabels.Label
 			{
+				Document = doc,
+
 				Title = GeneralDetailsControl.Title,
 				CustomerCode = GeneralDetailsControl.CustomerCode,
 				DeliveryDate = GeneralDetailsControl.DeliveryDate,
@@ -129,12 +132,43 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 
 		public void PrintLabels()
 		{
+			var printerSettings = PrinterSettingsDialog();
+			if (printerSettings == null) return;
 
+			var label = InitLabel(false);
+			label.AddLabel();
+			var doc = label.Document;
+
+			MigraDocPrintDocument printDocument = new MigraDocPrintDocument(doc) { PrinterSettings = printerSettings };
+
+			// Attach the current printer settings
+			if (printerSettings.PrintRange == PrintRange.Selection)
+				throw new NotImplementedException();
+
+			// Print the document
+			printDocument.Print();
 		}
 
 		public void PrintBoth()
 		{
+			var printerSettings = PrinterSettingsDialog();
+			if (printerSettings == null) return;
 
+			var frontSheet = InitFrontSheet();
+			frontSheet.AddFrontSheet();
+			var doc = frontSheet.Document;
+
+			var label = InitLabel(false, doc);
+			label.AddLabel();
+
+			MigraDocPrintDocument printDocument = new MigraDocPrintDocument(doc) { PrinterSettings = printerSettings };
+
+			// Attach the current printer settings
+			if (printerSettings.PrintRange == PrintRange.Selection)
+				throw new NotImplementedException();
+
+			// Print the document
+			printDocument.Print();
 		}
 
 		public FrontSheetLabelsControl()

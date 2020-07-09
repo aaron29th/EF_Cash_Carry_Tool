@@ -152,21 +152,37 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 
 		private void AddPalletTotals()
 		{
-			var table = LayoutHelper.AddEqualWidthTable(4, 2, _currentSection, _borderWidth, true);
-			table.Rows[0].Format.Font.Size = 8;
-			table.Rows[1].Format.Font.Size = 20;
+			var table = LayoutHelper.AddWeightedWidthTable(new List<float>() { 1, 0.5f, 0.5f, 1, 1}, 3, _currentSection, _borderWidth, true);
+			table.Format.Font.Size = 8;
+			table.Rows[2].Format.Font.Size = 20;
 
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[0], "Total Pallets");
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[0], "");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[0], "");
 
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[1], "Total 6 x 12kg Ice Pallets");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[1], "");
+			var iceHeaderTextA  = LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[1], "6 x 12kg");
+			//table.Rows[0].Cells[1].Borders.Right.Width = 0;
+			iceHeaderTextA.Format.Borders.Right.Width = 0;
+			var iceHeaderTextB = LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[2], "Ice Pallets");
+			table.Rows[0].Cells[2].Borders.Left.Width = 0;
+			iceHeaderTextB.Format.Borders.Left.Width = 0;
 
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[2], "Total Bulk Pallets");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[2], "");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[1], "Total");
+			//table.Rows[1].Cells[1].Borders.Top.Width = _borderWidth;
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[2], "Picked");
+			//table.Rows[1].Cells[2].Borders.Top.Width = _borderWidth;
 
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[3], "Total Mixed Pallets");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[1], "");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[2], "");
+
+
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[3], "Total Bulk Pallets");
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[3], "");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[3], "");
+
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[4], "Total Mixed Pallets");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[4], "");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[4], "");
 		}
 
 		private void AddPickerAndTimes()
