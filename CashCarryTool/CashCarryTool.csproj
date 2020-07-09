@@ -89,6 +89,9 @@
     <Compile Include="Models\FrontSheetLabels\Label.cs" />
     <Compile Include="Models\FrontSheetLabels\Pallet.cs" />
     <Compile Include="Models\FrontSheetLabels\PalletType.cs" />
+    <Compile Include="Models\MigraDocPrintDocument.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Models\StringValue.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

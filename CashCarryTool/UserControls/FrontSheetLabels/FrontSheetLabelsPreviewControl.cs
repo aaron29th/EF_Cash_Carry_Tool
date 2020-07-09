@@ -94,15 +94,25 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			SetPageNumberControls(LabelsPreview.Page, LabelsPreview.PageCount);
 		}
 
-		private void PrintBothButton_Click(object sender, EventArgs e)
-		{
-			
-		}
-
 		private void PreviewTabControl_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (PreviewTabControl.SelectedTab.Name == "LabelsTab") SetPageNumberControls(LabelsPreview.Page, LabelsPreview.PageCount);
 			else SetPageNumberControls(1, 1);
+		}
+
+		private void PrintFrontSheetBtn_Click(object sender, EventArgs e)
+		{
+			_parent?.PrintFrontSheet();
+		}
+
+		private void PrintLabelsBtn_Click(object sender, EventArgs e)
+		{
+			_parent?.PrintLabels();
+		}
+
+		private void PrintBothButton_Click(object sender, EventArgs e)
+		{
+			_parent?.PrintBoth();
 		}
 	}
 }

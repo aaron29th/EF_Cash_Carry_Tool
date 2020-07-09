@@ -31,11 +31,14 @@
 			this.components = new System.ComponentModel.Container();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.panel2 = new System.Windows.Forms.Panel();
+			this.FullPalletBreakDownCheck = new System.Windows.Forms.CheckBox();
 			this.InvoiceNumbersGridView = new System.Windows.Forms.DataGridView();
 			this.InvoiceNumbersGridViewNumbersColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.stringValueBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.groupBox2.SuspendLayout();
 			this.panel1.SuspendLayout();
+			this.panel2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.InvoiceNumbersGridView)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.stringValueBindingSource)).BeginInit();
 			this.SuspendLayout();
@@ -46,33 +49,56 @@
 			this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox2.Location = new System.Drawing.Point(0, 0);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(260, 269);
+			this.groupBox2.Size = new System.Drawing.Size(260, 275);
 			this.groupBox2.TabIndex = 2;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Front Sheet";
 			// 
 			// panel1
 			// 
+			this.panel1.Controls.Add(this.panel2);
 			this.panel1.Controls.Add(this.InvoiceNumbersGridView);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panel1.Location = new System.Drawing.Point(3, 16);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(254, 250);
+			this.panel1.Size = new System.Drawing.Size(254, 256);
 			this.panel1.TabIndex = 1;
+			// 
+			// panel2
+			// 
+			this.panel2.Controls.Add(this.FullPalletBreakDownCheck);
+			this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel2.Location = new System.Drawing.Point(0, 0);
+			this.panel2.Name = "panel2";
+			this.panel2.Size = new System.Drawing.Size(254, 23);
+			this.panel2.TabIndex = 2;
+			// 
+			// FullPalletBreakDownCheck
+			// 
+			this.FullPalletBreakDownCheck.AutoSize = true;
+			this.FullPalletBreakDownCheck.Location = new System.Drawing.Point(3, 3);
+			this.FullPalletBreakDownCheck.Name = "FullPalletBreakDownCheck";
+			this.FullPalletBreakDownCheck.Size = new System.Drawing.Size(128, 17);
+			this.FullPalletBreakDownCheck.TabIndex = 1;
+			this.FullPalletBreakDownCheck.Text = "Full Pallet Breakdown";
+			this.FullPalletBreakDownCheck.UseVisualStyleBackColor = true;
+			this.FullPalletBreakDownCheck.CheckedChanged += new System.EventHandler(this.FullPalletBreakDownCheck_CheckedChanged);
 			// 
 			// InvoiceNumbersGridView
 			// 
+			this.InvoiceNumbersGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.InvoiceNumbersGridView.AutoGenerateColumns = false;
 			this.InvoiceNumbersGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.InvoiceNumbersGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.InvoiceNumbersGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.InvoiceNumbersGridViewNumbersColumn});
 			this.InvoiceNumbersGridView.DataSource = this.stringValueBindingSource;
-			this.InvoiceNumbersGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.InvoiceNumbersGridView.Location = new System.Drawing.Point(0, 0);
+			this.InvoiceNumbersGridView.Location = new System.Drawing.Point(0, 29);
 			this.InvoiceNumbersGridView.Name = "InvoiceNumbersGridView";
 			this.InvoiceNumbersGridView.RowHeadersVisible = false;
-			this.InvoiceNumbersGridView.Size = new System.Drawing.Size(254, 250);
+			this.InvoiceNumbersGridView.Size = new System.Drawing.Size(254, 227);
 			this.InvoiceNumbersGridView.TabIndex = 0;
 			this.InvoiceNumbersGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.InvoiceNumbersGridView_CellEndEdit);
 			this.InvoiceNumbersGridView.CellValuePushed += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.InvoiceNumbersGridView_CellValuePushed);
@@ -93,9 +119,11 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.groupBox2);
 			this.Name = "FrontSheetDetailsControl";
-			this.Size = new System.Drawing.Size(260, 269);
+			this.Size = new System.Drawing.Size(260, 275);
 			this.groupBox2.ResumeLayout(false);
 			this.panel1.ResumeLayout(false);
+			this.panel2.ResumeLayout(false);
+			this.panel2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.InvoiceNumbersGridView)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.stringValueBindingSource)).EndInit();
 			this.ResumeLayout(false);
@@ -109,5 +137,7 @@
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.DataGridViewTextBoxColumn InvoiceNumbersGridViewNumbersColumn;
 		private System.Windows.Forms.BindingSource stringValueBindingSource;
+		private System.Windows.Forms.CheckBox FullPalletBreakDownCheck;
+		private System.Windows.Forms.Panel panel2;
 	}
 }

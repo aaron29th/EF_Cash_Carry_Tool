@@ -15,6 +15,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 	{
 		private readonly BindingList<StringValue> _invoiceNumbers = new BindingList<StringValue>();
 		public List<string> InvoiceNumbers => _invoiceNumbers.Select(x => x.Value).ToList();
+		public bool FullPalletBreakdown { get; set; }
 
 		public FrontSheetDetailsControl()
 		{
@@ -30,6 +31,12 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 
 		private void InvoiceNumbersGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
 		{
+			DetailsUpdated();
+		}
+
+		private void FullPalletBreakDownCheck_CheckedChanged(object sender, EventArgs e)
+		{
+			FullPalletBreakdown = FullPalletBreakDownCheck.Checked;
 			DetailsUpdated();
 		}
 	}

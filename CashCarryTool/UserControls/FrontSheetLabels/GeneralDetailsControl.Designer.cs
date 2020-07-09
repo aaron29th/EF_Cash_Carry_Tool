@@ -29,25 +29,31 @@
 		private void InitializeComponent()
 		{
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-			this.panel1 = new System.Windows.Forms.Panel();
 			this.panel2 = new System.Windows.Forms.Panel();
+			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this.DeliveryDateTomorrow = new System.Windows.Forms.Button();
+			this.DeliveryDateToday = new System.Windows.Forms.Button();
+			this.DeliveryDateMonday = new System.Windows.Forms.Button();
+			this.label3 = new System.Windows.Forms.Label();
+			this.DeliveryDateSel = new System.Windows.Forms.DateTimePicker();
+			this.panel1 = new System.Windows.Forms.Panel();
 			this.label6 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.DetailsQuickSelect = new System.Windows.Forms.ComboBox();
 			this.CustomerCodeTxt = new System.Windows.Forms.TextBox();
 			this.TitleTxt = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
-			this.DeliveryDateSel = new System.Windows.Forms.DateTimePicker();
-			this.DeliveryDateMonday = new System.Windows.Forms.Button();
-			this.DeliveryDateToday = new System.Windows.Forms.Button();
-			this.DeliveryDateTomorrow = new System.Windows.Forms.Button();
-			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+			this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+			this.PickDateTomorrow = new System.Windows.Forms.Button();
+			this.PickDateToday = new System.Windows.Forms.Button();
+			this.label4 = new System.Windows.Forms.Label();
+			this.PickDateSel = new System.Windows.Forms.DateTimePicker();
 			this.groupBox1.SuspendLayout();
-			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
+			this.panel1.SuspendLayout();
+			this.tableLayoutPanel2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// groupBox1
@@ -57,10 +63,99 @@
 			this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox1.Location = new System.Drawing.Point(0, 0);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(260, 218);
+			this.groupBox1.Size = new System.Drawing.Size(260, 295);
 			this.groupBox1.TabIndex = 1;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "General Details";
+			// 
+			// panel2
+			// 
+			this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
+			this.panel2.Controls.Add(this.tableLayoutPanel2);
+			this.panel2.Controls.Add(this.label4);
+			this.panel2.Controls.Add(this.PickDateSel);
+			this.panel2.Controls.Add(this.tableLayoutPanel1);
+			this.panel2.Controls.Add(this.label3);
+			this.panel2.Controls.Add(this.DeliveryDateSel);
+			this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panel2.Location = new System.Drawing.Point(3, 140);
+			this.panel2.Name = "panel2";
+			this.panel2.Size = new System.Drawing.Size(254, 152);
+			this.panel2.TabIndex = 1;
+			// 
+			// tableLayoutPanel1
+			// 
+			this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tableLayoutPanel1.ColumnCount = 3;
+			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+			this.tableLayoutPanel1.Controls.Add(this.DeliveryDateTomorrow, 1, 0);
+			this.tableLayoutPanel1.Controls.Add(this.DeliveryDateToday, 0, 0);
+			this.tableLayoutPanel1.Controls.Add(this.DeliveryDateMonday, 2, 0);
+			this.tableLayoutPanel1.Location = new System.Drawing.Point(5, 41);
+			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+			this.tableLayoutPanel1.RowCount = 1;
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(235, 30);
+			this.tableLayoutPanel1.TabIndex = 24;
+			// 
+			// DeliveryDateTomorrow
+			// 
+			this.DeliveryDateTomorrow.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.DeliveryDateTomorrow.Location = new System.Drawing.Point(81, 3);
+			this.DeliveryDateTomorrow.Name = "DeliveryDateTomorrow";
+			this.DeliveryDateTomorrow.Size = new System.Drawing.Size(72, 24);
+			this.DeliveryDateTomorrow.TabIndex = 22;
+			this.DeliveryDateTomorrow.Text = "Tomorrow";
+			this.DeliveryDateTomorrow.UseVisualStyleBackColor = true;
+			this.DeliveryDateTomorrow.Click += new System.EventHandler(this.DeliveryDateTomorrow_Click);
+			// 
+			// DeliveryDateToday
+			// 
+			this.DeliveryDateToday.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.DeliveryDateToday.Location = new System.Drawing.Point(3, 3);
+			this.DeliveryDateToday.Name = "DeliveryDateToday";
+			this.DeliveryDateToday.Size = new System.Drawing.Size(72, 24);
+			this.DeliveryDateToday.TabIndex = 21;
+			this.DeliveryDateToday.Text = "Today";
+			this.DeliveryDateToday.UseVisualStyleBackColor = true;
+			this.DeliveryDateToday.Click += new System.EventHandler(this.DeliveryDateToday_Click);
+			// 
+			// DeliveryDateMonday
+			// 
+			this.DeliveryDateMonday.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.DeliveryDateMonday.Location = new System.Drawing.Point(159, 3);
+			this.DeliveryDateMonday.Name = "DeliveryDateMonday";
+			this.DeliveryDateMonday.Size = new System.Drawing.Size(73, 24);
+			this.DeliveryDateMonday.TabIndex = 23;
+			this.DeliveryDateMonday.Text = "Monday";
+			this.DeliveryDateMonday.UseVisualStyleBackColor = true;
+			this.DeliveryDateMonday.Click += new System.EventHandler(this.DeliveryDateMonday_Click);
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(2, 0);
+			this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(71, 13);
+			this.label3.TabIndex = 20;
+			this.label3.Text = "Delivery Date";
+			// 
+			// DeliveryDateSel
+			// 
+			this.DeliveryDateSel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.DeliveryDateSel.Location = new System.Drawing.Point(5, 16);
+			this.DeliveryDateSel.Margin = new System.Windows.Forms.Padding(2);
+			this.DeliveryDateSel.Name = "DeliveryDateSel";
+			this.DeliveryDateSel.Size = new System.Drawing.Size(235, 20);
+			this.DeliveryDateSel.TabIndex = 19;
+			this.DeliveryDateSel.Value = new System.DateTime(2020, 5, 26, 23, 9, 58, 0);
+			this.DeliveryDateSel.ValueChanged += new System.EventHandler(this.DeliveryDateSel_ValueChanged);
 			// 
 			// panel1
 			// 
@@ -75,18 +170,6 @@
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(254, 124);
 			this.panel1.TabIndex = 0;
-			// 
-			// panel2
-			// 
-			this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
-			this.panel2.Controls.Add(this.tableLayoutPanel1);
-			this.panel2.Controls.Add(this.label3);
-			this.panel2.Controls.Add(this.DeliveryDateSel);
-			this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel2.Location = new System.Drawing.Point(3, 140);
-			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(254, 75);
-			this.panel2.TabIndex = 1;
 			// 
 			// label6
 			// 
@@ -152,78 +235,66 @@
 			this.label2.TabIndex = 24;
 			this.label2.Text = "Customer Code";
 			// 
-			// label3
+			// tableLayoutPanel2
 			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(2, 0);
-			this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(71, 13);
-			this.label3.TabIndex = 20;
-			this.label3.Text = "Delivery Date";
-			// 
-			// DeliveryDateSel
-			// 
-			this.DeliveryDateSel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.DeliveryDateSel.Location = new System.Drawing.Point(5, 16);
-			this.DeliveryDateSel.Margin = new System.Windows.Forms.Padding(2);
-			this.DeliveryDateSel.Name = "DeliveryDateSel";
-			this.DeliveryDateSel.Size = new System.Drawing.Size(235, 20);
-			this.DeliveryDateSel.TabIndex = 19;
-			this.DeliveryDateSel.Value = new System.DateTime(2020, 5, 26, 23, 9, 58, 0);
-			this.DeliveryDateSel.ValueChanged += new System.EventHandler(this.DeliveryDateSel_ValueChanged);
+			this.tableLayoutPanel2.ColumnCount = 2;
+			this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+			this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+			this.tableLayoutPanel2.Controls.Add(this.PickDateTomorrow, 1, 0);
+			this.tableLayoutPanel2.Controls.Add(this.PickDateToday, 0, 0);
+			this.tableLayoutPanel2.Location = new System.Drawing.Point(5, 115);
+			this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+			this.tableLayoutPanel2.RowCount = 1;
+			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.tableLayoutPanel2.Size = new System.Drawing.Size(235, 30);
+			this.tableLayoutPanel2.TabIndex = 27;
 			// 
-			// DeliveryDateMonday
+			// PickDateTomorrow
 			// 
-			this.DeliveryDateMonday.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.DeliveryDateMonday.Location = new System.Drawing.Point(159, 3);
-			this.DeliveryDateMonday.Name = "DeliveryDateMonday";
-			this.DeliveryDateMonday.Size = new System.Drawing.Size(73, 24);
-			this.DeliveryDateMonday.TabIndex = 23;
-			this.DeliveryDateMonday.Text = "Monday";
-			this.DeliveryDateMonday.UseVisualStyleBackColor = true;
-			this.DeliveryDateMonday.Click += new System.EventHandler(this.DeliveryDateMonday_Click);
+			this.PickDateTomorrow.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.PickDateTomorrow.Location = new System.Drawing.Point(120, 3);
+			this.PickDateTomorrow.Name = "PickDateTomorrow";
+			this.PickDateTomorrow.Size = new System.Drawing.Size(112, 24);
+			this.PickDateTomorrow.TabIndex = 22;
+			this.PickDateTomorrow.Text = "Tomorrow";
+			this.PickDateTomorrow.UseVisualStyleBackColor = true;
+			this.PickDateTomorrow.Click += new System.EventHandler(this.PickDateTomorrow_Click);
 			// 
-			// DeliveryDateToday
+			// PickDateToday
 			// 
-			this.DeliveryDateToday.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.DeliveryDateToday.Location = new System.Drawing.Point(3, 3);
-			this.DeliveryDateToday.Name = "DeliveryDateToday";
-			this.DeliveryDateToday.Size = new System.Drawing.Size(72, 24);
-			this.DeliveryDateToday.TabIndex = 21;
-			this.DeliveryDateToday.Text = "Today";
-			this.DeliveryDateToday.UseVisualStyleBackColor = true;
-			this.DeliveryDateToday.Click += new System.EventHandler(this.DeliveryDateToday_Click);
+			this.PickDateToday.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.PickDateToday.Location = new System.Drawing.Point(3, 3);
+			this.PickDateToday.Name = "PickDateToday";
+			this.PickDateToday.Size = new System.Drawing.Size(111, 24);
+			this.PickDateToday.TabIndex = 21;
+			this.PickDateToday.Text = "Today";
+			this.PickDateToday.UseVisualStyleBackColor = true;
+			this.PickDateToday.Click += new System.EventHandler(this.PickDateToday_Click);
 			// 
-			// DeliveryDateTomorrow
+			// label4
 			// 
-			this.DeliveryDateTomorrow.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.DeliveryDateTomorrow.Location = new System.Drawing.Point(81, 3);
-			this.DeliveryDateTomorrow.Name = "DeliveryDateTomorrow";
-			this.DeliveryDateTomorrow.Size = new System.Drawing.Size(72, 24);
-			this.DeliveryDateTomorrow.TabIndex = 22;
-			this.DeliveryDateTomorrow.Text = "Tomorrow";
-			this.DeliveryDateTomorrow.UseVisualStyleBackColor = true;
-			this.DeliveryDateTomorrow.Click += new System.EventHandler(this.DeliveryDateTomorrow_Click);
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(2, 74);
+			this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(66, 13);
+			this.label4.TabIndex = 26;
+			this.label4.Text = "Date Picked";
 			// 
-			// tableLayoutPanel1
+			// PickDateSel
 			// 
-			this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.PickDateSel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tableLayoutPanel1.ColumnCount = 3;
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-			this.tableLayoutPanel1.Controls.Add(this.DeliveryDateTomorrow, 1, 0);
-			this.tableLayoutPanel1.Controls.Add(this.DeliveryDateToday, 0, 0);
-			this.tableLayoutPanel1.Controls.Add(this.DeliveryDateMonday, 2, 0);
-			this.tableLayoutPanel1.Location = new System.Drawing.Point(5, 41);
-			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-			this.tableLayoutPanel1.RowCount = 1;
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(235, 30);
-			this.tableLayoutPanel1.TabIndex = 24;
+			this.PickDateSel.Location = new System.Drawing.Point(5, 90);
+			this.PickDateSel.Margin = new System.Windows.Forms.Padding(2);
+			this.PickDateSel.Name = "PickDateSel";
+			this.PickDateSel.Size = new System.Drawing.Size(235, 20);
+			this.PickDateSel.TabIndex = 25;
+			this.PickDateSel.Value = new System.DateTime(2020, 5, 26, 23, 9, 58, 0);
+			this.PickDateSel.ValueChanged += new System.EventHandler(this.PickDateSel_ValueChanged);
 			// 
 			// GeneralDetailsControl
 			// 
@@ -231,13 +302,14 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.groupBox1);
 			this.Name = "GeneralDetailsControl";
-			this.Size = new System.Drawing.Size(260, 218);
+			this.Size = new System.Drawing.Size(260, 295);
 			this.groupBox1.ResumeLayout(false);
-			this.panel1.ResumeLayout(false);
-			this.panel1.PerformLayout();
 			this.panel2.ResumeLayout(false);
 			this.panel2.PerformLayout();
 			this.tableLayoutPanel1.ResumeLayout(false);
+			this.panel1.ResumeLayout(false);
+			this.panel1.PerformLayout();
+			this.tableLayoutPanel2.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -260,5 +332,10 @@
 		private System.Windows.Forms.Button DeliveryDateToday;
 		private System.Windows.Forms.Button DeliveryDateTomorrow;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+		private System.Windows.Forms.Button PickDateTomorrow;
+		private System.Windows.Forms.Button PickDateToday;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.DateTimePicker PickDateSel;
 	}
 }

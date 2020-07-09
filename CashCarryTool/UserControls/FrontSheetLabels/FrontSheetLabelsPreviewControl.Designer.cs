@@ -30,8 +30,7 @@
 		{
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
 			this.PrintBothButton = new System.Windows.Forms.Button();
-			this.button2 = new System.Windows.Forms.Button();
-			this.button1 = new System.Windows.Forms.Button();
+			this.PrintLabelsBtn = new System.Windows.Forms.Button();
 			this.NextPageBtn = new System.Windows.Forms.Button();
 			this.PreviousPageBtn = new System.Windows.Forms.Button();
 			this.PageNumberLabel = new System.Windows.Forms.Label();
@@ -43,6 +42,9 @@
 			this.FrontSheetTab = new System.Windows.Forms.TabPage();
 			this.FrontSheetPreview = new MigraDoc.Rendering.Forms.DocumentPreview();
 			this.LabelsTab = new System.Windows.Forms.TabPage();
+			this.button1 = new System.Windows.Forms.Button();
+			this.PrintFrontSheetB = new System.Windows.Forms.Button();
+			this.PrintFrontSheetBtn = new System.Windows.Forms.Button();
 			this.groupBox4.SuspendLayout();
 			this.PreviewTabControl.SuspendLayout();
 			this.FrontSheetTab.SuspendLayout();
@@ -51,9 +53,9 @@
 			// 
 			// groupBox4
 			// 
+			this.groupBox4.Controls.Add(this.PrintFrontSheetBtn);
 			this.groupBox4.Controls.Add(this.PrintBothButton);
-			this.groupBox4.Controls.Add(this.button2);
-			this.groupBox4.Controls.Add(this.button1);
+			this.groupBox4.Controls.Add(this.PrintLabelsBtn);
 			this.groupBox4.Controls.Add(this.NextPageBtn);
 			this.groupBox4.Controls.Add(this.PreviousPageBtn);
 			this.groupBox4.Controls.Add(this.PageNumberLabel);
@@ -78,23 +80,15 @@
 			this.PrintBothButton.UseVisualStyleBackColor = true;
 			this.PrintBothButton.Click += new System.EventHandler(this.PrintBothButton_Click);
 			// 
-			// button2
+			// PrintLabelsBtn
 			// 
-			this.button2.Location = new System.Drawing.Point(470, 15);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(118, 23);
-			this.button2.TabIndex = 7;
-			this.button2.Text = "Print Labels";
-			this.button2.UseVisualStyleBackColor = true;
-			// 
-			// button1
-			// 
-			this.button1.Location = new System.Drawing.Point(346, 15);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(118, 23);
-			this.button1.TabIndex = 6;
-			this.button1.Text = "Print Front Sheet";
-			this.button1.UseVisualStyleBackColor = true;
+			this.PrintLabelsBtn.Location = new System.Drawing.Point(470, 15);
+			this.PrintLabelsBtn.Name = "PrintLabelsBtn";
+			this.PrintLabelsBtn.Size = new System.Drawing.Size(118, 23);
+			this.PrintLabelsBtn.TabIndex = 7;
+			this.PrintLabelsBtn.Text = "Print Labels";
+			this.PrintLabelsBtn.UseVisualStyleBackColor = true;
+			this.PrintLabelsBtn.Click += new System.EventHandler(this.PrintLabelsBtn_Click);
 			// 
 			// NextPageBtn
 			// 
@@ -216,7 +210,6 @@
 			this.FrontSheetPreview.PageSize = new System.Drawing.Size(595, 842);
 			this.FrontSheetPreview.Size = new System.Drawing.Size(1045, 706);
 			this.FrontSheetPreview.TabIndex = 0;
-			this.FrontSheetPreview.Zoom = MigraDoc.Rendering.Forms.Zoom.OriginalSize;
 			this.FrontSheetPreview.ZoomPercent = 118;
 			// 
 			// LabelsTab
@@ -229,6 +222,30 @@
 			this.LabelsTab.TabIndex = 0;
 			this.LabelsTab.Text = "Labels";
 			this.LabelsTab.UseVisualStyleBackColor = true;
+			// 
+			// button1
+			// 
+			this.button1.Location = new System.Drawing.Point(0, 0);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(75, 23);
+			this.button1.TabIndex = 0;
+			// 
+			// PrintFrontSheetB
+			// 
+			this.PrintFrontSheetB.Location = new System.Drawing.Point(0, 0);
+			this.PrintFrontSheetB.Name = "PrintFrontSheetB";
+			this.PrintFrontSheetB.Size = new System.Drawing.Size(75, 23);
+			this.PrintFrontSheetB.TabIndex = 0;
+			// 
+			// PrintFrontSheetBtn
+			// 
+			this.PrintFrontSheetBtn.Location = new System.Drawing.Point(346, 15);
+			this.PrintFrontSheetBtn.Name = "PrintFrontSheetBtn";
+			this.PrintFrontSheetBtn.Size = new System.Drawing.Size(118, 23);
+			this.PrintFrontSheetBtn.TabIndex = 9;
+			this.PrintFrontSheetBtn.Text = "Print Front Sheet";
+			this.PrintFrontSheetBtn.UseVisualStyleBackColor = true;
+			this.PrintFrontSheetBtn.Click += new System.EventHandler(this.PrintFrontSheetBtn_Click);
 			// 
 			// FrontSheetLabelsPreviewControl
 			// 
@@ -258,11 +275,13 @@
 		private System.Windows.Forms.Button PreviousPageBtn;
 		private System.Windows.Forms.Label PageNumberLabel;
 		private System.Windows.Forms.Button PrintBothButton;
-		private System.Windows.Forms.Button button2;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button PrintLabelsBtn;
 		private System.Windows.Forms.TabControl PreviewTabControl;
 		private System.Windows.Forms.TabPage LabelsTab;
 		private System.Windows.Forms.TabPage FrontSheetTab;
 		private MigraDoc.Rendering.Forms.DocumentPreview FrontSheetPreview;
+		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button PrintFrontSheetB;
+		private System.Windows.Forms.Button PrintFrontSheetBtn;
 	}
 }

@@ -53,7 +53,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 				new List<float>() { 320 }, 1, _currentSection, 4);
 			table.Format.Font.Size = 40;
 
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[0], "Customer Code");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[0], "Customer Code", 1, 20);
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[1], CustomerCode);
 		}
 
@@ -63,7 +63,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 				new List<float>() { 320 }, 1, _currentSection, 4);
 			table.Format.Font.Size = 40;
 
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[0], "Delivery Date");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[0], "Delivery Date", 1, 20);
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[1], DeliveryDate);
 		}
 
@@ -84,13 +84,15 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 		{
 			Table table = LayoutHelper.AddTable(
 				new List<float>() { 320, 100, 280 }, 1, _currentSection, 5);
-			table.Format.Font.Size = 40;
+			table.Format.Font.Size = 50;
+			//table.Format.Font.Name = "Impact";
 
 			var row = table.Rows[0];
 
-			LayoutHelper.CellAddParagraphWithSpace(row.Cells[0], "Pallet Number");
+			row.Cells[0].Format.Font.Size = table.Format.Font.Size + 3;
+			LayoutHelper.CellAddParagraphWithSpace(row.Cells[0], "Pallet Number", 1, 20);
 
-			row.Cells[1].AddParagraph(palletNumber.ToString());
+			row.Cells[1].AddParagraph(palletNumber.ToString()).Format.Font.Name = "Impact";
 			row.Cells[1].Format.Alignment = ParagraphAlignment.Center;
 
 			row.Cells[2].Format.Alignment = ParagraphAlignment.Right;
@@ -186,6 +188,8 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 					_currentSection.PageSetup.PageFormat = PageFormat.A4;
 					_currentSection.PageSetup.Orientation = Orientation.Landscape;
 					_currentSection.PageSetup.TopMargin = 40;
+					_currentSection.PageSetup.LeftMargin = Document.DefaultPageSetup.LeftMargin;
+					_currentSection.PageSetup.RightMargin = Document.DefaultPageSetup.RightMargin;
 
 					AddTitle();
 					AddSpace(20);

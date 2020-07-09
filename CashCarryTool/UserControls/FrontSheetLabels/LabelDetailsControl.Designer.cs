@@ -385,9 +385,9 @@
 			this.label4.Location = new System.Drawing.Point(2, 94);
 			this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(69, 13);
+			this.label4.Size = new System.Drawing.Size(67, 13);
 			this.label4.TabIndex = 16;
-			this.label4.Text = "Mixed Pallets";
+			this.label4.Text = "Other Pallets";
 			// 
 			// NumMixedPalletsSpin
 			// 

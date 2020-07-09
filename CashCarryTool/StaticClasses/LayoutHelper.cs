@@ -19,9 +19,12 @@ namespace Eden_Farm_Cash___Carry_Tool.StaticClasses
 			paragraph.Format.SpaceAfter = spaceAfter;
 		}
 
-		public static Paragraph CellAddParagraphWithSpace(Cell cell, string text, int numSpaces = 1)
+		public static Paragraph CellAddParagraphWithSpace(Cell cell, string text, int numSpaces = 1, float fontSize = -1)
 		{
-			return CellAddParagraphWithSpace(cell, new FormattedTextHelper(text), numSpaces);
+			var formattedText = new FormattedTextHelper(text);
+			if (Math.Abs(fontSize - (-1)) > 0) formattedText.Font.Size = fontSize;
+
+			return CellAddParagraphWithSpace(cell, formattedText, numSpaces);
 		}
 
 		public static Paragraph CellAddParagraphWithSpace(Cell cell, FormattedText text, int numSpaces = 1)
@@ -49,8 +52,10 @@ namespace Eden_Farm_Cash___Carry_Tool.StaticClasses
 			Document doc = section.Document;
 			
 			float sectionWidth;
-			if (section.PageSetup.Orientation == Orientation.Portrait) sectionWidth = doc.DefaultPageSetup.PageWidth - doc.DefaultPageSetup.LeftMargin - doc.DefaultPageSetup.RightMargin;
-			else sectionWidth = doc.DefaultPageSetup.PageHeight - doc.DefaultPageSetup.LeftMargin - doc.DefaultPageSetup.RightMargin;
+			if (section.PageSetup.Orientation == Orientation.Portrait)
+				sectionWidth = doc.DefaultPageSetup.PageWidth - section.PageSetup.LeftMargin -
+				               section.PageSetup.RightMargin;
+			else sectionWidth = doc.DefaultPageSetup.PageHeight - section.PageSetup.LeftMargin - section.PageSetup.RightMargin;
 
 			float columnWidth = sectionWidth / numColumns;
 			List<float> columnWidths = new List<float>();

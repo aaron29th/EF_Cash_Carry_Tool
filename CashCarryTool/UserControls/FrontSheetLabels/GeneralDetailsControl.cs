@@ -22,6 +22,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		public string Title { get; private set; }
 		public string CustomerCode { get; private set; }
 		public string DeliveryDate { get; private set; }
+		public string PickDate { get; private set; }
 
 		private void InitQuickSelects()
 		{
@@ -55,6 +56,9 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 
 			// Init delivery date to tomorrow
 			DeliveryDateSel.Value = DateTime.Now.AddDays(1);
+
+			// Init pick date to today
+			PickDateSel.Value = DateTime.Now;
 		}
 
 		private void TitleTxt_TextChanged(object sender, EventArgs e)
@@ -103,6 +107,22 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			}
 
 			DeliveryDateSel.Value = dateTime;
+		}
+
+		private void PickDateSel_ValueChanged(object sender, EventArgs e)
+		{
+			PickDate = PickDateSel.Value.ToString("ddd dd MMM yyyy");
+			DetailsUpdated();
+		}
+
+		private void PickDateToday_Click(object sender, EventArgs e)
+		{
+			PickDateSel.Value = DateTime.Now;
+		}
+
+		private void PickDateTomorrow_Click(object sender, EventArgs e)
+		{
+			PickDateSel.Value = DateTime.Now.AddDays(1);
 		}
 	}
 }
