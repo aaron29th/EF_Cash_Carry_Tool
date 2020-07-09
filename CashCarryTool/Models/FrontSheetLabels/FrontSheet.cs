@@ -37,6 +37,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 		private void AddCustomer()
 		{
 			var table = LayoutHelper.AddEqualWidthTable(2, 2, _currentSection, _borderWidth, true);
+
 			// Customer
 			table.Rows[0].Format.Font.Size = 8;
 			table.Rows[1].Format.Font.Size = 20;
@@ -189,8 +190,11 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 
 		private void AddMissings()
 		{
-			var table = LayoutHelper.AddEqualWidthTable(7, 20, _currentSection, _borderWidth);
-			table.Columns[3].Format.Borders.Width = 0;
+			//var table = LayoutHelper.AddEqualWidthTable(7, 20, _currentSection, _borderWidth);
+			//var table = LayoutHelper.AddTable(new List<float>() {25, 25, 50, 33, 25, 25, 50, 33, 25, 25, 50}, 20,
+			//	_currentSection, _borderWidth);
+			var table = LayoutHelper.AddWeightedWidthTable(new List<float>() { 1, 1, 2, 0.25f, 1, 1, 2, 0.25f, 1, 1, 2 }, 11, _currentSection, _borderWidth);
+
 			table.Format.Font.Size = 15;
 
 			const float headerTextSize = 8;
@@ -201,16 +205,19 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[1], "QTY");
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[2], "Description");
 
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[3], "");
-
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[4], "Code");
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[5], "QTY");
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[6], "Description");
 
-			for (int rowIndex = 1; rowIndex < 20; rowIndex++)
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[8], "Code");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[9], "QTY");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[10], "Description");
+
+			for (int rowIndex = 1; rowIndex < 11; rowIndex++)
 			{
-				for (int columnIndex = 0; columnIndex < 7; columnIndex++)
+				for (int columnIndex = 0; columnIndex < 11; columnIndex++)
 				{
+					if (columnIndex == 3 || columnIndex == 7) continue;
 					LayoutHelper.CellAddParagraphWithSpace(table.Rows[rowIndex].Cells[columnIndex], "");
 				}
 			}

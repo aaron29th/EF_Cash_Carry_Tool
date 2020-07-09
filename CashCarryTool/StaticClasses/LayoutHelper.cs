@@ -36,6 +36,27 @@ namespace Eden_Farm_Cash___Carry_Tool.StaticClasses
 			return paragraph;
 		}
 
+		public static Table AddWeightedWidthTable(List<float> columnWeights, int numRows, Section section,
+			float borderWidth = 0, bool noHorizontalInternalBorders = false)
+		{
+			Document doc = section.Document;
+
+			float sectionWidth;
+			if (section.PageSetup.Orientation == Orientation.Portrait)
+				sectionWidth = doc.DefaultPageSetup.PageWidth - section.PageSetup.LeftMargin -
+				               section.PageSetup.RightMargin;
+			else sectionWidth = doc.DefaultPageSetup.PageHeight - section.PageSetup.LeftMargin - section.PageSetup.RightMargin;
+
+			float totalWeight = columnWeights.Sum();
+			List<float> columnWidths = new List<float>();
+			for (int i = 0; i < columnWeights.Count; i++)
+			{
+				columnWidths.Add(sectionWidth * columnWeights[i] / totalWeight);
+			}
+
+			return AddTable(columnWidths, numRows, section, borderWidth, noHorizontalInternalBorders);
+		}
+
 		public static Table AddTableFillLastColumn(List<float> columnWidths, int numRows, Section section, float borderWidth = 0)
 		{
 			Document doc = section.Document;
