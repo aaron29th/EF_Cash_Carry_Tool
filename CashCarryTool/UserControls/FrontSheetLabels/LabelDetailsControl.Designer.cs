@@ -40,6 +40,9 @@
 			this.SecondRunVehicleTxt = new System.Windows.Forms.TextBox();
 			this.SecondRunCheck = new System.Windows.Forms.CheckBox();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.TotalPalletNumberCheck = new System.Windows.Forms.CheckBox();
+			this.OfCheck = new System.Windows.Forms.CheckBox();
+			this.PalletNumberCheck = new System.Windows.Forms.CheckBox();
 			this.PalletsUncheckAll = new System.Windows.Forms.Button();
 			this.PalletsCheckAll = new System.Windows.Forms.Button();
 			this.MixedPalletsUncheckAll = new System.Windows.Forms.Button();
@@ -86,9 +89,9 @@
 			// 
 			this.panel3.Controls.Add(this.PalletsGridView);
 			this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel3.Location = new System.Drawing.Point(3, 206);
+			this.panel3.Location = new System.Drawing.Point(3, 223);
 			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(278, 286);
+			this.panel3.Size = new System.Drawing.Size(278, 269);
 			this.panel3.TabIndex = 2;
 			// 
 			// PalletsGridView
@@ -106,7 +109,7 @@
 			this.PalletsGridView.Location = new System.Drawing.Point(0, 0);
 			this.PalletsGridView.Name = "PalletsGridView";
 			this.PalletsGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-			this.PalletsGridView.Size = new System.Drawing.Size(278, 286);
+			this.PalletsGridView.Size = new System.Drawing.Size(278, 269);
 			this.PalletsGridView.TabIndex = 0;
 			this.PalletsGridView.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.PalletsGridView_CellMouseUp);
 			this.PalletsGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.PalletsGridView_CellValueChanged);
@@ -180,6 +183,9 @@
 			// 
 			// panel1
 			// 
+			this.panel1.Controls.Add(this.TotalPalletNumberCheck);
+			this.panel1.Controls.Add(this.OfCheck);
+			this.panel1.Controls.Add(this.PalletNumberCheck);
 			this.panel1.Controls.Add(this.PalletsUncheckAll);
 			this.panel1.Controls.Add(this.PalletsCheckAll);
 			this.panel1.Controls.Add(this.MixedPalletsUncheckAll);
@@ -200,8 +206,47 @@
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panel1.Location = new System.Drawing.Point(3, 16);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(278, 190);
+			this.panel1.Size = new System.Drawing.Size(278, 207);
 			this.panel1.TabIndex = 0;
+			// 
+			// TotalPalletNumberCheck
+			// 
+			this.TotalPalletNumberCheck.AutoSize = true;
+			this.TotalPalletNumberCheck.Checked = true;
+			this.TotalPalletNumberCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.TotalPalletNumberCheck.Location = new System.Drawing.Point(156, 181);
+			this.TotalPalletNumberCheck.Name = "TotalPalletNumberCheck";
+			this.TotalPalletNumberCheck.Size = new System.Drawing.Size(119, 17);
+			this.TotalPalletNumberCheck.TabIndex = 33;
+			this.TotalPalletNumberCheck.Text = "Total Pallet Number";
+			this.TotalPalletNumberCheck.UseVisualStyleBackColor = true;
+			this.TotalPalletNumberCheck.CheckedChanged += new System.EventHandler(this.TotalPalletNumberCheck_CheckedChanged);
+			// 
+			// OfCheck
+			// 
+			this.OfCheck.AutoSize = true;
+			this.OfCheck.Checked = true;
+			this.OfCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.OfCheck.Location = new System.Drawing.Point(103, 181);
+			this.OfCheck.Name = "OfCheck";
+			this.OfCheck.Size = new System.Drawing.Size(37, 17);
+			this.OfCheck.TabIndex = 32;
+			this.OfCheck.Text = "Of";
+			this.OfCheck.UseVisualStyleBackColor = true;
+			this.OfCheck.CheckedChanged += new System.EventHandler(this.OfCheck_CheckedChanged);
+			// 
+			// PalletNumberCheck
+			// 
+			this.PalletNumberCheck.AutoSize = true;
+			this.PalletNumberCheck.Checked = true;
+			this.PalletNumberCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.PalletNumberCheck.Location = new System.Drawing.Point(5, 181);
+			this.PalletNumberCheck.Name = "PalletNumberCheck";
+			this.PalletNumberCheck.Size = new System.Drawing.Size(92, 17);
+			this.PalletNumberCheck.TabIndex = 10;
+			this.PalletNumberCheck.Text = "Pallet Number";
+			this.PalletNumberCheck.UseVisualStyleBackColor = true;
+			this.PalletNumberCheck.CheckedChanged += new System.EventHandler(this.PalletNumberCheck_CheckedChanged);
 			// 
 			// PalletsUncheckAll
 			// 
@@ -385,9 +430,9 @@
 			this.label4.Location = new System.Drawing.Point(2, 94);
 			this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(67, 13);
+			this.label4.Size = new System.Drawing.Size(69, 13);
 			this.label4.TabIndex = 16;
-			this.label4.Text = "Other Pallets";
+			this.label4.Text = "Mixed Pallets";
 			// 
 			// NumMixedPalletsSpin
 			// 
@@ -458,5 +503,8 @@
 		private System.Windows.Forms.Button IcePalletsCheckAll;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn PalletsGridViewSelectedColumn;
 		private System.Windows.Forms.DataGridViewComboBoxColumn PalletsGridViewTypeColumn;
+		private System.Windows.Forms.CheckBox TotalPalletNumberCheck;
+		private System.Windows.Forms.CheckBox OfCheck;
+		private System.Windows.Forms.CheckBox PalletNumberCheck;
 	}
 }

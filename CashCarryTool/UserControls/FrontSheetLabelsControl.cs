@@ -71,6 +71,10 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 					? 1
 					: LabelDetailsControl.NumLabelsPerPallet,
 
+				ShowPalletNumber = LabelDetailsControl.ShowPalletNumber,
+				ShowPalletNumberOf = LabelDetailsControl.ShowPalletNumberOf,
+				ShowTotalPalletNumber = LabelDetailsControl.ShowTotalPalletNumber,
+
 				SecondRun = LabelDetailsControl.SecondRun,
 				VehicleRegistration = LabelDetailsControl.VehicleRegistration
 			};

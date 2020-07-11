@@ -27,6 +27,10 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		public bool SecondRun { get; private set; }
 		public string VehicleRegistration { get; private set; }
 
+		public bool ShowPalletNumber { get; set; }
+		public bool ShowPalletNumberOf { get; set; }
+		public bool ShowTotalPalletNumber { get; set; }
+
 		private void UpdatePalletTotals()
 		{
 			TotalIce = _pallets.Count(x => x.Type == PalletType.Ice);
@@ -103,6 +107,10 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			NumLabelsPerPallet = 4;
 			SecondRun = false;
 			VehicleRegistration = "";
+
+			ShowPalletNumber = true;
+			ShowPalletNumberOf = true;
+			ShowTotalPalletNumber = true;
 
 			// Init pallet type column
 			List<ComboboxItem> palletTypeItems = new List<ComboboxItem>()
@@ -285,6 +293,25 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 
 			int pageNumber = _pallets.Take(palletIndex + 1).Count(x => x.Selected = true);
 			_parent?.SetPreviewPageNumber(pageNumber);
+		}
+
+		private void PalletNumberCheck_CheckedChanged(object sender, EventArgs e)
+		{
+			ShowPalletNumber = PalletNumberCheck.Checked;
+			DetailsUpdated();
+		}
+
+		private void OfCheck_CheckedChanged(object sender, EventArgs e)
+		{
+			ShowPalletNumberOf = OfCheck.Checked;
+			TotalPalletNumberCheck.Enabled = OfCheck.Checked;
+			DetailsUpdated();
+		}
+
+		private void TotalPalletNumberCheck_CheckedChanged(object sender, EventArgs e)
+		{
+			ShowTotalPalletNumber = TotalPalletNumberCheck.Checked;
+			DetailsUpdated();
 		}
 	}
 }

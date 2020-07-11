@@ -11,7 +11,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 {
 	class FrontSheet
 	{
-		private const float _borderWidth = 3;
+		private const float _borderWidth = 2;
 
 		public Document Document;
 		private Section _currentSection;
@@ -22,6 +22,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 		public string PickDate { get; set; }
 
 		public List<Pallet> Pallets { get; set; }
+		public bool FillInPalletBreakdown { get; set; }
 		public int NumCopiesPerPallet { get; set; }
 		public bool SecondRun { get; set; }
 		public string VehicleRegistration { get; set; }
@@ -86,36 +87,57 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 
 		private void AddPalletBreakdown()
 		{
-			var table = LayoutHelper.AddEqualWidthTable(6, 22, _currentSection, _borderWidth);
-			table.Format.Font.Size = 12;
+			//var table = LayoutHelper.AddEqualWidthTable(6, 22, _currentSection, _borderWidth);
+			var table = LayoutHelper.AddWeightedWidthTable(new List<float>(){ 0.4f, 1, 1, 1, 1, 1, 0.2f, 0.4f, 1, 1, 1, 1, 1 }, 11, _currentSection, _borderWidth);
+			table.Format.Font.Size = 15;
 
-			const float headerTextSize = 8;
+			const float headerTextSize = 7;
 			table.Rows[0].Format.Font.Size = headerTextSize;
 
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[0], "Pallet Number");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[1], "Description");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[0], "#");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[1], "Des");
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[2], "Blue (CHEP)");
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[3], "Red (LPR)");
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[4], "Brown (PP)");
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[5], "White (EPAL)");
 
-			for (int rowIndex = 1; rowIndex < 21; rowIndex++)
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[7], "#");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[8], "Des");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[9], "Blue (CHEP)");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[10], "Red (LPR)");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[11], "Brown (PP)");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[12], "White (EPAL)");
+
+			for (int rowIndex = 1; rowIndex < 11; rowIndex++)
 			{
 				LayoutHelper.CellAddParagraphWithSpace(table.Rows[rowIndex].Cells[0], rowIndex.ToString(),1 , headerTextSize);
-				for (int columnIndex = 1; columnIndex < 6; columnIndex++)
+				LayoutHelper.CellAddParagraphWithSpace(table.Rows[rowIndex].Cells[7], (rowIndex + 10).ToString(), 1, headerTextSize);
+				for (int columnIndex = 1; columnIndex < 13; columnIndex++)
 				{
+					if (columnIndex == 6 || columnIndex == 7) continue;
 					LayoutHelper.CellAddParagraphWithSpace(table.Rows[rowIndex].Cells[columnIndex], "");
 				}
 			}
+		}
 
-			table.Rows[21].Format.Font.Bold = true;
-			table.Rows[21].Cells[1].Shading.Color = Colors.Gray;
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[21].Cells[0], "Total");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[21].Cells[1], "");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[21].Cells[2], "");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[21].Cells[3], "");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[21].Cells[4], "");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[21].Cells[5], "");
+		private void AddSimplePalletColourTotal()
+		{
+			var table = LayoutHelper.AddEqualWidthTable(4, 2, _currentSection, _borderWidth, true);
+			table.Format.Font.Size = 8;
+			table.Rows[1].Format.Font.Size = 20;
+
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[0], "Blue (CHEP)");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[0], "");
+
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[1], "Red (LPR)");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[1], "");
+
+
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[2], "Brown (PP)");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[2], "");
+
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[3], "White (EPAL)");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[3], "");
 		}
 
 		private void AddPalletColourTotal()
@@ -152,37 +174,22 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 
 		private void AddPalletTotals()
 		{
-			var table = LayoutHelper.AddWeightedWidthTable(new List<float>() { 1, 0.5f, 0.5f, 1, 1}, 3, _currentSection, _borderWidth, true);
+			var table = LayoutHelper.AddEqualWidthTable(4, 2, _currentSection, _borderWidth, true);
 			table.Format.Font.Size = 8;
-			table.Rows[2].Format.Font.Size = 20;
+			table.Rows[1].Format.Font.Size = 20;
 
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[0], "Total Pallets");
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[0], "");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[0], "");
 
-			var iceHeaderTextA  = LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[1], "6 x 12kg");
-			//table.Rows[0].Cells[1].Borders.Right.Width = 0;
-			iceHeaderTextA.Format.Borders.Right.Width = 0;
-			var iceHeaderTextB = LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[2], "Ice Pallets");
-			table.Rows[0].Cells[2].Borders.Left.Width = 0;
-			iceHeaderTextB.Format.Borders.Left.Width = 0;
-
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[1], "Total");
-			//table.Rows[1].Cells[1].Borders.Top.Width = _borderWidth;
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[2], "Picked");
-			//table.Rows[1].Cells[2].Borders.Top.Width = _borderWidth;
-
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[1], "");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[2], "");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[1], "Total 6 x 12kg Ice Pallets");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[1], "");
 
 
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[3], "Total Bulk Pallets");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[2], "Total Bulk Pallets");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[2], "");
+
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[3], "Total Mixed Pallets");
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[3], "");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[3], "");
-
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[4], "Total Mixed Pallets");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[4], "");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[4], "");
 		}
 
 		private void AddPickerAndTimes()
@@ -257,7 +264,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 			_currentSection = Document.AddSection();
 			_currentSection.PageSetup.PageFormat = PageFormat.A4;
 			_currentSection.PageSetup.TopMargin = 20;
-			_currentSection.PageSetup.BottomMargin = 10;
+			_currentSection.PageSetup.BottomMargin = 20;
 			_currentSection.PageSetup.LeftMargin = 30;
 			_currentSection.PageSetup.RightMargin = 20;
 
@@ -268,8 +275,16 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 			AddInvoiceNumbers();
 			AddSpace(10);
 
-			if (FullPalletBreakDown) AddPalletBreakdown();
-			else AddPalletColourTotal();
+			if (FullPalletBreakDown)
+			{
+				AddPalletBreakdown();
+				AddSpace(10);
+				AddSimplePalletColourTotal();
+			}
+			else
+			{
+				AddPalletColourTotal();
+			}
 			AddSpace(10);
 
 			AddPalletTotals();

@@ -13,6 +13,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 {
 	class Label
 	{
+		private const float _borderWidth = 2;
 		public Document Document;
 		private Section _currentSection;
 
@@ -25,6 +26,11 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 
 		public bool SecondRun { get; set; }
 		public string VehicleRegistration { get; set; }
+
+
+		public bool ShowPalletNumber { get; set; }
+		public bool ShowPalletNumberOf { get; set; }
+		public bool ShowTotalPalletNumber { get; set; }
 
 		private void AddSpace(float space)
 		{
@@ -40,7 +46,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 		private void AddTitle()
 		{
 			Table table = LayoutHelper.AddEqualWidthTable(
-				1, 1, _currentSection, 5);
+				1, 1, _currentSection, _borderWidth + 1);
 			table.Format.Font.Size = GetTitleSize(Title.Length);
 			table.Format.Font.Bold = true;
 
@@ -50,7 +56,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 		private void AddCustomerCode()
 		{
 			Table table = LayoutHelper.AddTableFillLastColumn(
-				new List<float>() { 170 }, 1, _currentSection, 4);
+				new List<float>() { 170 }, 1, _currentSection, _borderWidth);
 			table.Format.Font.Size = 40;
 
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[0], "Customer Code", 1, 20);
@@ -60,7 +66,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 		private void AddDeliveryDate()
 		{
 			Table table = LayoutHelper.AddTableFillLastColumn(
-				new List<float>() { 170 }, 1, _currentSection, 4);
+				new List<float>() { 170 }, 1, _currentSection, _borderWidth);
 			table.Format.Font.Size = 40;
 
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[0], "Delivery Date", 1, 20);
@@ -70,20 +76,21 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 		private void AddSecondRunWarning()
 		{
 			Table table = LayoutHelper.AddEqualWidthTable(
-				1, 1, _currentSection, 5);
+				1, 1, _currentSection, _borderWidth);
 			table.Format.Font.Size = 40;
 			table.Format.Alignment = ParagraphAlignment.Center;
 
 			var cellParagraph = table.Rows[0].Cells[0].AddParagraph();
 			cellParagraph.Add(FormattedTextHelper.WarningSign());
-			cellParagraph.AddText(" Second Run ");
+			string dash = String.IsNullOrEmpty(VehicleRegistration) ? "" : " - ";
+			cellParagraph.AddText($" Second Run{dash}{VehicleRegistration} ");
 			cellParagraph.Add(FormattedTextHelper.WarningSign());
 		}
 
 		private void AddPalletNumberAndLogo(int palletNumber)
 		{
 			Table table = LayoutHelper.AddTableFillLastColumn(
-				new List<float>() { 170, 100, 100, 100, 30 }, 1, _currentSection, 5);
+				new List<float>() { 170, 100, 100, 100, 30 }, 1, _currentSection, _borderWidth + 1);
 			table.Format.Font.Size = 50;
 			table.Format.Alignment = ParagraphAlignment.Center;
 
@@ -93,15 +100,22 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 			row.Cells[0].Format.Font.Size = table.Format.Font.Size + 3;
 			LayoutHelper.CellAddParagraphWithSpace(row.Cells[0], "Pallet Number", 1, 20);
 
-			var palletNumPara = row.Cells[1].AddParagraph(palletNumber.ToString());
+			var palletNumPara = row.Cells[1].AddParagraph();
+			if (ShowPalletNumber) palletNumPara.AddText(palletNumber.ToString());
+			else palletNumPara.AddSpace(1);
 			palletNumPara.Format.Font.Name = "Impact";
 
-			row.Cells[2].Format.Font.Size = table.Format.Font.Size + 3;
-			var ofPara = LayoutHelper.CellAddParagraphWithSpace(row.Cells[2], "of", 1, 20);
-			ofPara.AddSpace(1);
+			if (ShowPalletNumberOf)
+			{
+				row.Cells[2].Format.Font.Size = table.Format.Font.Size + 3;
+				var ofPara = LayoutHelper.CellAddParagraphWithSpace(row.Cells[2], "of", 1, 20);
+				ofPara.AddSpace(1);
 
-			var totalPalletNumPara = row.Cells[3].AddParagraph(Pallets.Count.ToString());
-			totalPalletNumPara.Format.Font.Name = "Impact";
+				var totalPalletNumPara = row.Cells[3].AddParagraph();
+				if (ShowTotalPalletNumber) totalPalletNumPara.AddText(Pallets.Count.ToString());
+				else totalPalletNumPara.AddSpace(1);
+				totalPalletNumPara.Format.Font.Name = "Impact";
+			}
 
 			var logo = row.Cells[5].AddParagraph().AddImage(ResourcesDirectory.FrontSheetLabel.LogoPath);
 			logo.ScaleHeight = 5;
@@ -112,7 +126,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 		{
 			if (pallet.Type == PalletType.Mixed) return;
 
-			Table table = LayoutHelper.AddTableFillLastColumn(new List<float>() { 470 }, 1, _currentSection, 3);
+			Table table = LayoutHelper.AddTableFillLastColumn(new List<float>() { 470 }, 1, _currentSection, _borderWidth);
 			table.Format.Font.Size = 40;
 			// Offset logo overrun
 			table.TopPadding = -50;

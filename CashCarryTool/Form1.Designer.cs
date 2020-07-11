@@ -29,9 +29,9 @@
 		private void InitializeComponent()
 		{
 			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.frontSheetLabels1 = new Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabelsControl();
+			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.SuspendLayout();
@@ -44,8 +44,27 @@
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(1330, 750);
+			this.tabControl1.Size = new System.Drawing.Size(1335, 953);
 			this.tabControl1.TabIndex = 0;
+			// 
+			// tabPage1
+			// 
+			this.tabPage1.Controls.Add(this.frontSheetLabels1);
+			this.tabPage1.Location = new System.Drawing.Point(4, 22);
+			this.tabPage1.Name = "tabPage1";
+			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage1.Size = new System.Drawing.Size(1327, 927);
+			this.tabPage1.TabIndex = 0;
+			this.tabPage1.Text = "Front Sheet / Labels";
+			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// frontSheetLabels1
+			// 
+			this.frontSheetLabels1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.frontSheetLabels1.Location = new System.Drawing.Point(3, 3);
+			this.frontSheetLabels1.Name = "frontSheetLabels1";
+			this.frontSheetLabels1.Size = new System.Drawing.Size(1321, 921);
+			this.frontSheetLabels1.TabIndex = 0;
 			// 
 			// tabPage2
 			// 
@@ -57,30 +76,11 @@
 			this.tabPage2.Text = "Debug";
 			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
-			// tabPage1
-			// 
-			this.tabPage1.Controls.Add(this.frontSheetLabels1);
-			this.tabPage1.Location = new System.Drawing.Point(4, 22);
-			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(1322, 724);
-			this.tabPage1.TabIndex = 0;
-			this.tabPage1.Text = "Front Sheet / Labels";
-			this.tabPage1.UseVisualStyleBackColor = true;
-			// 
-			// frontSheetLabels1
-			// 
-			this.frontSheetLabels1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.frontSheetLabels1.Location = new System.Drawing.Point(3, 3);
-			this.frontSheetLabels1.Name = "frontSheetLabels1";
-			this.frontSheetLabels1.Size = new System.Drawing.Size(1316, 718);
-			this.frontSheetLabels1.TabIndex = 0;
-			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1330, 750);
+			this.ClientSize = new System.Drawing.Size(1335, 953);
 			this.Controls.Add(this.tabControl1);
 			this.Name = "Form1";
 			this.Text = "Form1";
