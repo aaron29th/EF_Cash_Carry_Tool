@@ -103,14 +103,14 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			InitializeComponent();
 
 			// Init properties
-			TotalMixed = 1;
-			NumLabelsPerPallet = 4;
-			SecondRun = false;
-			VehicleRegistration = "";
+			TotalMixed = (int)NumMixedPalletsSpin.Value;
+			NumLabelsPerPallet = (int)NumLabelsPerPalletSpin.Value;
+			SecondRun = SecondRunCheck.Checked;
+			VehicleRegistration = SecondRunVehicleTxt.Text;
 
-			ShowPalletNumber = true;
-			ShowPalletNumberOf = true;
-			ShowTotalPalletNumber = true;
+			ShowPalletNumber = PalletNumberCheck.Checked;
+			ShowPalletNumberOf = OfCheck.Checked;
+			ShowTotalPalletNumber = TotalPalletNumberCheck.Checked;
 
 			// Init pallet type column
 			List<ComboboxItem> palletTypeItems = new List<ComboboxItem>()
@@ -198,6 +198,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		{
 			_pallets.ToList().ForEach(x => x.Selected = true);
 			PalletsGridView.InvalidateColumn(PalletsGridViewSelectedColumn.Index);
+			DetailsUpdated();
 		}
 
 		private void IcePalletsCheckAll_Click(object sender, EventArgs e)
@@ -208,6 +209,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 				pallet.Selected = true;
 			}
 			PalletsGridView.InvalidateColumn(PalletsGridViewSelectedColumn.Index);
+			DetailsUpdated();
 		}
 
 		private void BulkPalletsCheckAll_Click(object sender, EventArgs e)
@@ -218,6 +220,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 				pallet.Selected = true;
 			}
 			PalletsGridView.InvalidateColumn(PalletsGridViewSelectedColumn.Index);
+			DetailsUpdated();
 		}
 
 		private void MixedPalletsCheckAll_Click(object sender, EventArgs e)
@@ -228,12 +231,14 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 				pallet.Selected = true;
 			}
 			PalletsGridView.InvalidateColumn(PalletsGridViewSelectedColumn.Index);
+			DetailsUpdated();
 		}
 
 		private void PalletsUncheckAll_Click(object sender, EventArgs e)
 		{
 			_pallets.ToList().ForEach(x => x.Selected = false);
 			PalletsGridView.InvalidateColumn(PalletsGridViewSelectedColumn.Index);
+			DetailsUpdated();
 		}
 
 		private void IcePalletsUncheckAll_Click(object sender, EventArgs e)
@@ -244,6 +249,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 				pallet.Selected = false;
 			}
 			PalletsGridView.InvalidateColumn(PalletsGridViewSelectedColumn.Index);
+			DetailsUpdated();
 		}
 
 		private void BulkPalletsUncheckAll_Click(object sender, EventArgs e)
@@ -254,6 +260,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 				pallet.Selected = false;
 			}
 			PalletsGridView.InvalidateColumn(PalletsGridViewSelectedColumn.Index);
+			DetailsUpdated();
 		}
 
 		private void MixedPalletsUncheckAll_Click(object sender, EventArgs e)
@@ -264,6 +271,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 				pallet.Selected = false;
 			}
 			PalletsGridView.InvalidateColumn(PalletsGridViewSelectedColumn.Index);
+			DetailsUpdated();
 		}
 
 		#endregion
@@ -284,16 +292,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 
 		#endregion
 
-		private void PalletsGridView_DoubleClick(object sender, EventArgs e)
-		{
-			if (PalletsGridView.SelectedRows.Count == 0) return;
-
-			int palletIndex = PalletsGridView.SelectedRows[0].Index;
-			if (!_pallets[palletIndex].Selected) return;
-
-			int pageNumber = _pallets.Take(palletIndex + 1).Count(x => x.Selected = true);
-			_parent?.SetPreviewPageNumber(pageNumber);
-		}
+		#region Label Numbers
 
 		private void PalletNumberCheck_CheckedChanged(object sender, EventArgs e)
 		{
@@ -312,6 +311,19 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		{
 			ShowTotalPalletNumber = TotalPalletNumberCheck.Checked;
 			DetailsUpdated();
+		}
+
+		#endregion
+
+		private void PalletsGridView_DoubleClick(object sender, EventArgs e)
+		{
+			if (PalletsGridView.SelectedRows.Count == 0) return;
+
+			int palletIndex = PalletsGridView.SelectedRows[0].Index;
+			if (!_pallets[palletIndex].Selected) return;
+
+			int pageNumber = _pallets.Take(palletIndex + 1).Count(x => x.Selected = true);
+			_parent?.SetPreviewPageNumber(pageNumber);
 		}
 	}
 }

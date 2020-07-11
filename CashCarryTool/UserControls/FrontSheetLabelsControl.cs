@@ -52,7 +52,10 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 				VehicleRegistration = LabelDetailsControl.VehicleRegistration,
 
 				FullPalletBreakDown = FrontSheetDetailsControl.FullPalletBreakdown,
-				InvoiceNumbers = FrontSheetDetailsControl.InvoiceNumbers
+				InvoiceNumbers = FrontSheetDetailsControl.InvoiceNumbers,
+
+				PartiallyFillIn = FrontSheetDetailsControl.PartiallyFillIn,
+				FullyFillIn = FrontSheetDetailsControl.FullyFillIn
 			};
 		}
 

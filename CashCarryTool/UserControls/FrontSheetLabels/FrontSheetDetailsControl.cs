@@ -17,11 +17,17 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		public List<string> InvoiceNumbers => _invoiceNumbers.Select(x => x.Value).ToList();
 		public bool FullPalletBreakdown { get; set; }
 
+		public bool PartiallyFillIn { get; set; }
+		public bool FullyFillIn { get; set; }
+
 		public FrontSheetDetailsControl()
 		{
 			InitializeComponent();
 			_invoiceNumbers.AllowNew = true;
 			InvoiceNumbersGridView.DataSource = _invoiceNumbers;
+
+			PartiallyFillIn = PartiallyFillInCheck.Checked;
+			FullyFillIn = FillInCheck.Checked;
 		}
 
 		private void InvoiceNumbersGridView_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
@@ -37,6 +43,19 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		private void FullPalletBreakDownCheck_CheckedChanged(object sender, EventArgs e)
 		{
 			FullPalletBreakdown = FullPalletBreakDownCheck.Checked;
+			DetailsUpdated();
+		}
+
+		private void FillInPalletsCheck_CheckedChanged(object sender, EventArgs e)
+		{
+			PartiallyFillIn = PartiallyFillInCheck.Checked;
+			FillInCheck.Enabled = PartiallyFillInCheck.Checked;
+			DetailsUpdated();
+		}
+
+		private void FillInCheck_CheckedChanged(object sender, EventArgs e)
+		{
+			FullyFillIn = FillInCheck.Checked;
 			DetailsUpdated();
 		}
 	}

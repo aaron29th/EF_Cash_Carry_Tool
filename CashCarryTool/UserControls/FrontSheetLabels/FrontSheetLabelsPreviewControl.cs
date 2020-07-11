@@ -24,6 +24,8 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 
 			LiveReload = LiveReloadCheck.Checked;
 			HideDuplicatePages = HideDuplicatePagesCheck.Checked;
+
+			RefreshPageNumberControls();
 		}
 
 		public void LoadFrontSheetPreview(Document doc)
@@ -47,7 +49,13 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			string ddl = MigraDoc.DocumentObjectModel.IO.DdlWriter.WriteToString(doc);
 			LabelsPreview.Ddl = ddl;
 
-			SetPageNumberControls(LabelsPreview.Page, LabelsPreview.PageCount);
+			RefreshPageNumberControls();
+		}
+
+		private void RefreshPageNumberControls()
+		{
+			if (PreviewTabControl.SelectedTab.Name == "LabelsTab") SetPageNumberControls(LabelsPreview.Page, LabelsPreview.PageCount);
+			else SetPageNumberControls(1, 1);
 		}
 
 		private void SetPageNumberControls(int pageNumber, int totalPages)
@@ -91,13 +99,12 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 
 		private void DocumentPreview_PageChanged(object sender, EventArgs e)
 		{
-			SetPageNumberControls(LabelsPreview.Page, LabelsPreview.PageCount);
+			RefreshPageNumberControls();
 		}
 
 		private void PreviewTabControl_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (PreviewTabControl.SelectedTab.Name == "LabelsTab") SetPageNumberControls(LabelsPreview.Page, LabelsPreview.PageCount);
-			else SetPageNumberControls(1, 1);
+			RefreshPageNumberControls();
 		}
 
 		private void PrintFrontSheetBtn_Click(object sender, EventArgs e)
