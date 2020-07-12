@@ -29,6 +29,7 @@
 		private void InitializeComponent()
 		{
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.PrintFrontSheetBtn = new System.Windows.Forms.Button();
 			this.PrintBothButton = new System.Windows.Forms.Button();
 			this.PrintLabelsBtn = new System.Windows.Forms.Button();
 			this.NextPageBtn = new System.Windows.Forms.Button();
@@ -44,7 +45,6 @@
 			this.LabelsTab = new System.Windows.Forms.TabPage();
 			this.button1 = new System.Windows.Forms.Button();
 			this.PrintFrontSheetB = new System.Windows.Forms.Button();
-			this.PrintFrontSheetBtn = new System.Windows.Forms.Button();
 			this.groupBox4.SuspendLayout();
 			this.PreviewTabControl.SuspendLayout();
 			this.FrontSheetTab.SuspendLayout();
@@ -69,6 +69,16 @@
 			this.groupBox4.TabIndex = 3;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Preview";
+			// 
+			// PrintFrontSheetBtn
+			// 
+			this.PrintFrontSheetBtn.Location = new System.Drawing.Point(346, 15);
+			this.PrintFrontSheetBtn.Name = "PrintFrontSheetBtn";
+			this.PrintFrontSheetBtn.Size = new System.Drawing.Size(118, 23);
+			this.PrintFrontSheetBtn.TabIndex = 9;
+			this.PrintFrontSheetBtn.Text = "Print Front Sheet";
+			this.PrintFrontSheetBtn.UseVisualStyleBackColor = true;
+			this.PrintFrontSheetBtn.Click += new System.EventHandler(this.PrintFrontSheetBtn_Click);
 			// 
 			// PrintBothButton
 			// 
@@ -210,7 +220,7 @@
 			this.FrontSheetPreview.PageSize = new System.Drawing.Size(595, 842);
 			this.FrontSheetPreview.Size = new System.Drawing.Size(1045, 706);
 			this.FrontSheetPreview.TabIndex = 0;
-			this.FrontSheetPreview.ZoomPercent = 118;
+			this.FrontSheetPreview.ZoomPercent = 60;
 			// 
 			// LabelsTab
 			// 
@@ -236,16 +246,6 @@
 			this.PrintFrontSheetB.Name = "PrintFrontSheetB";
 			this.PrintFrontSheetB.Size = new System.Drawing.Size(75, 23);
 			this.PrintFrontSheetB.TabIndex = 0;
-			// 
-			// PrintFrontSheetBtn
-			// 
-			this.PrintFrontSheetBtn.Location = new System.Drawing.Point(346, 15);
-			this.PrintFrontSheetBtn.Name = "PrintFrontSheetBtn";
-			this.PrintFrontSheetBtn.Size = new System.Drawing.Size(118, 23);
-			this.PrintFrontSheetBtn.TabIndex = 9;
-			this.PrintFrontSheetBtn.Text = "Print Front Sheet";
-			this.PrintFrontSheetBtn.UseVisualStyleBackColor = true;
-			this.PrintFrontSheetBtn.Click += new System.EventHandler(this.PrintFrontSheetBtn_Click);
 			// 
 			// FrontSheetLabelsPreviewControl
 			// 
