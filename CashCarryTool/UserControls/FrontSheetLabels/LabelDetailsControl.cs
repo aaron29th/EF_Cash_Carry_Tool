@@ -18,9 +18,10 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		private readonly BindingList<Pallet> _pallets = new BindingList<Pallet>() { new Pallet() {Selected = true, Type = PalletType.Mixed }};
 		public List<Pallet> Pallets => _pallets.ToList();
 
-		public int TotalIce { get; private set; }
-		public int TotalBulk { get; private set; }
-		public int TotalMixed { get; private set; }
+		private int _totalIce;
+		private int _totalBulk;
+		private int _totalMixed;
+		private int _totalAmbient;
 
 		public int NumLabelsPerPallet { get; set; }
 
@@ -33,14 +34,17 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 
 		private void UpdatePalletTotals()
 		{
-			TotalIce = _pallets.Count(x => x.Type == PalletType.Ice);
-			NumIcePalletsSpin.Value = TotalIce;
+			_totalIce = _pallets.Count(x => x.Type == PalletType.Ice);
+			NumIcePalletsSpin.Value = _totalIce;
 
-			TotalBulk = _pallets.Count(x => x.Type == PalletType.Bulk);
-			NumBulkPalletsSpin.Value = TotalBulk;
+			_totalBulk = _pallets.Count(x => x.Type == PalletType.Bulk);
+			NumBulkPalletsSpin.Value = _totalBulk;
 			
-			TotalMixed = _pallets.Count(x => x.Type == PalletType.Mixed);
-			NumMixedPalletsSpin.Value = TotalMixed;
+			_totalMixed = _pallets.Count(x => x.Type == PalletType.Mixed);
+			NumMixedPalletsSpin.Value = _totalMixed;
+
+			_totalAmbient = _pallets.Count(x => x.Type == PalletType.Ambient);
+			NumAmbientPalletsSpin.Value = _totalAmbient;
 		}
 
 		private void UpdatePallets()
@@ -48,15 +52,27 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			int newTotalIce = (int) NumIcePalletsSpin.Value;
 			int newTotalBulk = (int) NumBulkPalletsSpin.Value;
 			int newTotalMixed = (int) NumMixedPalletsSpin.Value;
+			int newTotalAmbient = (int) NumAmbientPalletsSpin.Value;
 
 			// Add pallets
-			while (newTotalIce > TotalIce)
+			while (newTotalAmbient > _totalAmbient)
 			{
-				_pallets.Insert(0, new Pallet() {Type = PalletType.Ice});
-				TotalIce++;
+				_pallets.Insert(0, new Pallet() {Type = PalletType.Ambient});
+				_totalAmbient++;
 			}
 
-			while (newTotalBulk > TotalBulk)
+			while (newTotalIce > _totalIce)
+			{
+				// Add ice pallets after last ambient pallet
+				int index = 0;
+				var lastAmbient = _pallets.LastOrDefault(x => x.Type == PalletType.Ambient);
+				if (lastAmbient != null) index = _pallets.IndexOf(lastAmbient) + 1;
+
+				_pallets.Insert(index, new Pallet() { Type = PalletType.Ice });
+				_totalIce++;
+			}
+
+			while (newTotalBulk > _totalBulk)
 			{
 				// Add bulk pallets after last ice pallet
 				int index = 0;
@@ -64,36 +80,42 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 				if (lastIce != null) index = _pallets.IndexOf(lastIce) + 1;
 
 				_pallets.Insert(index, new Pallet() { Type = PalletType.Bulk });
-				TotalBulk++;
+				_totalBulk++;
 			}
 
-			while (newTotalMixed > TotalMixed)
+			while (newTotalMixed > _totalMixed)
 			{
 				// Add mixed pallets to end
 				_pallets.Add(new Pallet() { Type = PalletType.Mixed });
-				TotalMixed++;
+				_totalMixed++;
 			}
 
 			// Remove pallets
-			while (newTotalIce < TotalIce)
+			while (newTotalAmbient < _totalAmbient)
+			{
+				_pallets.Remove(_pallets.Last(x => x.Type == PalletType.Ambient));
+				_totalAmbient--;
+			}
+
+			while (newTotalIce < _totalIce)
 			{
 				_pallets.Remove(_pallets.Last(x => x.Type == PalletType.Ice));
-				TotalIce--;
+				_totalIce--;
 			}
 
-			while (newTotalBulk < TotalBulk)
+			while (newTotalBulk < _totalBulk)
 			{
 				_pallets.Remove(_pallets.Last(x => x.Type == PalletType.Bulk));
-				TotalBulk--;
+				_totalBulk--;
 			}
 
-			while (newTotalMixed < TotalMixed)
+			while (newTotalMixed < _totalMixed)
 			{
 				_pallets.Remove(_pallets.Last(x => x.Type == PalletType.Mixed));
-				TotalMixed--;
+				_totalMixed--;
 			}
 
-			int totalPallets = newTotalIce + newTotalBulk + newTotalMixed;
+			int totalPallets = newTotalAmbient + newTotalIce + newTotalBulk + newTotalMixed;
 			TotalPalletsLabel.Text = $"Total Pallets: {totalPallets}";
 			DetailsUpdated();
 		}
@@ -103,7 +125,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			InitializeComponent();
 
 			// Init properties
-			TotalMixed = (int)NumMixedPalletsSpin.Value;
+			_totalMixed = (int)NumMixedPalletsSpin.Value;
 			NumLabelsPerPallet = (int)NumLabelsPerPalletSpin.Value;
 			SecondRun = SecondRunCheck.Checked;
 			VehicleRegistration = SecondRunVehicleTxt.Text;
@@ -117,7 +139,8 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			{
 				new ComboboxItem() { Text = "Ice", Value = PalletType.Ice },
 				new ComboboxItem() { Text = "Bulk", Value = PalletType.Bulk },
-				new ComboboxItem() { Text = "Mixed", Value = PalletType.Mixed}
+				new ComboboxItem() { Text = "Mixed", Value = PalletType.Mixed },
+				new ComboboxItem() { Text = "Ambient", Value = PalletType.Ambient }
 			};
 			PalletsGridViewTypeColumn.DataSource = palletTypeItems;
 			PalletsGridViewTypeColumn.DisplayMember = "Text";
@@ -148,6 +171,11 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		{
 			NumLabelsPerPallet = (int)NumLabelsPerPalletSpin.Value;
 			DetailsUpdated();
+		}
+
+		private void NumAmbientPalletsSpin_ValueChanged(object sender, EventArgs e)
+		{
+			UpdatePallets();
 		}
 
 		#endregion
@@ -234,6 +262,17 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			DetailsUpdated();
 		}
 
+		private void AmbientPalletsCheckAll_Click(object sender, EventArgs e)
+		{
+			var pallets = _pallets.Where(x => x.Type == PalletType.Ambient);
+			foreach (var pallet in pallets)
+			{
+				pallet.Selected = true;
+			}
+			PalletsGridView.InvalidateColumn(PalletsGridViewSelectedColumn.Index);
+			DetailsUpdated();
+		}
+
 		private void PalletsUncheckAll_Click(object sender, EventArgs e)
 		{
 			_pallets.ToList().ForEach(x => x.Selected = false);
@@ -266,6 +305,17 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		private void MixedPalletsUncheckAll_Click(object sender, EventArgs e)
 		{
 			var pallets = _pallets.Where(x => x.Type == PalletType.Mixed);
+			foreach (var pallet in pallets)
+			{
+				pallet.Selected = false;
+			}
+			PalletsGridView.InvalidateColumn(PalletsGridViewSelectedColumn.Index);
+			DetailsUpdated();
+		}
+
+		private void AmbientPalletsUncheckAll_Click(object sender, EventArgs e)
+		{
+			var pallets = _pallets.Where(x => x.Type == PalletType.Ambient);
 			foreach (var pallet in pallets)
 			{
 				pallet.Selected = false;

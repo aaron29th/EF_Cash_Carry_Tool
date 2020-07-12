@@ -146,6 +146,9 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 			} else if (pallet.Type == PalletType.Bulk)
 			{
 				paragraph.AddText("BULK");
+			} else if (pallet.Type == PalletType.Ambient)
+			{
+				paragraph.AddText("AMBIENT");
 			}
 			
 		}

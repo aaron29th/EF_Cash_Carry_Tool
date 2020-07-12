@@ -16,7 +16,7 @@ namespace Eden_Farm_Cash___Carry_Tool
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new Form1());
+			Application.Run(new mainForm());
 		}
 	}
 }

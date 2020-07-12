@@ -8,13 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Eden_Farm_Cash___Carry_Tool.Models;
+using Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels;
 
 namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 {
 	public partial class FrontSheetDetailsControl : FrontSheetLabelsBase
 	{
-		private readonly BindingList<StringValue> _invoiceNumbers = new BindingList<StringValue>();
-		public List<string> InvoiceNumbers => _invoiceNumbers.Select(x => x.Value).ToList();
+		private readonly BindingList<Invoice> _invoices = new BindingList<Invoice>();
+		public List<Invoice> Invoices => _invoices.ToList();
 		public bool FullPalletBreakdown { get; set; }
 
 		public bool PartiallyFillIn { get; set; }
@@ -23,8 +24,8 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		public FrontSheetDetailsControl()
 		{
 			InitializeComponent();
-			_invoiceNumbers.AllowNew = true;
-			InvoiceNumbersGridView.DataSource = _invoiceNumbers;
+			_invoices.AllowNew = true;
+			InvoiceNumbersGridView.DataSource = _invoices;
 
 			PartiallyFillIn = PartiallyFillInCheck.Checked;
 			FullyFillIn = FillInCheck.Checked;

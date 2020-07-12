@@ -32,16 +32,21 @@
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.panel2 = new System.Windows.Forms.Panel();
+			this.FillInCheck = new System.Windows.Forms.CheckBox();
 			this.PartiallyFillInCheck = new System.Windows.Forms.CheckBox();
 			this.FullPalletBreakDownCheck = new System.Windows.Forms.CheckBox();
 			this.InvoiceNumbersGridView = new System.Windows.Forms.DataGridView();
-			this.InvoiceNumbersGridViewNumbersColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.invoiceBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.stringValueBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.FillInCheck = new System.Windows.Forms.CheckBox();
+			this.invoiceNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.mixedUnitsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.bulkUnitsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ambientUnitsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.groupBox2.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.InvoiceNumbersGridView)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.invoiceBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.stringValueBindingSource)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -77,6 +82,17 @@
 			this.panel2.Size = new System.Drawing.Size(355, 23);
 			this.panel2.TabIndex = 2;
 			// 
+			// FillInCheck
+			// 
+			this.FillInCheck.AutoSize = true;
+			this.FillInCheck.Location = new System.Drawing.Point(232, 3);
+			this.FillInCheck.Name = "FillInCheck";
+			this.FillInCheck.Size = new System.Drawing.Size(50, 17);
+			this.FillInCheck.TabIndex = 3;
+			this.FillInCheck.Text = "Fill In";
+			this.FillInCheck.UseVisualStyleBackColor = true;
+			this.FillInCheck.CheckedChanged += new System.EventHandler(this.FillInCheck_CheckedChanged);
+			// 
 			// PartiallyFillInCheck
 			// 
 			this.PartiallyFillInCheck.AutoSize = true;
@@ -110,8 +126,11 @@
 			this.InvoiceNumbersGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.InvoiceNumbersGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.InvoiceNumbersGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.InvoiceNumbersGridViewNumbersColumn});
-			this.InvoiceNumbersGridView.DataSource = this.stringValueBindingSource;
+            this.invoiceNumberDataGridViewTextBoxColumn,
+            this.mixedUnitsDataGridViewTextBoxColumn,
+            this.bulkUnitsDataGridViewTextBoxColumn,
+            this.ambientUnitsDataGridViewTextBoxColumn});
+			this.InvoiceNumbersGridView.DataSource = this.invoiceBindingSource;
 			this.InvoiceNumbersGridView.Location = new System.Drawing.Point(0, 29);
 			this.InvoiceNumbersGridView.Name = "InvoiceNumbersGridView";
 			this.InvoiceNumbersGridView.RowHeadersVisible = false;
@@ -120,26 +139,37 @@
 			this.InvoiceNumbersGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.InvoiceNumbersGridView_CellEndEdit);
 			this.InvoiceNumbersGridView.CellValuePushed += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.InvoiceNumbersGridView_CellValuePushed);
 			// 
-			// InvoiceNumbersGridViewNumbersColumn
+			// invoiceBindingSource
 			// 
-			this.InvoiceNumbersGridViewNumbersColumn.DataPropertyName = "Value";
-			this.InvoiceNumbersGridViewNumbersColumn.HeaderText = "Invoice Number";
-			this.InvoiceNumbersGridViewNumbersColumn.Name = "InvoiceNumbersGridViewNumbersColumn";
+			this.invoiceBindingSource.DataSource = typeof(Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels.Invoice);
 			// 
 			// stringValueBindingSource
 			// 
 			this.stringValueBindingSource.DataSource = typeof(Eden_Farm_Cash___Carry_Tool.Models.StringValue);
 			// 
-			// FillInCheck
+			// invoiceNumberDataGridViewTextBoxColumn
 			// 
-			this.FillInCheck.AutoSize = true;
-			this.FillInCheck.Location = new System.Drawing.Point(232, 3);
-			this.FillInCheck.Name = "FillInCheck";
-			this.FillInCheck.Size = new System.Drawing.Size(50, 17);
-			this.FillInCheck.TabIndex = 3;
-			this.FillInCheck.Text = "Fill In";
-			this.FillInCheck.UseVisualStyleBackColor = true;
-			this.FillInCheck.CheckedChanged += new System.EventHandler(this.FillInCheck_CheckedChanged);
+			this.invoiceNumberDataGridViewTextBoxColumn.DataPropertyName = "InvoiceNumber";
+			this.invoiceNumberDataGridViewTextBoxColumn.HeaderText = "InvoiceNumber";
+			this.invoiceNumberDataGridViewTextBoxColumn.Name = "invoiceNumberDataGridViewTextBoxColumn";
+			// 
+			// mixedUnitsDataGridViewTextBoxColumn
+			// 
+			this.mixedUnitsDataGridViewTextBoxColumn.DataPropertyName = "MixedUnits";
+			this.mixedUnitsDataGridViewTextBoxColumn.HeaderText = "MixedUnits";
+			this.mixedUnitsDataGridViewTextBoxColumn.Name = "mixedUnitsDataGridViewTextBoxColumn";
+			// 
+			// bulkUnitsDataGridViewTextBoxColumn
+			// 
+			this.bulkUnitsDataGridViewTextBoxColumn.DataPropertyName = "BulkUnits";
+			this.bulkUnitsDataGridViewTextBoxColumn.HeaderText = "BulkUnits";
+			this.bulkUnitsDataGridViewTextBoxColumn.Name = "bulkUnitsDataGridViewTextBoxColumn";
+			// 
+			// ambientUnitsDataGridViewTextBoxColumn
+			// 
+			this.ambientUnitsDataGridViewTextBoxColumn.DataPropertyName = "AmbientUnits";
+			this.ambientUnitsDataGridViewTextBoxColumn.HeaderText = "AmbientUnits";
+			this.ambientUnitsDataGridViewTextBoxColumn.Name = "ambientUnitsDataGridViewTextBoxColumn";
 			// 
 			// FrontSheetDetailsControl
 			// 
@@ -153,6 +183,7 @@
 			this.panel2.ResumeLayout(false);
 			this.panel2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.InvoiceNumbersGridView)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.invoiceBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.stringValueBindingSource)).EndInit();
 			this.ResumeLayout(false);
 
@@ -163,11 +194,15 @@
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.DataGridView InvoiceNumbersGridView;
 		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.DataGridViewTextBoxColumn InvoiceNumbersGridViewNumbersColumn;
 		private System.Windows.Forms.BindingSource stringValueBindingSource;
 		private System.Windows.Forms.CheckBox FullPalletBreakDownCheck;
 		private System.Windows.Forms.Panel panel2;
 		private System.Windows.Forms.CheckBox PartiallyFillInCheck;
 		private System.Windows.Forms.CheckBox FillInCheck;
+		private System.Windows.Forms.BindingSource invoiceBindingSource;
+		private System.Windows.Forms.DataGridViewTextBoxColumn invoiceNumberDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn mixedUnitsDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn bulkUnitsDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn ambientUnitsDataGridViewTextBoxColumn;
 	}
 }
