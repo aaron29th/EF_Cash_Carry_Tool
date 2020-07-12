@@ -117,9 +117,13 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 				totalPalletNumPara.Format.Font.Name = "Impact";
 			}
 
-			var logo = row.Cells[5].AddParagraph().AddImage(ResourcesDirectory.FrontSheetLabel.LogoPath);
+			row.Cells[5].Borders.Width = 0;
+			var logoPara = row.Cells[5].AddParagraph();
+			logoPara.Format.Borders.Width = 0;
+			var logo = logoPara.AddImage(ResourcesDirectory.FrontSheetLabel.LogoPath);
 			logo.ScaleHeight = 5;
 			logo.ScaleWidth = 5;
+			
 		}
 
 		private void AddAdditionalText(Pallet pallet)
