@@ -133,6 +133,24 @@
     <Compile Include="UserControls\FrontSheetLabels\LabelDetailsControl.Designer.cs">
       <DependentUpon>LabelDetailsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\PickSheetControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\PickSheetControl.Designer.cs">
+      <DependentUpon>PickSheetControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PickSheet\PickSheetLoadControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\PickSheet\PickSheetLoadControl.Designer.cs">
+      <DependentUpon>PickSheetLoadControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PickSheet\PickSheetPreviewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\PickSheet\PickSheetPreviewControl.Designer.cs">
+      <DependentUpon>PickSheetPreviewControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -159,6 +177,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\FrontSheetLabels\LabelDetailsControl.resx">
       <DependentUpon>LabelDetailsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\PickSheetControl.resx">
+      <DependentUpon>PickSheetControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\PickSheet\PickSheetLoadControl.resx">
+      <DependentUpon>PickSheetLoadControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\PickSheet\PickSheetPreviewControl.resx">
+      <DependentUpon>PickSheetPreviewControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels.Invoice.datasource" />

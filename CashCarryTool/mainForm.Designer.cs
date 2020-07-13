@@ -30,14 +30,18 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
 			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.frontSheetLabels1 = new Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabelsControl();
+			this.pickSheetControl1 = new Eden_Farm_Cash___Carry_Tool.UserControls.PickSheetControl();
 			this.tabControl1.SuspendLayout();
+			this.tabPage2.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
 			// 
+			this.tabControl1.Controls.Add(this.tabPage2);
 			this.tabControl1.Controls.Add(this.tabPage1);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -45,6 +49,16 @@
 			this.tabControl1.SelectedIndex = 0;
 			this.tabControl1.Size = new System.Drawing.Size(1335, 953);
 			this.tabControl1.TabIndex = 0;
+			// 
+			// tabPage2
+			// 
+			this.tabPage2.Controls.Add(this.pickSheetControl1);
+			this.tabPage2.Location = new System.Drawing.Point(4, 22);
+			this.tabPage2.Name = "tabPage2";
+			this.tabPage2.Size = new System.Drawing.Size(1327, 927);
+			this.tabPage2.TabIndex = 1;
+			this.tabPage2.Text = "Pick Sheet";
+			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
 			// tabPage1
 			// 
@@ -65,6 +79,14 @@
 			this.frontSheetLabels1.Size = new System.Drawing.Size(1321, 921);
 			this.frontSheetLabels1.TabIndex = 0;
 			// 
+			// pickSheetControl1
+			// 
+			this.pickSheetControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.pickSheetControl1.Location = new System.Drawing.Point(0, 0);
+			this.pickSheetControl1.Name = "pickSheetControl1";
+			this.pickSheetControl1.Size = new System.Drawing.Size(1327, 927);
+			this.pickSheetControl1.TabIndex = 0;
+			// 
 			// mainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -75,6 +97,7 @@
 			this.Name = "mainForm";
 			this.Text = "Eden Farm Cash + Carry Tool";
 			this.tabControl1.ResumeLayout(false);
+			this.tabPage2.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
 			this.ResumeLayout(false);
 
@@ -85,6 +108,8 @@
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPage1;
 		private UserControls.FrontSheetLabelsControl frontSheetLabels1;
+		private System.Windows.Forms.TabPage tabPage2;
+		private UserControls.PickSheetControl pickSheetControl1;
 	}
 }
 
