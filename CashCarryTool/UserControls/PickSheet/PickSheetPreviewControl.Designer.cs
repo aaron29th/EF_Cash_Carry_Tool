@@ -28,9 +28,8 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PickSheetPreviewControl));
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.PickSheetPreview = new PdfSharp.Forms.PagePreview();
+			this.PdfRenderer = new PdfiumViewer.PdfRenderer();
 			this.SuspendLayout();
 			// 
 			// panel1
@@ -41,26 +40,25 @@
 			this.panel1.Size = new System.Drawing.Size(931, 100);
 			this.panel1.TabIndex = 0;
 			// 
-			// PickSheetPreview
+			// PdfRenderer
 			// 
-			this.PickSheetPreview.DesktopColor = System.Drawing.SystemColors.ControlDark;
-			this.PickSheetPreview.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.PickSheetPreview.Location = new System.Drawing.Point(0, 0);
-			this.PickSheetPreview.Name = "PickSheetPreview";
-			this.PickSheetPreview.PageColor = System.Drawing.Color.GhostWhite;
-			this.PickSheetPreview.PageGraphicsUnit = PdfSharp.Drawing.XGraphicsUnit.Point;
-			this.PickSheetPreview.PageSize = ((PdfSharp.Drawing.XSize)(resources.GetObject("PickSheetPreview.PageSize")));
-			this.PickSheetPreview.PageSizeF = new System.Drawing.Size(595, 842);
-			this.PickSheetPreview.PageUnit = PdfSharp.Drawing.XGraphicsUnit.Point;
-			this.PickSheetPreview.Size = new System.Drawing.Size(931, 699);
-			this.PickSheetPreview.TabIndex = 1;
-			this.PickSheetPreview.ZoomPercent = 59;
+			this.PdfRenderer.Cursor = System.Windows.Forms.Cursors.Cross;
+			this.PdfRenderer.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.PdfRenderer.Location = new System.Drawing.Point(0, 0);
+			this.PdfRenderer.Name = "PdfRenderer";
+			this.PdfRenderer.Page = 0;
+			this.PdfRenderer.Rotation = PdfiumViewer.PdfRotation.Rotate0;
+			this.PdfRenderer.Size = new System.Drawing.Size(931, 699);
+			this.PdfRenderer.TabIndex = 1;
+			this.PdfRenderer.Text = "pdfRenderer1";
+			this.PdfRenderer.ZoomMode = PdfiumViewer.PdfViewerZoomMode.FitHeight;
+			this.PdfRenderer.Click += new System.EventHandler(this.PdfRenderer_Click);
 			// 
 			// PickSheetPreviewControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.PickSheetPreview);
+			this.Controls.Add(this.PdfRenderer);
 			this.Controls.Add(this.panel1);
 			this.Name = "PickSheetPreviewControl";
 			this.Size = new System.Drawing.Size(931, 799);
@@ -71,6 +69,6 @@
 		#endregion
 
 		private System.Windows.Forms.Panel panel1;
-		private PdfSharp.Forms.PagePreview PickSheetPreview;
+		private PdfiumViewer.PdfRenderer PdfRenderer;
 	}
 }

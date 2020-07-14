@@ -15,6 +15,13 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 		public PickSheetControl()
 		{
 			InitializeComponent();
+
+			PickSheetLoadControl.SetParent(this);
+		}
+
+		public void SetPickPdfPath(string filePath)
+		{
+			PickSheetPreviewControl.SetPickPdfPath(filePath);
 		}
 	}
 }

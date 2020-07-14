@@ -29,33 +29,45 @@
 		private void InitializeComponent()
 		{
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.pickSheetPreviewControl1 = new Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet.PickSheetPreviewControl();
+			this.PickSheetPreviewControl = new Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet.PickSheetPreviewControl();
+			this.PickSheetLoadControl = new Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet.PickSheetLoadControl();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// panel1
 			// 
+			this.panel1.Controls.Add(this.PickSheetLoadControl);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
 			this.panel1.Location = new System.Drawing.Point(0, 0);
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(276, 792);
 			this.panel1.TabIndex = 0;
 			// 
-			// pickSheetPreviewControl1
+			// PickSheetPreviewControl
 			// 
-			this.pickSheetPreviewControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.pickSheetPreviewControl1.Location = new System.Drawing.Point(276, 0);
-			this.pickSheetPreviewControl1.Name = "pickSheetPreviewControl1";
-			this.pickSheetPreviewControl1.Size = new System.Drawing.Size(978, 792);
-			this.pickSheetPreviewControl1.TabIndex = 1;
+			this.PickSheetPreviewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.PickSheetPreviewControl.Location = new System.Drawing.Point(276, 0);
+			this.PickSheetPreviewControl.Name = "PickSheetPreviewControl";
+			this.PickSheetPreviewControl.Size = new System.Drawing.Size(978, 792);
+			this.PickSheetPreviewControl.TabIndex = 1;
+			// 
+			// PickSheetLoadControl
+			// 
+			this.PickSheetLoadControl.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.PickSheetLoadControl.Location = new System.Drawing.Point(0, 0);
+			this.PickSheetLoadControl.Name = "PickSheetLoadControl";
+			this.PickSheetLoadControl.Size = new System.Drawing.Size(276, 792);
+			this.PickSheetLoadControl.TabIndex = 0;
 			// 
 			// PickSheetControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.pickSheetPreviewControl1);
+			this.Controls.Add(this.PickSheetPreviewControl);
 			this.Controls.Add(this.panel1);
 			this.Name = "PickSheetControl";
 			this.Size = new System.Drawing.Size(1254, 792);
+			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -63,6 +75,7 @@
 		#endregion
 
 		private System.Windows.Forms.Panel panel1;
-		private PickSheet.PickSheetPreviewControl pickSheetPreviewControl1;
+		private PickSheet.PickSheetPreviewControl PickSheetPreviewControl;
+		private PickSheet.PickSheetLoadControl PickSheetLoadControl;
 	}
 }
