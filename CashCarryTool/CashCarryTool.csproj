@@ -99,6 +99,7 @@
     <Compile Include="Models\MigraDocPrintDocument.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Models\PickSheet.cs" />
     <Compile Include="Models\StringValue.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

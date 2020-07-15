@@ -30,7 +30,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 			{
 				fileNames.Add(fileName.Replace($"{_picksFolderPath}\\", ""));
 			}
-			PicksListBox.DataSource = fileNames;
+			PicksCheckedListBox.DataSource = fileNames;
 		}
 
 		public PickSheetLoadControl()
@@ -43,14 +43,14 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 
 		private void PicksListBox_DoubleClick(object sender, EventArgs e)
 		{
-			if (PicksListBox.SelectedIndex == -1) return;
+			if (PicksCheckedListBox.SelectedIndex == -1) return;
 
-			string filePath = $"{_picksFolderPath}\\{PicksListBox.SelectedItem}";
+			string filePath = $"{_picksFolderPath}\\{PicksCheckedListBox.SelectedItem}";
 
 			_parent?.SetPickPdfPath(filePath);
 		}
 
-		private void ReloadPicksBtn_Click(object sender, EventArgs e)
+		private void RefreshPicksBtn_Click(object sender, EventArgs e)
 		{
 			ReloadPicks();
 		}
