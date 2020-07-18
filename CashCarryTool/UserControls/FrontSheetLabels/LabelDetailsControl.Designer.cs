@@ -116,7 +116,6 @@
 			this.PalletsGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
 			this.PalletsGridView.Size = new System.Drawing.Size(278, 254);
 			this.PalletsGridView.TabIndex = 0;
-			this.PalletsGridView.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.PalletsGridView_CellMouseUp);
 			this.PalletsGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.PalletsGridView_CellValueChanged);
 			this.PalletsGridView.CurrentCellDirtyStateChanged += new System.EventHandler(this.PalletsGridView_CurrentCellDirtyStateChanged);
 			this.PalletsGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.PalletsGridView_DataBindingComplete);

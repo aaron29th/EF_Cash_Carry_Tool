@@ -88,6 +88,7 @@
     <Compile Include="mainForm.Designer.cs">
       <DependentUpon>mainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\CheckedDataViewItem.cs" />
     <Compile Include="Models\ComboboxItem.cs" />
     <Compile Include="Models\FormattedTextHelper.cs" />
     <Compile Include="Models\FrontSheetLabels\FrontSheet.cs" />
@@ -199,6 +200,7 @@
       <DependentUpon>PickSheetPreviewControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Eden_Farm_Cash___Carry_Tool.Models.CheckedDataViewItem.datasource" />
     <None Include="Properties\DataSources\Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels.Invoice.datasource" />
     <None Include="Properties\DataSources\Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels.Pallet.datasource" />
     <None Include="Properties\DataSources\Eden_Farm_Cash___Carry_Tool.Models.StringValue.datasource" />

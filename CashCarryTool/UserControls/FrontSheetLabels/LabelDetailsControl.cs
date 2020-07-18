@@ -195,16 +195,6 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			}
 		}
 
-		private void PalletsGridView_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
-		{
-			// End of edition on each click on column of checkbox
-			if (e.RowIndex == -1) return;
-			if (e.ColumnIndex != PalletsGridViewSelectedColumn.Index &&
-			    e.ColumnIndex != PalletsGridViewTypeColumn.Index) return;
-
-			//PalletsGridView.EndEdit();
-		}
-
 		private void PalletsGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.ColumnIndex == -1 || e.RowIndex == -1) return;
@@ -373,7 +363,8 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			if (!_pallets[palletIndex].Selected) return;
 
 			int pageNumber = _pallets.Take(palletIndex + 1).Count(x => x.Selected = true);
-			_parent?.SetPreviewPageNumber(pageNumber);
+
+			_parent?.JumpToPalletLabel(pageNumber);
 		}
 	}
 }

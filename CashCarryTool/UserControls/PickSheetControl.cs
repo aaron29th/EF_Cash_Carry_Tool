@@ -19,9 +19,27 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 			PickSheetLoadControl.SetParent(this);
 		}
 
-		public void SetPickPdfPath(string filePath)
+		private void LoadPreview()
 		{
-			PickSheetPreviewControl.SetPickPdfPath(filePath);
+			if (PickSheetLoadControl.SelectedFilePaths.Count == 0) return;
+			
+			var pickSheet = new Models.PickSheet()
+			{
+				FilePaths = PickSheetLoadControl.SelectedFilePaths
+				//SelectedLines = PickSheetLoadControl.Se
+				
+			};
+
+			pickSheet.ImportPdfs();
+
+			pickSheet.OverLayPdf();
+
+			PickSheetPreviewControl.LoadPdfPreview(pickSheet);
+		}
+
+		public void ConfigUpdated()
+		{
+			LoadPreview();
 		}
 	}
 }

@@ -113,8 +113,10 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 			if (FrontSheetLabelsPreviewControl.LiveReload) Reload();
 		}
 
-		public void SetPreviewPageNumber(int pageNumber)
+		public void JumpToPalletLabel(int pageNumber)
 		{
+			if (!FrontSheetLabelsPreviewControl.HideDuplicatePages)
+				pageNumber *= LabelDetailsControl.NumLabelsPerPallet;
 			FrontSheetLabelsPreviewControl.SetPreviewPageNumber(pageNumber);
 		}
 
