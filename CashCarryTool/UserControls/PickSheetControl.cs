@@ -25,16 +25,17 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 			
 			var pickSheet = new Models.PickSheet()
 			{
-				FilePaths = PickSheetLoadControl.SelectedFilePaths
-				//SelectedLines = PickSheetLoadControl.Se
+				FilePaths = PickSheetLoadControl.SelectedFilePaths,
+				SelectedLines = PickSheetLoadControl.Lines
 				
 			};
 
 			pickSheet.ImportPdfs();
 
-			pickSheet.OverLayPdf();
+			pickSheet.OverLayPdf(true);
 
 			PickSheetPreviewControl.LoadPdfPreview(pickSheet);
+			PickSheetLoadControl.Lines = pickSheet.SelectedLines;
 		}
 
 		public void ConfigUpdated()

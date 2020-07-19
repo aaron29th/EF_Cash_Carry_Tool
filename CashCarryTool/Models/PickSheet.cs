@@ -15,11 +15,28 @@ namespace Eden_Farm_Cash___Carry_Tool.Models
 	{
 		private const double _linesOffset = 60;
 		private const double _lineHeight = 20;
-		private const int _maxLinesPerPage = 5;
+		private const int _linesPerPage = 60;
+		private const int _dashedLineEvery = 3;
+		private const float _clickGuideLineLength = 50;
 		private readonly PdfDocument _doc;
+
+		private readonly XPen solidBlackLine = new XPen(XColors.Red, 3);
+		private readonly XPen solidRedLine = new XPen(XColors.Red, 3);
+		private readonly XPen solidBlueLine = new XPen(XColors.Blue, 3);
+		private readonly XPen solidGreenLine = new XPen(XColors.Green, 3);
+		private readonly XPen dashedBlackLine = new XPen(XColors.Blue, 1)
+		{
+			DashStyle = XDashStyle.Dash,
+			DashPattern = new[] { 4.0, 4.0 }
+		};
 
 		public List<string> FilePaths { get; set; }
 		public List<List<bool>> SelectedLines { get; set; }
+
+		public static void ProcessLineClicks(ref List<List<bool>> selectedLines, List<float> clickYLocations)
+		{
+
+		}
 
 		public PickSheet()
 		{
@@ -54,39 +71,100 @@ namespace Eden_Farm_Cash___Carry_Tool.Models
 			}
 		}
 
-		public void OverLayPdf()
+		private void OverlayGuideLine(XGraphics gfx, int lineIndex, double lineY)
 		{
-			if (_doc == null || SelectedLines == null || SelectedLines.Count < _doc.PageCount) return;
+			if (lineIndex % 3 == 0)
+				gfx.DrawLine(solidRedLine, 0, lineY, _clickGuideLineLength, lineY);
+			else if (lineIndex % 3 == 1)
+				gfx.DrawLine(solidBlueLine, 0, lineY, _clickGuideLineLength, lineY);
+			else
+				gfx.DrawLine(solidGreenLine, 0, lineY, _clickGuideLineLength, lineY);
+		}
 
-			for (int pageNumber = 0; pageNumber < _doc.PageCount; pageNumber++)
+		private void OverlaySelected(XGraphics gfx, int lineIndex, double lineY)
+		{
+			gfx.DrawLine(solidBlackLine, 0, lineY, page.Width, lineY);
+		}
+
+		private void OverlayFixedLines(bool lineClickGuides)
+		{
+			if (_doc == null) return;
+
+			for (int pageIndex = 0; pageIndex < _doc.PageCount; pageIndex++)
 			{
-				var page = _doc.Pages[pageNumber];
+				var page = _doc.Pages[pageIndex];
 				using (XGraphics gfx = XGraphics.FromPdfPage(page))
 				{
+					
+
 					// Draw lines
-					for (int lineNumber = 0; lineNumber < _maxLinesPerPage; lineNumber++)
+					for (int lineIndex = 0; lineIndex < _linesPerPage; lineIndex++)
 					{
-						double lineY = lineNumber * _lineHeight + _linesOffset;
+						double lineY = lineIndex * _lineHeight + _linesOffset;
 
-						// Draw line ever 3
-						if (lineNumber % 3 == 0)
-						{
-							XPen dashedBlackLine = new XPen(XColors.Blue, 1)
-							{
-								DashStyle = XDashStyle.Dash,
-								DashPattern = new[] { 4.0, 4.0 }
-							};
+						// Draw dashed line every ...
+						if (lineIndex % _dashedLineEvery == 0)
 							gfx.DrawLine(dashedBlackLine, 0, lineY, page.Width, lineY);
-						}
 
-						// Draw selected lines
-						if (!SelectedLines[pageNumber][lineNumber]) continue;
+						// Draw click guides
+						if (lineClickGuides) 
+							OverlayGuideLine(gfx, lineIndex, lineY);
 
-						XPen lineRed = new XPen(XColors.Red, 3);
-						gfx.DrawLine(lineRed, 0, lineY, page.Width, lineY);
+						OverlaySelected(gfx, lineIndex, lineY);
+						
 					}
 				}
 			}
+		}
+
+		private void InitSelectedLines()
+		{
+			SelectedLines = new List<List<bool>>();
+
+			if (_doc == null) return;
+
+			for (int pageIndex = 0; pageIndex < _doc.PageCount; pageIndex++)
+			{
+				SelectedLines.Add(new List<bool>());
+				for (int lineIndex = 0; lineIndex < _linesPerPage; lineIndex++)
+				{
+					SelectedLines[pageIndex].Add(false);
+				}
+			}
+		}
+
+		private void OverlaySelectedLines()
+		{
+			if (_doc == null || SelectedLines == null) return;
+
+			for (int pageIndex = 0; pageIndex < _doc.PageCount && pageIndex < SelectedLines.Count; pageIndex++)
+			{
+				var page = _doc.Pages[pageIndex];
+				using (XGraphics gfx = XGraphics.FromPdfPage(page))
+				{
+					
+
+					// Draw lines
+					for (int lineIndex = 0; lineIndex < _linesPerPage && lineIndex < SelectedLines[pageIndex].Count; lineIndex++)
+					{
+						double lineY = lineIndex * _lineHeight + _linesOffset;
+
+						if (!SelectedLines[pageIndex][lineIndex])
+							continue;
+
+						
+					}
+				}
+			}
+		}
+
+		public void OverLayPdf(bool lineClickGuides)
+		{
+			OverlayFixedLines(lineClickGuides);
+
+			if (SelectedLines == null || SelectedLines.Count == 0)
+				InitSelectedLines();
+			OverlaySelectedLines();
 		}
 
 		public Stream GetStream()

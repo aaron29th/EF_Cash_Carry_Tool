@@ -15,8 +15,8 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 	public partial class PickSheetLoadControl : PickSheetControlBase
 	{
 		private readonly string _picksFolderPath = $"{Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Pick PDFs\\";
+		
 		private readonly BindingList<CheckedDataViewItem> _files = new BindingList<CheckedDataViewItem>();
-
 		public List<string> SelectedFilePaths
 		{
 			get
@@ -27,6 +27,40 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 				for (int i = 0; i < filePaths.Count; i++)
 					filePaths[i] = _picksFolderPath + filePaths[i];
 				return filePaths;
+			}
+		}
+
+		private readonly List<BindingList<CheckedDataViewItem>> _lines = new List<BindingList<CheckedDataViewItem>>();
+		public List<List<bool>> Lines
+		{
+			get
+			{
+				var newLines = new List<List<bool>>();
+				foreach (var page in _lines)
+				{
+					newLines.Add(page.Select(x => x.Checked).ToList());
+				}
+
+				return newLines;
+			}
+			set
+			{
+				_lines.Clear();
+				PageListBox.Items.Clear();
+				LinesGridView.DataSource = null;
+				for (int pageIndex = 0; pageIndex < value.Count; pageIndex++)
+				{
+					PageListBox.Items.Add(pageIndex + 1);
+					_lines.Add(new BindingList<CheckedDataViewItem>());
+					for (int lineIndex = 0; lineIndex < value[pageIndex].Count; lineIndex++)
+					{
+						_lines[pageIndex].Add(new CheckedDataViewItem()
+						{
+							Checked = value[pageIndex][lineIndex],
+							Text = lineIndex.ToString()
+						});
+					}
+				}
 			}
 		}
 
@@ -81,6 +115,11 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 		private void FilesGridView_CurrentCellDirtyStateChanged(object sender, EventArgs e)
 		{
 			FilesGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
+		}
+
+		private void PageListBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			LinesGridView.DataSource = _lines[PageListBox.SelectedIndex];
 		}
 	}
 }

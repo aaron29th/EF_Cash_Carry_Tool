@@ -81,21 +81,26 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 				int rowIndex = i / 3 + 1;
 				int columnIndex = i % 3;
 				var invoicePara = LayoutHelper.CellAddParagraphWithSpace(table.Rows[rowIndex].Cells[columnIndex], "");
-				if (i < Invoices.Count)
-				{
-					int totalUnits = Invoices[i].AmbientUnits + Invoices[i].BulkUnits + Invoices[i].MixedUnits;
-					var invoiceNumberText = new FormattedTextHelper(Invoices[i].InvoiceNumber);
-					invoiceNumberText.Size = 9;
-					invoiceNumberText.Bold = true;
-					invoicePara.Add(invoiceNumberText);
-
-					invoicePara.AddSpace(1);
-
-					var unitsText = new FormattedTextHelper($"| {totalUnits} T | {Invoices[i].MixedUnits} M | {Invoices[i].BulkUnits} B | {Invoices[i].AmbientUnits} A");
-					unitsText.Size = 8;
-					invoicePara.Add(unitsText);
-				}
 				
+				if (i >= Invoices.Count) 
+					continue;
+
+				var invoiceNumberText = new FormattedTextHelper(Invoices[i].InvoiceNumber);
+				invoiceNumberText.Size = 9;
+				invoiceNumberText.Bold = true;
+				invoicePara.Add(invoiceNumberText);
+
+				// Unit totals
+				int totalUnits = Invoices[i].AmbientUnits + Invoices[i].BulkUnits + Invoices[i].MixedUnits;
+				if (totalUnits <= 0)
+					continue;
+
+				invoicePara.AddSpace(1);
+
+				var unitsText = new FormattedTextHelper($"| {totalUnits} T | {Invoices[i].MixedUnits} M | {Invoices[i].BulkUnits} B | {Invoices[i].AmbientUnits} A");
+				unitsText.Size = 8;
+				invoicePara.Add(unitsText);
+
 			}
 		}
 
