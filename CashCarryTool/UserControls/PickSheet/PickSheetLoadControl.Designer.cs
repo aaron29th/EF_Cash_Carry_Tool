@@ -63,6 +63,8 @@
 			// 
 			this.FilesGridView.AllowUserToAddRows = false;
 			this.FilesGridView.AllowUserToDeleteRows = false;
+			this.FilesGridView.AllowUserToResizeColumns = false;
+			this.FilesGridView.AllowUserToResizeRows = false;
 			this.FilesGridView.AutoGenerateColumns = false;
 			this.FilesGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.FilesGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -120,6 +122,8 @@
 			// 
 			this.LinesGridView.AllowUserToAddRows = false;
 			this.LinesGridView.AllowUserToDeleteRows = false;
+			this.LinesGridView.AllowUserToResizeColumns = false;
+			this.LinesGridView.AllowUserToResizeRows = false;
 			this.LinesGridView.AutoGenerateColumns = false;
 			this.LinesGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.LinesGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -133,6 +137,8 @@
 			this.LinesGridView.RowHeadersVisible = false;
 			this.LinesGridView.Size = new System.Drawing.Size(340, 284);
 			this.LinesGridView.TabIndex = 2;
+			this.LinesGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.LinesGridView_CellValueChanged);
+			this.LinesGridView.CurrentCellDirtyStateChanged += new System.EventHandler(this.LinesGridView_CurrentCellDirtyStateChanged);
 			// 
 			// dataGridViewTextBoxColumn1
 			// 

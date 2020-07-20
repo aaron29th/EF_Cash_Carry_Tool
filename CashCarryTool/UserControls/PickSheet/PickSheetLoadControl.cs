@@ -61,8 +61,13 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 						});
 					}
 				}
+
+				if (_selectedPageIndex < value.Count && _selectedPageIndex != -1)
+					PageListBox.SelectedIndex = _selectedPageIndex;
 			}
 		}
+
+		private int _selectedPageIndex = -1;
 
 		private void InitPicksFolder()
 		{
@@ -105,21 +110,40 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 			ReloadPicks();
 		}
 
-		private void FilesGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-		{
-			if (e.ColumnIndex == -1 || e.RowIndex == -1) return;
-
-			ConfigUpdated();
-		}
-
 		private void FilesGridView_CurrentCellDirtyStateChanged(object sender, EventArgs e)
 		{
 			FilesGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
 		}
 
+		private void FilesGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.ColumnIndex == -1 || e.RowIndex == -1) 
+				return;
+
+			_lines.Clear();
+			ConfigUpdated();
+		}
+
 		private void PageListBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
+			if (PageListBox.SelectedIndex == -1)
+				return;
+
+			_selectedPageIndex = PageListBox.SelectedIndex;
 			LinesGridView.DataSource = _lines[PageListBox.SelectedIndex];
+		}
+
+		private void LinesGridView_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+		{
+			LinesGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
+		}
+
+		private void LinesGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.ColumnIndex == -1 || e.RowIndex == -1) 
+				return;
+
+			ConfigUpdated();
 		}
 	}
 }

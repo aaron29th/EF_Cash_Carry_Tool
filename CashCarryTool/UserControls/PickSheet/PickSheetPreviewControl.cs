@@ -19,6 +19,8 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 {
 	public partial class PickSheetPreviewControl : UserControl
 	{
+		private Rectangle _currentDisplayRectangle;
+
 		public PickSheetPreviewControl()
 		{
 			InitializeComponent();
@@ -28,7 +30,19 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 		{
 			var s = pickSheet.GetStream();
 			var pdfDocument = PdfiumViewer.PdfDocument.Load(s);
+			
+			var numPages = pdfDocument.PageCount;
+			var zeroYPageIndex = numPages / 2;
+
+			var firstPageYOffset = zeroYPageIndex * -_currentDisplayRectangle.Height / numPages;
+
+			Rectangle oldDisplayRectangle = _currentDisplayRectangle;
+			oldDisplayRectangle.Y = (int)(Math.Abs(oldDisplayRectangle.Y) + firstPageYOffset);
+
 			PdfRenderer.Load(pdfDocument);
+			//PdfRenderer.
+			if (oldDisplayRectangle != null)
+				PdfRenderer.ScrollIntoView(oldDisplayRectangle);
 		}
 
 		private void PdfRenderer_Click(object sender, EventArgs e)
@@ -40,6 +54,15 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 				var pageY = pageHeight - point.Location.Y;
 
 			}
+		}
+
+		private void PdfRenderer_Scroll(object sender, ScrollEventArgs e)
+		{
+		}
+
+		private void PdfRenderer_DisplayRectangleChanged(object sender, EventArgs e)
+		{
+			_currentDisplayRectangle = PdfRenderer.DisplayRectangle;
 		}
 	}
 }
