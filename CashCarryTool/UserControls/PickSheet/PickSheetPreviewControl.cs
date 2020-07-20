@@ -30,19 +30,15 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 		{
 			var s = pickSheet.GetStream();
 			var pdfDocument = PdfiumViewer.PdfDocument.Load(s);
-			
-			var numPages = pdfDocument.PageCount;
-			var zeroYPageIndex = numPages / 2;
 
-			var firstPageYOffset = zeroYPageIndex * -_currentDisplayRectangle.Height / numPages;
+			var firstPageYOffset = _currentDisplayRectangle.Height / 2 - (PdfRenderer.Bounds.Height / 2);
 
 			Rectangle oldDisplayRectangle = _currentDisplayRectangle;
-			oldDisplayRectangle.Y = (int)(Math.Abs(oldDisplayRectangle.Y) + firstPageYOffset);
+			oldDisplayRectangle.Y = (Math.Abs(oldDisplayRectangle.Y) - firstPageYOffset);
 
 			PdfRenderer.Load(pdfDocument);
-			//PdfRenderer.
-			if (oldDisplayRectangle != null)
-				PdfRenderer.ScrollIntoView(oldDisplayRectangle);
+
+			PdfRenderer.ScrollIntoView(oldDisplayRectangle);
 		}
 
 		private void PdfRenderer_Click(object sender, EventArgs e)
