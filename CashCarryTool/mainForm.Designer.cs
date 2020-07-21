@@ -31,9 +31,9 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.pickSheetControl1 = new Eden_Farm_Cash___Carry_Tool.UserControls.PickSheetControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.frontSheetLabels1 = new Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabelsControl();
-			this.pickSheetControl1 = new Eden_Farm_Cash___Carry_Tool.UserControls.PickSheetControl();
 			this.tabControl1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -41,8 +41,8 @@
 			// 
 			// tabControl1
 			// 
-			this.tabControl1.Controls.Add(this.tabPage2);
 			this.tabControl1.Controls.Add(this.tabPage1);
+			this.tabControl1.Controls.Add(this.tabPage2);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
@@ -59,6 +59,14 @@
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Pick Sheet";
 			this.tabPage2.UseVisualStyleBackColor = true;
+			// 
+			// pickSheetControl1
+			// 
+			this.pickSheetControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.pickSheetControl1.Location = new System.Drawing.Point(0, 0);
+			this.pickSheetControl1.Name = "pickSheetControl1";
+			this.pickSheetControl1.Size = new System.Drawing.Size(1327, 927);
+			this.pickSheetControl1.TabIndex = 0;
 			// 
 			// tabPage1
 			// 
@@ -78,14 +86,6 @@
 			this.frontSheetLabels1.Name = "frontSheetLabels1";
 			this.frontSheetLabels1.Size = new System.Drawing.Size(1321, 921);
 			this.frontSheetLabels1.TabIndex = 0;
-			// 
-			// pickSheetControl1
-			// 
-			this.pickSheetControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.pickSheetControl1.Location = new System.Drawing.Point(0, 0);
-			this.pickSheetControl1.Name = "pickSheetControl1";
-			this.pickSheetControl1.Size = new System.Drawing.Size(1327, 927);
-			this.pickSheetControl1.TabIndex = 0;
 			// 
 			// mainForm
 			// 

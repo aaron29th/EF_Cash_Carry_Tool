@@ -39,6 +39,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 			PdfRenderer.Load(pdfDocument);
 
 			PdfRenderer.ScrollIntoView(oldDisplayRectangle);
+			
 		}
 
 		private void PdfRenderer_Click(object sender, EventArgs e)
@@ -68,7 +69,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 
 		private void PrintBtn_Click(object sender, EventArgs e)
 		{
-			PdfRenderer.Cursor = System.Windows.Forms.Cursors.Cross;
+			_parent?.PrintDocument();
 		}
 
 		private void ImportDataBtn_Click(object sender, EventArgs e)

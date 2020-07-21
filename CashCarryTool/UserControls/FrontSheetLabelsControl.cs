@@ -66,6 +66,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 				Document = doc,
 
 				Title = GeneralDetailsControl.Title,
+				TitleSize = GeneralDetailsControl.TitleSize,
 				CustomerCode = GeneralDetailsControl.CustomerCode,
 				DeliveryDate = GeneralDetailsControl.DeliveryDate,
 

@@ -19,6 +19,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models
 		private const int _linesPerPage = 43;
 		private const int _dashedLineEvery = 3;
 		private const float _clickGuideLineLength = 50;
+		private const float _LineLeftMargin = 10;
 		private readonly PdfDocument _doc;
 
 		private readonly XFont _lineNumberFont = new XFont(FontFamily.GenericSerif, 8, XFontStyle.Regular);
@@ -88,11 +89,11 @@ namespace Eden_Farm_Cash___Carry_Tool.Models
 		private void OverlayGuideLine(XGraphics gfx, int lineIndex, double lineY)
 		{
 			if (lineIndex % 3 == 0)
-				gfx.DrawLine(solidRedLine, 10, lineY, _clickGuideLineLength, lineY);
+				gfx.DrawLine(solidRedLine, _LineLeftMargin, lineY, _clickGuideLineLength, lineY);
 			else if (lineIndex % 3 == 1)
-				gfx.DrawLine(solidBlueLine, 10, lineY, _clickGuideLineLength, lineY);
+				gfx.DrawLine(solidBlueLine, _LineLeftMargin, lineY, _clickGuideLineLength, lineY);
 			else
-				gfx.DrawLine(solidGreenLine, 10, lineY, _clickGuideLineLength, lineY);
+				gfx.DrawLine(solidGreenLine, _LineLeftMargin, lineY, _clickGuideLineLength, lineY);
 
 			// Add line number
 			gfx.DrawString(lineIndex.ToString(), _lineNumberFont, new XSolidBrush(), new PointF(0, (float)lineY + 3));
@@ -136,14 +137,14 @@ namespace Eden_Farm_Cash___Carry_Tool.Models
 
 						// Draw dashed line every ...
 						if (lineIndex % _dashedLineEvery == 0)
-							gfx.DrawLine(dashedBlackLine, 0, lineY, page.Width, lineY);
+							gfx.DrawLine(dashedBlackLine, _LineLeftMargin, lineY, page.Width, lineY);
 
 						// Draw click guides
 						if (lineClickGuides)
 							OverlayGuideLine(gfx, lineIndex, lineY);
 
 						if (pageIndex < SelectedLines.Count && SelectedLines[pageIndex][lineIndex])
-							gfx.DrawLine(solidBlackLine, 0, lineY, page.Width, lineY);
+							gfx.DrawLine(solidBlackLine, _LineLeftMargin, lineY, page.Width, lineY);
 
 					}
 				}
@@ -152,6 +153,8 @@ namespace Eden_Farm_Cash___Carry_Tool.Models
 
 		public Stream GetStream()
 		{
+			if (_doc.PageCount == 0)
+				return null;
 			var stream = new MemoryStream();
 			_doc.Save(stream);
 

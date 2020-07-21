@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PdfiumViewer;
 
 namespace Eden_Farm_Cash___Carry_Tool.UserControls
 {
@@ -38,6 +40,23 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 			PickSheetPreviewControl.LoadPdfPreview(pickSheet);
 			PickSheetLoadControl.Lines = pickSheet.SelectedLines;
 		}
+
+		public void PrintDocument()
+		{
+			var pickSheet = new Models.PickSheet()
+			{
+				FilePaths = PickSheetLoadControl.SelectedFilePaths,
+				SelectedLines = PickSheetLoadControl.Lines
+
+			};
+
+			pickSheet.ImportPdfs();
+
+			pickSheet.OverLayPdf(false);
+
+			
+		}
+
 
 		public void ConfigUpdated()
 		{

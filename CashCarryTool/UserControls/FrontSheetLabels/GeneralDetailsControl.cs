@@ -20,6 +20,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		private BindingList<GeneralDetailsQuickSelect> _quickSelects;
 
 		public string Title { get; private set; }
+		public float TitleSize { get; private set; }
 		public string CustomerCode { get; private set; }
 		public string DeliveryDate { get; private set; }
 		public string PickDate { get; private set; }
@@ -49,6 +50,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 
 			// Init properties
 			Title = "";
+			TitleSize = 70;
 			CustomerCode = "";
 
 			// Init quick selects
@@ -64,7 +66,19 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		private void TitleTxt_TextChanged(object sender, EventArgs e)
 		{
 			Title = TitleTxt.Text;
-			DetailsUpdated();
+
+			if (!LabelTitleSizeAutoCheck.Checked)
+			{
+				DetailsUpdated();
+				return;
+			}
+
+			if (TitleTxt.Text.Length < 18)
+				LabelTitleSizeNumEdit.Value = 70;
+			else if (TitleTxt.Text.Length < 25)
+				LabelTitleSizeNumEdit.Value = 45;
+			else
+				LabelTitleSizeNumEdit.Value = 40;
 		}
 
 		private void CustomerCodeTxt_TextChanged(object sender, EventArgs e)
@@ -123,6 +137,17 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		private void PickDateTomorrow_Click(object sender, EventArgs e)
 		{
 			PickDateSel.Value = DateTime.Now.AddDays(1);
+		}
+
+		private void LabelTitleSizeNumEdit_ValueChanged(object sender, EventArgs e)
+		{
+			TitleSize = (float) LabelTitleSizeNumEdit.Value;
+			DetailsUpdated();
+		}
+
+		private void LabelTitleSizeAutoCheck_CheckedChanged(object sender, EventArgs e)
+		{
+			LabelTitleSizeNumEdit.Enabled = !LabelTitleSizeAutoCheck.Checked;
 		}
 	}
 }

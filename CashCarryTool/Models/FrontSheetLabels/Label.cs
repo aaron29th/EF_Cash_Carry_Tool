@@ -18,6 +18,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 		private Section _currentSection;
 
 		public string Title { get; set; }
+		public float TitleSize { get; set; }
 		public string CustomerCode { get; set; }
 		public string DeliveryDate { get; set; }
 
@@ -37,17 +38,14 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 			LayoutHelper.AddSpaceAfter(_currentSection, space);
 		}
 
-		private static float GetTitleSize(int length)
-		{
-			if (length < 18) return 70;
-			return 45;
-		}
-
 		private void AddTitle()
 		{
+			if (TitleSize <= 0)
+				TitleSize = 70;
+
 			Table table = LayoutHelper.AddEqualWidthTable(
 				1, 1, _currentSection, _borderWidth + 1);
-			table.Format.Font.Size = GetTitleSize(Title.Length);
+			table.Format.Font.Size = TitleSize;
 			table.Format.Font.Bold = true;
 
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[0], Title);
