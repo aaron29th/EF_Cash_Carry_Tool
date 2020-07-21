@@ -30,14 +30,21 @@
 		{
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.PdfRenderer = new PdfiumViewer.PdfRenderer();
+			this.ShowGuidesCheck = new System.Windows.Forms.CheckBox();
+			this.PrintBtn = new System.Windows.Forms.Button();
+			this.ImportDataBtn = new System.Windows.Forms.Button();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// panel1
 			// 
+			this.panel1.Controls.Add(this.ImportDataBtn);
+			this.panel1.Controls.Add(this.PrintBtn);
+			this.panel1.Controls.Add(this.ShowGuidesCheck);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.panel1.Location = new System.Drawing.Point(0, 699);
+			this.panel1.Location = new System.Drawing.Point(0, 759);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(931, 100);
+			this.panel1.Size = new System.Drawing.Size(931, 40);
 			this.panel1.TabIndex = 0;
 			// 
 			// PdfRenderer
@@ -48,12 +55,45 @@
 			this.PdfRenderer.Name = "PdfRenderer";
 			this.PdfRenderer.Page = 0;
 			this.PdfRenderer.Rotation = PdfiumViewer.PdfRotation.Rotate0;
-			this.PdfRenderer.Size = new System.Drawing.Size(931, 699);
+			this.PdfRenderer.Size = new System.Drawing.Size(931, 759);
 			this.PdfRenderer.TabIndex = 1;
 			this.PdfRenderer.Text = "pdfRenderer1";
 			this.PdfRenderer.ZoomMode = PdfiumViewer.PdfViewerZoomMode.FitHeight;
 			this.PdfRenderer.DisplayRectangleChanged += new System.EventHandler(this.PdfRenderer_DisplayRectangleChanged);
 			this.PdfRenderer.Click += new System.EventHandler(this.PdfRenderer_Click);
+			// 
+			// ShowGuidesCheck
+			// 
+			this.ShowGuidesCheck.AutoSize = true;
+			this.ShowGuidesCheck.Checked = true;
+			this.ShowGuidesCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.ShowGuidesCheck.Location = new System.Drawing.Point(15, 12);
+			this.ShowGuidesCheck.Name = "ShowGuidesCheck";
+			this.ShowGuidesCheck.Size = new System.Drawing.Size(89, 17);
+			this.ShowGuidesCheck.TabIndex = 0;
+			this.ShowGuidesCheck.Text = "Show Guides";
+			this.ShowGuidesCheck.UseVisualStyleBackColor = true;
+			this.ShowGuidesCheck.CheckedChanged += new System.EventHandler(this.ShowGuidesCheck_CheckedChanged);
+			// 
+			// PrintBtn
+			// 
+			this.PrintBtn.Location = new System.Drawing.Point(122, 8);
+			this.PrintBtn.Name = "PrintBtn";
+			this.PrintBtn.Size = new System.Drawing.Size(75, 23);
+			this.PrintBtn.TabIndex = 1;
+			this.PrintBtn.Text = "Print";
+			this.PrintBtn.UseVisualStyleBackColor = true;
+			this.PrintBtn.Click += new System.EventHandler(this.PrintBtn_Click);
+			// 
+			// ImportDataBtn
+			// 
+			this.ImportDataBtn.Location = new System.Drawing.Point(203, 8);
+			this.ImportDataBtn.Name = "ImportDataBtn";
+			this.ImportDataBtn.Size = new System.Drawing.Size(75, 23);
+			this.ImportDataBtn.TabIndex = 2;
+			this.ImportDataBtn.Text = "Import Data";
+			this.ImportDataBtn.UseVisualStyleBackColor = true;
+			this.ImportDataBtn.Click += new System.EventHandler(this.ImportDataBtn_Click);
 			// 
 			// PickSheetPreviewControl
 			// 
@@ -63,6 +103,8 @@
 			this.Controls.Add(this.panel1);
 			this.Name = "PickSheetPreviewControl";
 			this.Size = new System.Drawing.Size(931, 799);
+			this.panel1.ResumeLayout(false);
+			this.panel1.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -71,5 +113,8 @@
 
 		private System.Windows.Forms.Panel panel1;
 		private PdfiumViewer.PdfRenderer PdfRenderer;
+		private System.Windows.Forms.Button ImportDataBtn;
+		private System.Windows.Forms.Button PrintBtn;
+		private System.Windows.Forms.CheckBox ShowGuidesCheck;
 	}
 }

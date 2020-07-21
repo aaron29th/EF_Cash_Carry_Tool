@@ -60,5 +60,20 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 		{
 			_currentDisplayRectangle = PdfRenderer.DisplayRectangle;
 		}
+
+		private void ShowGuidesCheck_CheckedChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void PrintBtn_Click(object sender, EventArgs e)
+		{
+			PdfRenderer.Cursor = System.Windows.Forms.Cursors.Cross;
+		}
+
+		private void ImportDataBtn_Click(object sender, EventArgs e)
+		{
+
+		}
 	}
 }

@@ -38,13 +38,13 @@ namespace Eden_Farm_Cash___Carry_Tool.Models
 
 		public static List<List<bool>> ProcessLineClick(List<List<bool>> selectedLines, float clickYLocation, int pageIndex)
 		{
-			if (pageIndex >= selectedLines.Count)
+			if (pageIndex >= selectedLines.Count || pageIndex < 0)
 				return null;
 
 			var lineNumberRuff = (clickYLocation - _linesOffset) / _lineHeight;
 			int lineNumber = (int) Math.Round(lineNumberRuff, MidpointRounding.AwayFromZero);
 
-			if (lineNumber >= selectedLines[pageIndex].Count)
+			if (lineNumber >= selectedLines[pageIndex].Count || lineNumber < 0)
 				return null;
 
 			selectedLines[pageIndex][lineNumber] = !selectedLines[pageIndex][lineNumber];
