@@ -17,7 +17,7 @@ using PdfDocument = PdfSharp.Pdf.PdfDocument;
 
 namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 {
-	public partial class PickSheetPreviewControl : UserControl
+	public partial class PickSheetPreviewControl : PickSheetControlBase
 	{
 		private Rectangle _currentDisplayRectangle;
 
@@ -46,14 +46,14 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 			if (e is MouseEventArgs args && sender is PdfRenderer renderer)
 			{
 				var point = renderer.PointToPdf(args.Location);
-				var pageHeight = 300;
+				var pageHeight = renderer.Bounds.Height;
+
+				pageHeight = 841;
+				
 				var pageY = pageHeight - point.Location.Y;
 
+				_parent?.LineClicked(pageY, point.Page);
 			}
-		}
-
-		private void PdfRenderer_Scroll(object sender, ScrollEventArgs e)
-		{
 		}
 
 		private void PdfRenderer_DisplayRectangleChanged(object sender, EventArgs e)

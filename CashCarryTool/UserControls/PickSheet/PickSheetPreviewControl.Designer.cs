@@ -52,7 +52,6 @@
 			this.PdfRenderer.TabIndex = 1;
 			this.PdfRenderer.Text = "pdfRenderer1";
 			this.PdfRenderer.ZoomMode = PdfiumViewer.PdfViewerZoomMode.FitHeight;
-			this.PdfRenderer.Scroll += new System.Windows.Forms.ScrollEventHandler(this.PdfRenderer_Scroll);
 			this.PdfRenderer.DisplayRectangleChanged += new System.EventHandler(this.PdfRenderer_DisplayRectangleChanged);
 			this.PdfRenderer.Click += new System.EventHandler(this.PdfRenderer_Click);
 			// 

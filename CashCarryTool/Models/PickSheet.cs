@@ -36,9 +36,20 @@ namespace Eden_Farm_Cash___Carry_Tool.Models
 		public List<string> FilePaths { get; set; }
 		public List<List<bool>> SelectedLines { get; set; }
 
-		public static void ProcessLineClicks(ref List<List<bool>> selectedLines, List<float> clickYLocations)
+		public static List<List<bool>> ProcessLineClick(List<List<bool>> selectedLines, float clickYLocation, int pageIndex)
 		{
+			if (pageIndex >= selectedLines.Count)
+				return null;
 
+			var lineNumberRuff = (clickYLocation - _linesOffset) / _lineHeight;
+			int lineNumber = (int) Math.Round(lineNumberRuff, MidpointRounding.AwayFromZero);
+
+			if (lineNumber >= selectedLines[pageIndex].Count)
+				return null;
+
+			selectedLines[pageIndex][lineNumber] = !selectedLines[pageIndex][lineNumber];
+
+			return selectedLines;
 		}
 
 		public PickSheet()
@@ -85,11 +96,6 @@ namespace Eden_Farm_Cash___Carry_Tool.Models
 
 			// Add line number
 			gfx.DrawString(lineIndex.ToString(), _lineNumberFont, new XSolidBrush(), new PointF(0, (float)lineY + 3));
-		}
-
-		private void OverlayFixedLines(bool lineClickGuides)
-		{
-			
 		}
 
 		private void InitSelectedLines()

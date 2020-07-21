@@ -17,6 +17,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 			InitializeComponent();
 
 			PickSheetLoadControl.SetParent(this);
+			PickSheetPreviewControl.SetParent(this);
 		}
 
 		private void LoadPreview()
@@ -41,6 +42,16 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 		public void ConfigUpdated()
 		{
 			LoadPreview();
+		}
+
+		public void LineClicked(float clickYLocation, int pageIndex)
+		{
+			var result = Models.PickSheet.ProcessLineClick(PickSheetLoadControl.Lines, clickYLocation, pageIndex);
+			if (result == null)
+				return;
+
+			PickSheetLoadControl.Lines = result;
+			ConfigUpdated();
 		}
 	}
 }
