@@ -24,10 +24,10 @@ namespace Eden_Farm_Cash___Carry_Tool.Models
 
 		private readonly XFont _lineNumberFont = new XFont(FontFamily.GenericSerif, 8, XFontStyle.Regular);
 
-		private readonly XPen solidBlackLine = new XPen(XColors.Red, 3);
-		private readonly XPen solidRedLine = new XPen(XColors.Red, 3);
-		private readonly XPen solidBlueLine = new XPen(XColors.Blue, 3);
-		private readonly XPen solidGreenLine = new XPen(XColors.Green, 3);
+		private readonly XPen solidBlackLine = new XPen(XColors.Red, 1);
+		private readonly XPen solidRedLine = new XPen(XColors.Red, 1);
+		private readonly XPen solidBlueLine = new XPen(XColors.Blue, 1);
+		private readonly XPen solidGreenLine = new XPen(XColors.Green, 1);
 		private readonly XPen dashedBlackLine = new XPen(XColors.Blue, 1)
 		{
 			DashStyle = XDashStyle.Dash,
@@ -159,6 +159,13 @@ namespace Eden_Farm_Cash___Carry_Tool.Models
 			_doc.Save(stream);
 
 			return stream;
+		}
+
+		public void Save(string filePath)
+		{
+			if (_doc.PageCount == 0)
+				return;
+			_doc.Save(filePath);
 		}
 	}
 }

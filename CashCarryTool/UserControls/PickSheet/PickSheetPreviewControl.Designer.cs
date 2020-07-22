@@ -29,15 +29,17 @@
 		private void InitializeComponent()
 		{
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.PdfRenderer = new PdfiumViewer.PdfRenderer();
-			this.ShowGuidesCheck = new System.Windows.Forms.CheckBox();
-			this.PrintBtn = new System.Windows.Forms.Button();
+			this.OpenBtn = new System.Windows.Forms.Button();
 			this.ImportDataBtn = new System.Windows.Forms.Button();
+			this.PrintBtn = new System.Windows.Forms.Button();
+			this.ShowGuidesCheck = new System.Windows.Forms.CheckBox();
+			this.PdfRenderer = new PdfiumViewer.PdfRenderer();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// panel1
 			// 
+			this.panel1.Controls.Add(this.OpenBtn);
 			this.panel1.Controls.Add(this.ImportDataBtn);
 			this.panel1.Controls.Add(this.PrintBtn);
 			this.panel1.Controls.Add(this.ShowGuidesCheck);
@@ -46,6 +48,47 @@
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(931, 40);
 			this.panel1.TabIndex = 0;
+			// 
+			// OpenBtn
+			// 
+			this.OpenBtn.Location = new System.Drawing.Point(121, 8);
+			this.OpenBtn.Name = "OpenBtn";
+			this.OpenBtn.Size = new System.Drawing.Size(131, 23);
+			this.OpenBtn.TabIndex = 3;
+			this.OpenBtn.Text = "Open for Printing";
+			this.OpenBtn.UseVisualStyleBackColor = true;
+			this.OpenBtn.Click += new System.EventHandler(this.OpenBtn_Click);
+			// 
+			// ImportDataBtn
+			// 
+			this.ImportDataBtn.Location = new System.Drawing.Point(395, 8);
+			this.ImportDataBtn.Name = "ImportDataBtn";
+			this.ImportDataBtn.Size = new System.Drawing.Size(131, 23);
+			this.ImportDataBtn.TabIndex = 2;
+			this.ImportDataBtn.Text = "Import Data";
+			this.ImportDataBtn.UseVisualStyleBackColor = true;
+			this.ImportDataBtn.Click += new System.EventHandler(this.ImportDataBtn_Click);
+			// 
+			// PrintBtn
+			// 
+			this.PrintBtn.Location = new System.Drawing.Point(258, 8);
+			this.PrintBtn.Name = "PrintBtn";
+			this.PrintBtn.Size = new System.Drawing.Size(131, 23);
+			this.PrintBtn.TabIndex = 1;
+			this.PrintBtn.Text = "Print with Adobe Acrobat";
+			this.PrintBtn.UseVisualStyleBackColor = true;
+			this.PrintBtn.Click += new System.EventHandler(this.PrintBtn_Click);
+			// 
+			// ShowGuidesCheck
+			// 
+			this.ShowGuidesCheck.AutoSize = true;
+			this.ShowGuidesCheck.Location = new System.Drawing.Point(15, 12);
+			this.ShowGuidesCheck.Name = "ShowGuidesCheck";
+			this.ShowGuidesCheck.Size = new System.Drawing.Size(89, 17);
+			this.ShowGuidesCheck.TabIndex = 0;
+			this.ShowGuidesCheck.Text = "Show Guides";
+			this.ShowGuidesCheck.UseVisualStyleBackColor = true;
+			this.ShowGuidesCheck.CheckedChanged += new System.EventHandler(this.ShowGuidesCheck_CheckedChanged);
 			// 
 			// PdfRenderer
 			// 
@@ -61,39 +104,6 @@
 			this.PdfRenderer.ZoomMode = PdfiumViewer.PdfViewerZoomMode.FitHeight;
 			this.PdfRenderer.DisplayRectangleChanged += new System.EventHandler(this.PdfRenderer_DisplayRectangleChanged);
 			this.PdfRenderer.Click += new System.EventHandler(this.PdfRenderer_Click);
-			// 
-			// ShowGuidesCheck
-			// 
-			this.ShowGuidesCheck.AutoSize = true;
-			this.ShowGuidesCheck.Checked = true;
-			this.ShowGuidesCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.ShowGuidesCheck.Location = new System.Drawing.Point(15, 12);
-			this.ShowGuidesCheck.Name = "ShowGuidesCheck";
-			this.ShowGuidesCheck.Size = new System.Drawing.Size(89, 17);
-			this.ShowGuidesCheck.TabIndex = 0;
-			this.ShowGuidesCheck.Text = "Show Guides";
-			this.ShowGuidesCheck.UseVisualStyleBackColor = true;
-			this.ShowGuidesCheck.CheckedChanged += new System.EventHandler(this.ShowGuidesCheck_CheckedChanged);
-			// 
-			// PrintBtn
-			// 
-			this.PrintBtn.Location = new System.Drawing.Point(122, 8);
-			this.PrintBtn.Name = "PrintBtn";
-			this.PrintBtn.Size = new System.Drawing.Size(75, 23);
-			this.PrintBtn.TabIndex = 1;
-			this.PrintBtn.Text = "Print";
-			this.PrintBtn.UseVisualStyleBackColor = true;
-			this.PrintBtn.Click += new System.EventHandler(this.PrintBtn_Click);
-			// 
-			// ImportDataBtn
-			// 
-			this.ImportDataBtn.Location = new System.Drawing.Point(203, 8);
-			this.ImportDataBtn.Name = "ImportDataBtn";
-			this.ImportDataBtn.Size = new System.Drawing.Size(75, 23);
-			this.ImportDataBtn.TabIndex = 2;
-			this.ImportDataBtn.Text = "Import Data";
-			this.ImportDataBtn.UseVisualStyleBackColor = true;
-			this.ImportDataBtn.Click += new System.EventHandler(this.ImportDataBtn_Click);
 			// 
 			// PickSheetPreviewControl
 			// 
@@ -116,5 +126,6 @@
 		private System.Windows.Forms.Button ImportDataBtn;
 		private System.Windows.Forms.Button PrintBtn;
 		private System.Windows.Forms.CheckBox ShowGuidesCheck;
+		private System.Windows.Forms.Button OpenBtn;
 	}
 }

@@ -41,7 +41,7 @@ namespace Eden_Farm_Cash___Carry_Tool.StaticClasses
 					var records = new List<GeneralDetailsQuickSelect>
 					{
 						new GeneralDetailsQuickSelect {SelectionText = "Custom", Title = "", CustomerCode = ""},
-						new GeneralDetailsQuickSelect {SelectionText = "Hadfield - Batleys", Title = "Batleys Hadfield", CustomerCode = "BES###"},
+						new GeneralDetailsQuickSelect {SelectionText = "McNabs Cash & Carry", Title = "McNabs Cash & Carry", CustomerCode = "MCN812"},
 					};
 
 					using (var writer = new StreamWriter(path))

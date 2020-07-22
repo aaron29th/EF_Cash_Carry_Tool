@@ -9,10 +9,13 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MigraDoc.DocumentObjectModel;
+using MigraDoc.Rendering;
 using PdfiumViewer;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
+using Orientation = MigraDoc.DocumentObjectModel.Orientation;
 using PdfDocument = PdfSharp.Pdf.PdfDocument;
 
 namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
@@ -21,9 +24,41 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 	{
 		private Rectangle _currentDisplayRectangle;
 
+		public bool ShowGuideLines { get; set; }
+
+		private void ConfigUpdated()
+		{
+			_parent?.ConfigUpdated();
+		}
+
 		public PickSheetPreviewControl()
 		{
 			InitializeComponent();
+			ShowGuideLines = ShowGuidesCheck.Checked;
+		}
+
+		public void ClearPreview()
+		{
+			// Create a new MigraDoc document
+			var migraDoc = new Document();
+			migraDoc.DefaultPageSetup.Orientation = Orientation.Portrait;
+			migraDoc.AddSection();
+
+			const bool unicode = true;
+			// Create a renderer for the MigraDoc document.
+			PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(unicode)
+			{
+				Document = migraDoc
+			};
+
+			// Layout and render document to PDF
+			pdfRenderer.RenderDocument();
+
+			var s = new MemoryStream();
+			pdfRenderer.PdfDocument.Save(s);
+
+			var doc = PdfiumViewer.PdfDocument.Load(s);
+			PdfRenderer.Load(doc);
 		}
 
 		public void LoadPdfPreview(Models.PickSheet pickSheet)
@@ -64,7 +99,8 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 
 		private void ShowGuidesCheck_CheckedChanged(object sender, EventArgs e)
 		{
-
+			ShowGuideLines = ShowGuidesCheck.Checked;
+			ConfigUpdated();
 		}
 
 		private void PrintBtn_Click(object sender, EventArgs e)
@@ -75,6 +111,11 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 		private void ImportDataBtn_Click(object sender, EventArgs e)
 		{
 
+		}
+
+		private void OpenBtn_Click(object sender, EventArgs e)
+		{
+			_parent?.OpenDocument();
 		}
 	}
 }

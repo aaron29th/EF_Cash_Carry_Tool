@@ -108,6 +108,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 		private void RefreshPicksBtn_Click(object sender, EventArgs e)
 		{
 			ReloadPicks();
+			ConfigUpdated();
 		}
 
 		private void FilesGridView_CurrentCellDirtyStateChanged(object sender, EventArgs e)
@@ -126,7 +127,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 
 		private void PageListBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (PageListBox.SelectedIndex == -1)
+			if (PageListBox.SelectedIndex == -1 || _lines.Count == 0)
 				return;
 
 			_selectedPageIndex = PageListBox.SelectedIndex;
@@ -142,6 +143,24 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 		{
 			if (e.ColumnIndex == -1 || e.RowIndex == -1) 
 				return;
+
+			ConfigUpdated();
+		}
+
+		private void ClearPicksFolderBtn_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void DeselectPagesLinesBtn_Click(object sender, EventArgs e)
+		{
+			if (PageListBox.SelectedIndex == -1 || _lines.Count == 0)
+				return;
+
+			for (int i = 0; i < _lines[PageListBox.SelectedIndex].Count; i++)
+			{
+				_lines[PageListBox.SelectedIndex][i].Checked = false;
+			}
 
 			ConfigUpdated();
 		}
