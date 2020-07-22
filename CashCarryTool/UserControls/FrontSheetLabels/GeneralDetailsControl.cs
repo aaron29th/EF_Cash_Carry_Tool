@@ -67,18 +67,17 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		{
 			Title = TitleTxt.Text;
 
-			if (!LabelTitleSizeAutoCheck.Checked)
+			if (LabelTitleSizeAutoCheck.Checked)
 			{
-				DetailsUpdated();
-				return;
+				if (TitleTxt.Text.Length < 18)
+					LabelTitleSizeNumEdit.Value = 70;
+				else if (TitleTxt.Text.Length < 25)
+					LabelTitleSizeNumEdit.Value = 45;
+				else
+					LabelTitleSizeNumEdit.Value = 40;
 			}
 
-			if (TitleTxt.Text.Length < 18)
-				LabelTitleSizeNumEdit.Value = 70;
-			else if (TitleTxt.Text.Length < 25)
-				LabelTitleSizeNumEdit.Value = 45;
-			else
-				LabelTitleSizeNumEdit.Value = 40;
+			DetailsUpdated();
 		}
 
 		private void CustomerCodeTxt_TextChanged(object sender, EventArgs e)
