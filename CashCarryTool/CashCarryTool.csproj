@@ -98,6 +98,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Models\PickSheet.cs" />
+    <Compile Include="Models\Pick\Invoice.cs" />
+    <Compile Include="Models\Pick\Line.cs" />
+    <Compile Include="Models\Pick\Section.cs" />
     <Compile Include="Models\StringValue.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
