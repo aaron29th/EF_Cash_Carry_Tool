@@ -149,7 +149,26 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 
 		private void ClearPicksFolderBtn_Click(object sender, EventArgs e)
 		{
+			DialogResult dialogResult = MessageBox.Show("Are you sure you wish to clear the \"Picks PDFs\" folder? All containing files will be deleted", "Clear \"Pick PDFs\" folder", MessageBoxButtons.YesNo);
+			if (dialogResult == DialogResult.No)
+				return;
+			if (!Directory.Exists(_picksFolderPath))
+				return;
 
+			var files = Directory.GetFiles(_picksFolderPath);
+			foreach (var file in files)
+			{
+				try
+				{
+					File.Delete(file);
+				}
+				catch
+				{
+
+				}
+			}
+
+			ReloadPicks();
 		}
 
 		private void DeselectPagesLinesBtn_Click(object sender, EventArgs e)

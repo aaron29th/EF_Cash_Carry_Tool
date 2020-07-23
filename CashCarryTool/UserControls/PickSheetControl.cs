@@ -24,6 +24,8 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 
 			PickSheetLoadControl.SetParent(this);
 			PickSheetPreviewControl.SetParent(this);
+
+			PickSheetPreviewControl.ClearPreview();
 		}
 
 		private void LoadPreview()

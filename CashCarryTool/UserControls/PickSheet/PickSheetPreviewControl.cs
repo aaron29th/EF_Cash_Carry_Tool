@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Eden_Farm_Cash___Carry_Tool.StaticClasses;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.Rendering;
 using PdfiumViewer;
@@ -42,16 +43,34 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 			// Create a new MigraDoc document
 			var migraDoc = new Document();
 			migraDoc.DefaultPageSetup.Orientation = Orientation.Portrait;
-			migraDoc.AddSection();
+			var section = migraDoc.AddSection();
+			section.PageSetup.LeftMargin = 12;
+			var table = LayoutHelper.AddEqualWidthTable(1, 15, section);
+			table.Format.Font.Size = 15;
 
+			table.Rows[0].Cells[0].Format.Font.Size = 20;
+			table.Rows[0].Cells[0].AddParagraph("Copyright 2020 Aaron Rosser");
+
+			table.Rows[2].Cells[0].AddParagraph("Full licenses can be found in the license folder");
+
+			table.Rows[4].Cells[0].AddParagraph("PdfSharp / MigraDoc");
+			table.Rows[5].Cells[0].AddParagraph("MIT License - Copyright (c) 2005-2014 empira Software GmbH, Troisdorf (Germany)");
+
+			table.Rows[7].Cells[0].AddParagraph("CsvHelper");
+			table.Rows[8].Cells[0].AddParagraph("Apache 2.0 - Josh Close");
+
+			table.Rows[10].Cells[0].AddParagraph("Pdfium Viewer");
+			table.Rows[11].Cells[0].AddParagraph("Apache 2.0 - Pieter van Ginkel");
+
+			table.Rows[13].Cells[0].AddParagraph("Pdfium");
+			table.Rows[14].Cells[0].AddParagraph("Copyright 2014, the V8 project authors");
+
+			// Render document
 			const bool unicode = true;
-			// Create a renderer for the MigraDoc document.
 			PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(unicode)
 			{
 				Document = migraDoc
 			};
-
-			// Layout and render document to PDF
 			pdfRenderer.RenderDocument();
 
 			var s = new MemoryStream();

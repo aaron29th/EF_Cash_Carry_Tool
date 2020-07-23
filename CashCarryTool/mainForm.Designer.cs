@@ -30,43 +30,27 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
 			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.pickSheetControl1 = new Eden_Farm_Cash___Carry_Tool.UserControls.PickSheetControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.frontSheetLabels1 = new Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabelsControl();
+			this.pickSheetControl1 = new Eden_Farm_Cash___Carry_Tool.UserControls.PickSheetControl();
 			this.tabControl1.SuspendLayout();
-			this.tabPage2.SuspendLayout();
 			this.tabPage1.SuspendLayout();
+			this.tabPage2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
 			// 
-			this.tabControl1.Controls.Add(this.tabPage1);
 			this.tabControl1.Controls.Add(this.tabPage2);
+			this.tabControl1.Controls.Add(this.tabPage3);
+			this.tabControl1.Controls.Add(this.tabPage1);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
 			this.tabControl1.Size = new System.Drawing.Size(1335, 953);
 			this.tabControl1.TabIndex = 0;
-			// 
-			// tabPage2
-			// 
-			this.tabPage2.Controls.Add(this.pickSheetControl1);
-			this.tabPage2.Location = new System.Drawing.Point(4, 22);
-			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Size = new System.Drawing.Size(1327, 927);
-			this.tabPage2.TabIndex = 1;
-			this.tabPage2.Text = "Pick Sheet";
-			this.tabPage2.UseVisualStyleBackColor = true;
-			// 
-			// pickSheetControl1
-			// 
-			this.pickSheetControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.pickSheetControl1.Location = new System.Drawing.Point(0, 0);
-			this.pickSheetControl1.Name = "pickSheetControl1";
-			this.pickSheetControl1.Size = new System.Drawing.Size(1327, 927);
-			this.pickSheetControl1.TabIndex = 0;
 			// 
 			// tabPage1
 			// 
@@ -79,6 +63,25 @@
 			this.tabPage1.Text = "Front Sheet / Labels";
 			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
+			// tabPage2
+			// 
+			this.tabPage2.Controls.Add(this.pickSheetControl1);
+			this.tabPage2.Location = new System.Drawing.Point(4, 22);
+			this.tabPage2.Name = "tabPage2";
+			this.tabPage2.Size = new System.Drawing.Size(1327, 927);
+			this.tabPage2.TabIndex = 1;
+			this.tabPage2.Text = "Pick Sheet";
+			this.tabPage2.UseVisualStyleBackColor = true;
+			// 
+			// tabPage3
+			// 
+			this.tabPage3.Location = new System.Drawing.Point(4, 22);
+			this.tabPage3.Name = "tabPage3";
+			this.tabPage3.Size = new System.Drawing.Size(1327, 927);
+			this.tabPage3.TabIndex = 2;
+			this.tabPage3.Text = "Info";
+			this.tabPage3.UseVisualStyleBackColor = true;
+			// 
 			// frontSheetLabels1
 			// 
 			this.frontSheetLabels1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -86,6 +89,14 @@
 			this.frontSheetLabels1.Name = "frontSheetLabels1";
 			this.frontSheetLabels1.Size = new System.Drawing.Size(1321, 921);
 			this.frontSheetLabels1.TabIndex = 0;
+			// 
+			// pickSheetControl1
+			// 
+			this.pickSheetControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.pickSheetControl1.Location = new System.Drawing.Point(0, 0);
+			this.pickSheetControl1.Name = "pickSheetControl1";
+			this.pickSheetControl1.Size = new System.Drawing.Size(1327, 927);
+			this.pickSheetControl1.TabIndex = 0;
 			// 
 			// mainForm
 			// 
@@ -95,10 +106,10 @@
 			this.Controls.Add(this.tabControl1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "mainForm";
-			this.Text = "Eden Farm Cash + Carry Tool";
+			this.Text = "EF Cash + Carry Tool";
 			this.tabControl1.ResumeLayout(false);
-			this.tabPage2.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
+			this.tabPage2.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -110,6 +121,7 @@
 		private UserControls.FrontSheetLabelsControl frontSheetLabels1;
 		private System.Windows.Forms.TabPage tabPage2;
 		private UserControls.PickSheetControl pickSheetControl1;
+		private System.Windows.Forms.TabPage tabPage3;
 	}
 }
 
