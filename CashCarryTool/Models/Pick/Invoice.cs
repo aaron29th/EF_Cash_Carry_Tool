@@ -32,13 +32,63 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 
 		}
 
-		public Invoice(string text)
+		public void ProcessPageText(string text)
 		{
-			//Regex customerCodeRegex = new Regex(@"(A\/C )([A-Z0-9]+)(a)(b)");
-			//var customerCodeMatch = customerCodeRegex.Match(text);
-			//if (customerCodeMatch.Groups.Count < 2);
-			//	return;
-			//CustomerCode = customerCodeMatch.Groups[1].Value;
+			ParsePdfText(text);
+		}
+
+		private void ParsePdfText(string text)
+		{
+			string customerCode = ExtractCustomerCode(text);
+			// Check customer code is consistent
+			if (!String.IsNullOrEmpty(CustomerCode) && CustomerCode != customerCode)
+				return;
+			CustomerCode = customerCode;
+
+			
+		}
+
+		private static string ExtractCustomerCode(string text)
+		{
+			// Match customer code
+			Regex customerCodeRegex = new Regex(@"(A\/C )([A-Z0-9]+)");
+			var customerCodeMatch = customerCodeRegex.Match(text);
+			if (customerCodeMatch.Groups.Count < 3)
+				return null;
+			return customerCodeMatch.Groups[2].Value;
+		}
+
+		private static string ExtractCustomerName(string text)
+		{
+			string[] lines = text.Split(
+				new[] { Environment.NewLine },
+				StringSplitOptions.None
+			);
+
+			return null;
+		}
+
+		private static int ExtractPageNumber(string text)
+		{
+			// Match customer code
+			Regex pageNumberRegex = new Regex(@"(Page: )([0-9]+)");
+			var pageNumberMatch = pageNumberRegex.Match(text);
+			if (pageNumberMatch.Groups.Count < 3)
+				return -1;
+			return Convert.ToInt32(pageNumberMatch.Groups[2].Value);
+		}
+
+		private static SectionType ExtractSectionType(string text)
+		{
+			if (text.Contains("1-Frozen"))
+				return SectionType.Ambient;
+			if (text.Contains("1-Frozen"))
+				return SectionType.Frozen;
+			if (text.Contains("djf"))
+				return SectionType.Bulk;
+
+			return SectionType.Invalid;
+		}
 		}
 	}
 }

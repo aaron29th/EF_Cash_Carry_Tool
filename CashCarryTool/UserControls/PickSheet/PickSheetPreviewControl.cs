@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Eden_Farm_Cash___Carry_Tool.Models.Pick;
 using Eden_Farm_Cash___Carry_Tool.StaticClasses;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.Rendering;
@@ -144,7 +145,10 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 
 		private void ImportDataBtn_Click(object sender, EventArgs e)
 		{
-			Clipboard.SetText(PdfRenderer.Document.GetPdfText(0));
+			var text = PdfRenderer.Document.GetPdfText(0);
+			Clipboard.SetText(text);
+
+			var invoice = new Invoice(text);
 		}
 
 		private void OpenBtn_Click(object sender, EventArgs e)
