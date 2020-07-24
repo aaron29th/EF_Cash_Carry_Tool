@@ -89,6 +89,5 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 
 			return SectionType.Invalid;
 		}
-		}
 	}
 }

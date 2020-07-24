@@ -148,7 +148,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 			var text = PdfRenderer.Document.GetPdfText(0);
 			Clipboard.SetText(text);
 
-			var invoice = new Invoice(text);
+			var invoice = new Invoice();
 		}
 
 		private void OpenBtn_Click(object sender, EventArgs e)
