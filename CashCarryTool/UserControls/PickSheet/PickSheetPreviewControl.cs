@@ -38,8 +38,23 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 			ShowGuideLines = ShowGuidesCheck.Checked;
 		}
 
+		private void PickSheetPreviewControl_Load(object sender, EventArgs e)
+		{
+			ClearPreview();
+		}
+
 		public void ClearPreview()
 		{
+			// Stop code being ran by designer causing crash
+			System.Diagnostics.Process process = System.Diagnostics.Process.GetCurrentProcess();
+			bool res = process.ProcessName == "devenv";
+			process.Dispose();
+
+			if (res)
+			{
+				return;
+			}
+
 			// Create a new MigraDoc document
 			var migraDoc = new Document();
 			migraDoc.DefaultPageSetup.Orientation = Orientation.Portrait;
@@ -129,7 +144,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 
 		private void ImportDataBtn_Click(object sender, EventArgs e)
 		{
-
+			Clipboard.SetText(PdfRenderer.Document.GetPdfText(0));
 		}
 
 		private void OpenBtn_Click(object sender, EventArgs e)

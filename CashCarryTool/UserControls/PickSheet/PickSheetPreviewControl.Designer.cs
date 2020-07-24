@@ -113,6 +113,7 @@
 			this.Controls.Add(this.panel1);
 			this.Name = "PickSheetPreviewControl";
 			this.Size = new System.Drawing.Size(931, 799);
+			this.Load += new System.EventHandler(this.PickSheetPreviewControl_Load);
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
 			this.ResumeLayout(false);

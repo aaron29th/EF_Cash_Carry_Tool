@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
@@ -28,7 +29,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 
 		public Line(string text)
 		{
-			
+			//Regex rg = new Regex(pattern);
 		}
 	}
 }

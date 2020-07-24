@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
@@ -25,5 +26,19 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 		public Section Ambient { get; set; }
 		public Section Frozen { get; set; }
 		public Section Bulk { get; set; }
+
+		public Invoice()
+		{
+
+		}
+
+		public Invoice(string text)
+		{
+			//Regex customerCodeRegex = new Regex(@"(A\/C )([A-Z0-9]+)(a)(b)");
+			//var customerCodeMatch = customerCodeRegex.Match(text);
+			//if (customerCodeMatch.Groups.Count < 2);
+			//	return;
+			//CustomerCode = customerCodeMatch.Groups[1].Value;
+		}
 	}
 }
