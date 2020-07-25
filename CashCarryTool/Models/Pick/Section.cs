@@ -8,6 +8,11 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 {
 	class Section
 	{
+		public List<int> ProcessedPages { get; }
 
+		public Section()
+		{
+			ProcessedPages = new List<int>();
+		}
 	}
 }

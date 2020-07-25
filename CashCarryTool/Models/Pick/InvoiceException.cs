@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 {
-	public enum SectionType : ushort
+	class InvoiceException : Exception
 	{
-		Invalid,
-		Ambient,
-		AmbientBulk,
-		Frozen,
-		Bulk
+
 	}
 }
