@@ -71,6 +71,7 @@
 			// 
 			// PrintBtn
 			// 
+			this.PrintBtn.Enabled = false;
 			this.PrintBtn.Location = new System.Drawing.Point(258, 8);
 			this.PrintBtn.Name = "PrintBtn";
 			this.PrintBtn.Size = new System.Drawing.Size(131, 23);

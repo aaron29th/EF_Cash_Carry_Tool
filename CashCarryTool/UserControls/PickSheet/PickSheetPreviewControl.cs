@@ -151,12 +151,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 
 		private void ImportDataBtn_Click(object sender, EventArgs e)
 		{
-			var text = PdfRenderer.Document.GetPdfText(0);
-			//Clipboard.SetText(text);
-
-			var invoice = new Invoice();
-			invoice.ProcessInvoicePdfDocument(PdfRenderer.Document);
-
+			_parent?.ImportData();
 		}
 
 		private void OpenBtn_Click(object sender, EventArgs e)
