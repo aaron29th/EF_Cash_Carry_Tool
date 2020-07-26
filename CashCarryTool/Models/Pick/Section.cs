@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 {
-	class Section
+	public class Section
 	{
 		public List<int> ProcessedPages { get; }
 

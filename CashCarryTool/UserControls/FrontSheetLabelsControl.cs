@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Eden_Farm_Cash___Carry_Tool.Models;
 using Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels;
+using Eden_Farm_Cash___Carry_Tool.Models.Pick;
 using MigraDoc.DocumentObjectModel;
 
 namespace Eden_Farm_Cash___Carry_Tool.UserControls
@@ -100,6 +101,11 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 			label.AddLabel();
 
 			FrontSheetLabelsPreviewControl.LoadLabelPreview(label.Document);
+
+		}
+
+		public void LoadInvoicesData(List<Invoice> invoices)
+		{
 
 		}
 

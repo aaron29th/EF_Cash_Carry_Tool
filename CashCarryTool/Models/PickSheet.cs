@@ -128,8 +128,6 @@ namespace Eden_Farm_Cash___Carry_Tool.Models
 				var page = _doc.Pages[pageIndex];
 				using (XGraphics gfx = XGraphics.FromPdfPage(page))
 				{
-
-
 					// Draw lines
 					for (int lineIndex = 0; lineIndex < _linesPerPage; lineIndex++)
 					{

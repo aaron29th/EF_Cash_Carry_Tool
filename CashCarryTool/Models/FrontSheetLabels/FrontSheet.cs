@@ -4,8 +4,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Eden_Farm_Cash___Carry_Tool.Models.Pick;
 using Eden_Farm_Cash___Carry_Tool.StaticClasses;
 using MigraDoc.DocumentObjectModel;
+using Section = MigraDoc.DocumentObjectModel.Section;
 
 namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 {
@@ -85,7 +87,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 				if (i >= Invoices.Count) 
 					continue;
 
-				var invoiceNumberText = new FormattedTextHelper(Invoices[i].InvoiceNumber);
+				var invoiceNumberText = new FormattedTextHelper(Invoices[i].InvoiceNumber.ToString());
 				invoiceNumberText.Size = 9;
 				invoiceNumberText.Bold = true;
 				invoicePara.Add(invoiceNumberText);

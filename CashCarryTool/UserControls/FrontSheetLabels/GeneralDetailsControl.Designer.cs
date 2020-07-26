@@ -270,7 +270,7 @@
 			this.LabelTitleSizeNumEdit.Size = new System.Drawing.Size(181, 20);
 			this.LabelTitleSizeNumEdit.TabIndex = 27;
 			this.LabelTitleSizeNumEdit.Value = new decimal(new int[] {
-            70,
+            80,
             0,
             0,
             0});

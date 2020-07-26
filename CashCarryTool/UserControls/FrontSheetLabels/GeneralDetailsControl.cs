@@ -69,12 +69,24 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 
 			if (LabelTitleSizeAutoCheck.Checked)
 			{
-				if (TitleTxt.Text.Length < 18)
-					LabelTitleSizeNumEdit.Value = 70;
-				else if (TitleTxt.Text.Length < 25)
-					LabelTitleSizeNumEdit.Value = 45;
-				else
-					LabelTitleSizeNumEdit.Value = 40;
+				float titleTextWidth = 99999;
+				float textSize = 81;
+				int magicWidthNumber = 890;
+				while (titleTextWidth > magicWidthNumber)
+				{
+					Font font = new Font("Arial", textSize);
+
+					// Measure width of title text
+					using (Graphics graphics = System.Drawing.Graphics.FromImage(new Bitmap(1, 1)))
+					{
+						SizeF size = graphics.MeasureString(Title, font);
+						titleTextWidth = size.Width;
+					}
+
+					textSize -= 1;
+				}
+
+				LabelTitleSizeNumEdit.Value = (decimal) textSize;
 			}
 
 			DetailsUpdated();

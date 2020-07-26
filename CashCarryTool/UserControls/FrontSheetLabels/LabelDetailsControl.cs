@@ -68,7 +68,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 				var lastAmbient = _pallets.LastOrDefault(x => x.Type == PalletType.Ambient);
 				if (lastAmbient != null) index = _pallets.IndexOf(lastAmbient) + 1;
 
-				_pallets.Insert(index, new Pallet() { Type = PalletType.Ice });
+				_pallets.Insert(index, new Pallet() { Type = PalletType.Ice, Selected = false });
 				_totalIce++;
 			}
 

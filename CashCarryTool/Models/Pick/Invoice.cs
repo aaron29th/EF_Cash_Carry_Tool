@@ -9,7 +9,7 @@ using PdfiumViewer;
 
 namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 {
-	class Invoice
+	public class Invoice
 	{
 		private string[] _pagesText;
 
@@ -27,6 +27,10 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 
 		public string[] Address { get; set; }
 		public string PostCode { get; set; }
+
+		public int AmbientUnits { get; set; }
+		public int BulkUnits { get; set; }
+		public int MixedUnits { get; set; }
 
 		public Section Frozen { get; set; }
 		public Section Bulk { get; set; }

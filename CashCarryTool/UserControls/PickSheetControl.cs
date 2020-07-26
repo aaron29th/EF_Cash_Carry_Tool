@@ -20,12 +20,19 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 {
 	public partial class PickSheetControl : UserControl
 	{
+		private MainForm _parent;
+
 		public PickSheetControl()
 		{
 			InitializeComponent();
 
 			PickSheetLoadControl.SetParent(this);
 			PickSheetPreviewControl.SetParent(this);
+		}
+
+		public void SetParent(MainForm parent)
+		{
+			_parent = parent;
 		}
 
 		private Models.PickSheet GeneratePickSheet(bool guideLines)
@@ -150,6 +157,8 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 						MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			}
+
+			_parent?.LoadInvoices(loadedInvoices);
 		}
 	}
 }

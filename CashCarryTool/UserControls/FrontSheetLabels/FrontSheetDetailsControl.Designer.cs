@@ -38,16 +38,18 @@
 			this.InvoiceNumbersGridView = new System.Windows.Forms.DataGridView();
 			this.invoiceBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.stringValueBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.invoiceBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
 			this.invoiceNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.mixedUnitsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.bulkUnitsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.ambientUnitsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.groupBox2.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.InvoiceNumbersGridView)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.invoiceBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.stringValueBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.invoiceBindingSource1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBox2
@@ -127,9 +129,9 @@
 			this.InvoiceNumbersGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.InvoiceNumbersGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.invoiceNumberDataGridViewTextBoxColumn,
-            this.mixedUnitsDataGridViewTextBoxColumn,
-            this.bulkUnitsDataGridViewTextBoxColumn,
-            this.ambientUnitsDataGridViewTextBoxColumn});
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn1});
 			this.InvoiceNumbersGridView.DataSource = this.invoiceBindingSource;
 			this.InvoiceNumbersGridView.Location = new System.Drawing.Point(0, 29);
 			this.InvoiceNumbersGridView.Name = "InvoiceNumbersGridView";
@@ -141,35 +143,39 @@
 			// 
 			// invoiceBindingSource
 			// 
-			this.invoiceBindingSource.DataSource = typeof(Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels.Invoice);
+			this.invoiceBindingSource.DataSource = typeof(Eden_Farm_Cash___Carry_Tool.Models.Pick.Invoice);
 			// 
 			// stringValueBindingSource
 			// 
 			this.stringValueBindingSource.DataSource = typeof(Eden_Farm_Cash___Carry_Tool.Models.StringValue);
 			// 
+			// invoiceBindingSource1
+			// 
+			this.invoiceBindingSource1.DataSource = typeof(Eden_Farm_Cash___Carry_Tool.Models.Pick.Invoice);
+			// 
 			// invoiceNumberDataGridViewTextBoxColumn
 			// 
 			this.invoiceNumberDataGridViewTextBoxColumn.DataPropertyName = "InvoiceNumber";
-			this.invoiceNumberDataGridViewTextBoxColumn.HeaderText = "InvoiceNumber";
+			this.invoiceNumberDataGridViewTextBoxColumn.HeaderText = "Invoice Number";
 			this.invoiceNumberDataGridViewTextBoxColumn.Name = "invoiceNumberDataGridViewTextBoxColumn";
 			// 
-			// mixedUnitsDataGridViewTextBoxColumn
+			// dataGridViewTextBoxColumn3
 			// 
-			this.mixedUnitsDataGridViewTextBoxColumn.DataPropertyName = "MixedUnits";
-			this.mixedUnitsDataGridViewTextBoxColumn.HeaderText = "MixedUnits";
-			this.mixedUnitsDataGridViewTextBoxColumn.Name = "mixedUnitsDataGridViewTextBoxColumn";
+			this.dataGridViewTextBoxColumn3.DataPropertyName = "MixedUnits";
+			this.dataGridViewTextBoxColumn3.HeaderText = "Mixed";
+			this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
 			// 
-			// bulkUnitsDataGridViewTextBoxColumn
+			// dataGridViewTextBoxColumn2
 			// 
-			this.bulkUnitsDataGridViewTextBoxColumn.DataPropertyName = "BulkUnits";
-			this.bulkUnitsDataGridViewTextBoxColumn.HeaderText = "BulkUnits";
-			this.bulkUnitsDataGridViewTextBoxColumn.Name = "bulkUnitsDataGridViewTextBoxColumn";
+			this.dataGridViewTextBoxColumn2.DataPropertyName = "BulkUnits";
+			this.dataGridViewTextBoxColumn2.HeaderText = "Bulk";
+			this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
 			// 
-			// ambientUnitsDataGridViewTextBoxColumn
+			// dataGridViewTextBoxColumn1
 			// 
-			this.ambientUnitsDataGridViewTextBoxColumn.DataPropertyName = "AmbientUnits";
-			this.ambientUnitsDataGridViewTextBoxColumn.HeaderText = "AmbientUnits";
-			this.ambientUnitsDataGridViewTextBoxColumn.Name = "ambientUnitsDataGridViewTextBoxColumn";
+			this.dataGridViewTextBoxColumn1.DataPropertyName = "AmbientUnits";
+			this.dataGridViewTextBoxColumn1.HeaderText = "Ambient";
+			this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
 			// 
 			// FrontSheetDetailsControl
 			// 
@@ -185,6 +191,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.InvoiceNumbersGridView)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.invoiceBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.stringValueBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.invoiceBindingSource1)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -200,9 +207,13 @@
 		private System.Windows.Forms.CheckBox PartiallyFillInCheck;
 		private System.Windows.Forms.CheckBox FillInCheck;
 		private System.Windows.Forms.BindingSource invoiceBindingSource;
-		private System.Windows.Forms.DataGridViewTextBoxColumn invoiceNumberDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn mixedUnitsDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn bulkUnitsDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn ambientUnitsDataGridViewTextBoxColumn;
+		private System.Windows.Forms.BindingSource invoiceBindingSource1;
+		private System.Windows.Forms.DataGridViewTextBoxColumn invoiceNumberDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
 	}
 }
