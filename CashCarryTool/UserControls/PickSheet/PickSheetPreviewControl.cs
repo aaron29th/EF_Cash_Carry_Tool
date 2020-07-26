@@ -99,6 +99,12 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 		public void LoadPdfPreview(Models.PickSheet pickSheet)
 		{
 			var s = pickSheet.GetStream();
+			if (s == null)
+			{
+				ClearPreview();
+				return;
+			}
+
 			var pdfDocument = PdfiumViewer.PdfDocument.Load(s);
 
 			var firstPageYOffset = _currentDisplayRectangle.Height / 2 - (PdfRenderer.Bounds.Height / 2);

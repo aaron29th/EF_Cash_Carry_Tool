@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet;
 using PdfiumViewer;
 
 namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
@@ -69,7 +70,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 				throw new InvoiceException();
 
 			ExtractCheckCustomerCode(pageIndex);
-			ExtractCustomerName(pageIndex);
+			ExtractCustomerNameAndAddress(pageIndex);
 			ExtractInvoiceNumber(pageIndex);
 			ExtractDeliveryDate(pageIndex);
 		}
@@ -93,10 +94,23 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 			CustomerCode = customerCode;
 		}
 
-		private void ExtractCustomerName(int pageIndex)
+		private void ExtractCustomerNameAndAddress(int pageIndex)
 		{
-			var text = _doc.Search("Batleys Hadfield Road 730", false, false);
-			var text1 = _doc.GetPdfText(new PdfTextSpan(pageIndex, 179, 50));
+			string[] lines = _doc.GetPdfText(pageIndex).Split(
+				new[] { Environment.NewLine },
+				StringSplitOptions.None
+			);
+
+			if (lines.Length < 3)
+				return;
+
+			var nameLine = lines[3];
+			using (var form = new SplitCustomerNameAddressForm(nameLine))
+			{
+				form.ShowDialog();
+
+				CustomerName = form.CustomerName;
+			}
 			return;
 		}
 

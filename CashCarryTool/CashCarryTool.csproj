@@ -172,6 +172,12 @@
     <Compile Include="UserControls\PickSheet\PickSheetPreviewControl.Designer.cs">
       <DependentUpon>PickSheetPreviewControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\PickSheet\SplitCustomerNameAddressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserControls\PickSheet\SplitCustomerNameAddressForm.Designer.cs">
+      <DependentUpon>SplitCustomerNameAddressForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -210,6 +216,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\PickSheet\PickSheetPreviewControl.resx">
       <DependentUpon>PickSheetPreviewControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\PickSheet\SplitCustomerNameAddressForm.resx">
+      <DependentUpon>SplitCustomerNameAddressForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Eden_Farm_Cash___Carry_Tool.Models.CheckedDataViewItem.datasource" />
