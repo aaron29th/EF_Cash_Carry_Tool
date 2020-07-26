@@ -24,7 +24,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 		public int Route { get; set; }
 		public int Drop { get; set; }
 
-		public string Address { get; set; }
+		public List<string> Address { get; set; }
 		public string PostCode { get; set; }
 
 		public Section Frozen { get; set; }
@@ -34,6 +34,8 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 
 		public Invoice()
 		{
+			Address = new List<string>();
+
 			Frozen = new Section();
 			Bulk = new Section();
 			Ambient = new Section();
@@ -69,10 +71,16 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 			if (sectionType == SectionType.AmbientBulk && AmbientBulk.ProcessedPages.Contains(pageNumber))
 				throw new InvoiceException();
 
+			// Extract and check on every page
 			ExtractCheckCustomerCode(pageIndex);
-			ExtractCustomerNameAndAddress(pageIndex);
 			ExtractInvoiceNumber(pageIndex);
 			ExtractDeliveryDate(pageIndex);
+
+			// Only extract on first page
+			if (pageIndex != 0)
+				return;
+			ExtractPostCode(pageIndex);
+			ExtractCustomerNameAndAddress(pageIndex);
 		}
 
 
@@ -94,6 +102,27 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 			CustomerCode = customerCode;
 		}
 
+		private void ExtractPostCode(int pageIndex)
+		{
+			string[] lines = _doc.GetPdfText(pageIndex).Split(
+				new[] { Environment.NewLine },
+				StringSplitOptions.None
+			);
+
+			var postCodeLine = lines[5];
+
+			// Match customer code
+			Regex postCodeRegex = new Regex(@"(([A-Z]{1,2}[0-9][A-Z0-9]?|ASCN|STHL|TDCU|BBND|[BFS]IQQ|PCRN|TKCA) ?[0-9][A-Z]{2}|BFPO ?[0-9]{1,4}|(KY[0-9]|MSR|VG|AI)[ -]?[0-9]{4}|[A-Z]{2} ?[0-9]{2}|GE ?CX|GIR ?0A{2}|SAN ?TA1)$");
+			var postCodeMatch = postCodeRegex.Match(postCodeLine);
+			if (postCodeMatch.Groups.Count < 1)
+			{
+				PostCode = "";
+				return;
+			}
+
+			PostCode = postCodeMatch.Groups[0].Value;
+		}
+
 		private void ExtractCustomerNameAndAddress(int pageIndex)
 		{
 			string[] lines = _doc.GetPdfText(pageIndex).Split(
@@ -101,17 +130,43 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 				StringSplitOptions.None
 			);
 
-			if (lines.Length < 3)
-				return;
+			if (CustomerCode != null)
+			{
+				string addressLine1 = lines[2];
+				int addressLine1Start = addressLine1.IndexOf(CustomerCode, StringComparison.Ordinal);
+				addressLine1 = addressLine1.Substring(addressLine1Start + CustomerCode.Length);
+				Address.Add(addressLine1.Trim());
+			}
+			else
+			{
+				Address.Add("");
+			}
 
-			var nameLine = lines[3];
+			if (lines.Length < 3)
+				throw new InvoiceException(); ;
+
+			var nameLine = lines[3]
+				.Replace("1-Frozen", "")
+				.Replace("?-Bulk", "")
+				.Replace("?-Ambient", "")
+				.Replace("6-Bulk Ambient", "")
+				.Trim();
+
 			using (var form = new SplitCustomerNameAddressForm(nameLine))
 			{
 				form.ShowDialog();
 
 				CustomerName = form.CustomerName;
+				Address.Add(form.CustomerAddressLine);
 			}
-			return;
+
+			string addressLine3 = lines[4].Trim();
+			Address.Add(addressLine3);
+
+			if (PostCode == null)
+				return;
+			string addressLine4 = lines[5].Replace(PostCode, "").Trim();
+			Address.Add(addressLine4);
 		}
 
 		private void ExtractInvoiceNumber(int pageIndex)

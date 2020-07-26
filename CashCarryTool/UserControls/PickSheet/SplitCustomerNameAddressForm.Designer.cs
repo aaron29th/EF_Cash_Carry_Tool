@@ -107,8 +107,9 @@
 			this.SplitLinesLabel.Name = "SplitLinesLabel";
 			this.SplitLinesLabel.Size = new System.Drawing.Size(259, 225);
 			this.SplitLinesLabel.TabIndex = 7;
-			this.SplitLinesLabel.Text = "ExampleReallyLongName\r\nLine 2\r\nLine 3\r\nLine 4\r\nLine 5\r\nLine 6\r\nLine 7\r\nLine 8\r\nLi" +
-    "ne 9";
+			this.SplitLinesLabel.Text = "ExampleReallyLongName\r\nLine 2\r\nLine 3\r\nLine 4\r\nLine 5\r\nLine 6\r\nLine 7\r\nLine 8 &\r\n" +
+    "Line 9";
+			this.SplitLinesLabel.UseMnemonic = false;
 			// 
 			// AcceptBtn
 			// 
