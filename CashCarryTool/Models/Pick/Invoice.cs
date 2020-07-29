@@ -29,7 +29,8 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 		public string PostCode { get; set; }
 
 		public int AmbientUnits { get; set; }
-		public int BulkUnits { get; set; }
+		public int BulkAmbientUnits { get; set; }
+		public int BulkFrozenUnits { get; set; }
 		public int MixedUnits { get; set; }
 
 		public Section Frozen { get; set; }
@@ -70,12 +71,20 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 			switch (sectionType)
 			{
 				case SectionType.Frozen:
+					if (pageNumber == 1)
+						MixedUnits = ExtractTotalCount(pageIndex);
 					break;
 				case SectionType.Bulk:
+					if (pageNumber == 1)
+						BulkFrozenUnits = ExtractTotalCount(pageIndex);
 					break;
 				case SectionType.Ambient:
+					if (pageNumber == 1)
+						AmbientUnits = ExtractTotalCount(pageIndex);
 					break;
 				case SectionType.AmbientBulk:
+					if (pageNumber == 1)
+						BulkAmbientUnits = ExtractTotalCount(pageIndex);
 					break;
 				default:
 					throw new InvoiceException("Section type not recognized");
@@ -162,8 +171,8 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 			// Customer name and address line 2
 			var nameLine = lines[3]
 				.Replace("1-Frozen", "")
-				.Replace("?-Bulk", "")
-				.Replace("?-Ambient", "")
+				.Replace("2-Bulk Frozen", "")
+				.Replace("5-Ambient", "")
 				.Replace("6-Bulk Ambient", "")
 				.Trim();
 
@@ -290,14 +299,26 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 
 			if (pageText.Contains("1-Frozen"))
 				return SectionType.Frozen;
-			if (pageText.Contains("?-Bulk"))
+			if (pageText.Contains("2-Bulk Frozen"))
 				return SectionType.Bulk;
-			if (pageText.Contains("?-Ambient"))
+			if (pageText.Contains("5-Ambient"))
 				return SectionType.Ambient;
 			if (pageText.Contains("6-Bulk Ambient"))
 				return SectionType.AmbientBulk;
 
 			return SectionType.Invalid;
+		}
+
+		private int ExtractTotalCount(int pageIndex)
+		{
+			var pageText = _pagesText[pageIndex];
+
+			// Match total count
+			Regex totalCountRegex = new Regex(@"(Total count \| )([0-9]+)");
+			var totalCountMatch = totalCountRegex.Match(pageText);
+			if (totalCountMatch.Groups.Count < 3)
+				return -1;
+			return Convert.ToInt32(totalCountMatch.Groups[2].Value);
 		}
 
 		private string[] GetPageLines(int pageIndex)

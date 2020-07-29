@@ -15,7 +15,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 {
 	public partial class FrontSheetDetailsControl : FrontSheetLabelsBase
 	{
-		private readonly BindingList<Invoice> _invoices = new BindingList<Invoice>();
+		private BindingList<Invoice> _invoices = new BindingList<Invoice>();
 		public List<Invoice> Invoices => _invoices.ToList();
 		public bool FullPalletBreakdown { get; set; }
 
@@ -30,6 +30,12 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 
 			PartiallyFillIn = PartiallyFillInCheck.Checked;
 			FullyFillIn = FillInCheck.Checked;
+		}
+
+		public void LoadInvoicesData(List<Invoice> invoices)
+		{
+			_invoices = new BindingList<Invoice>(invoices);
+			InvoiceNumbersGridView.DataSource = _invoices;
 		}
 
 		private void InvoiceNumbersGridView_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)

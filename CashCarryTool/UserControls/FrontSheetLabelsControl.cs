@@ -106,7 +106,9 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 
 		public void LoadInvoicesData(List<Invoice> invoices)
 		{
-
+			FrontSheetDetailsControl.LoadInvoicesData(invoices);
+			GeneralDetailsControl.LoadInvoicesData(invoices);
+			LabelDetailsControl.LoadInvoicesData(invoices);
 		}
 
 		public void Reload()
@@ -204,12 +206,12 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 			string totalPallets = FrontSheetDetailsControl.FullyFillIn ? LabelDetailsControl.Pallets.Count.ToString() : "";
 			string totalAmbientPallets = LabelDetailsControl.Pallets.Count(x => x.Type == PalletType.Ambient).ToString();
 			string totalIcePallets = LabelDetailsControl.Pallets.Count(x => x.Type == PalletType.Ice).ToString();
-			string totalBulkPallets = LabelDetailsControl.Pallets.Count(x => x.Type == PalletType.Bulk).ToString();
-			string totalMixedPallets = FrontSheetDetailsControl.FullyFillIn ? LabelDetailsControl.Pallets.Count(x => x.Type == PalletType.Mixed).ToString() : "";
+			string totalBulkPallets = LabelDetailsControl.Pallets.Count(x => x.Type == PalletType.BulkFrozen).ToString();
+			string totalMixedPallets = FrontSheetDetailsControl.FullyFillIn ? LabelDetailsControl.Pallets.Count(x => x.Type == PalletType.Frozen).ToString() : "";
 			
-			int totalUnits = FrontSheetDetailsControl.Invoices.Sum(x => x.AmbientUnits + x.BulkUnits + x.MixedUnits);
+			int totalUnits = FrontSheetDetailsControl.Invoices.Sum(x => x.AmbientUnits + x.BulkFrozenUnits + x.MixedUnits);
 			int totalAmbientUnits = FrontSheetDetailsControl.Invoices.Sum(x => x.AmbientUnits);
-			int totalBulkUnits = FrontSheetDetailsControl.Invoices.Sum(x => x.BulkUnits);
+			int totalBulkUnits = FrontSheetDetailsControl.Invoices.Sum(x => x.BulkFrozenUnits);
 			int totalMixedUnits = FrontSheetDetailsControl.Invoices.Sum(x => x.MixedUnits);
 
 			Clipboard.SetText($"{GeneralDetailsControl.CustomerCode},{GeneralDetailsControl.Title},{GeneralDetailsControl.PickDate}," +

@@ -29,20 +29,20 @@
 		private void InitializeComponent()
 		{
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.panel2 = new System.Windows.Forms.Panel();
+			this.CopyExcelLineBtn = new System.Windows.Forms.Button();
 			this.LabelDetailsControl = new Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels.LabelDetailsControl();
 			this.FrontSheetDetailsControl = new Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels.FrontSheetDetailsControl();
 			this.GeneralDetailsControl = new Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels.GeneralDetailsControl();
 			this.FrontSheetLabelsPreviewControl = new Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels.FrontSheetLabelsPreviewControl();
-			this.panel2 = new System.Windows.Forms.Panel();
-			this.CopyExcelLineBtn = new System.Windows.Forms.Button();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// panel1
 			// 
-			this.panel1.Controls.Add(this.panel2);
 			this.panel1.Controls.Add(this.LabelDetailsControl);
+			this.panel1.Controls.Add(this.panel2);
 			this.panel1.Controls.Add(this.FrontSheetDetailsControl);
 			this.panel1.Controls.Add(this.GeneralDetailsControl);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
@@ -50,49 +50,6 @@
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(345, 919);
 			this.panel1.TabIndex = 4;
-			// 
-			// LabelDetailsControl
-			// 
-			this.LabelDetailsControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.LabelDetailsControl.Location = new System.Drawing.Point(3, 433);
-			this.LabelDetailsControl.Name = "LabelDetailsControl";
-			this.LabelDetailsControl.NumLabelsPerPallet = 4;
-			this.LabelDetailsControl.ShowPalletNumber = true;
-			this.LabelDetailsControl.ShowPalletNumberOf = true;
-			this.LabelDetailsControl.ShowTotalPalletNumber = true;
-			this.LabelDetailsControl.Size = new System.Drawing.Size(345, 441);
-			this.LabelDetailsControl.TabIndex = 2;
-			// 
-			// FrontSheetDetailsControl
-			// 
-			this.FrontSheetDetailsControl.Dock = System.Windows.Forms.DockStyle.Top;
-			this.FrontSheetDetailsControl.FullPalletBreakdown = false;
-			this.FrontSheetDetailsControl.FullyFillIn = false;
-			this.FrontSheetDetailsControl.Location = new System.Drawing.Point(0, 294);
-			this.FrontSheetDetailsControl.Name = "FrontSheetDetailsControl";
-			this.FrontSheetDetailsControl.PartiallyFillIn = true;
-			this.FrontSheetDetailsControl.Size = new System.Drawing.Size(345, 133);
-			this.FrontSheetDetailsControl.TabIndex = 1;
-			// 
-			// GeneralDetailsControl
-			// 
-			this.GeneralDetailsControl.Dock = System.Windows.Forms.DockStyle.Top;
-			this.GeneralDetailsControl.Location = new System.Drawing.Point(0, 0);
-			this.GeneralDetailsControl.Name = "GeneralDetailsControl";
-			this.GeneralDetailsControl.Size = new System.Drawing.Size(345, 294);
-			this.GeneralDetailsControl.TabIndex = 0;
-			// 
-			// FrontSheetLabelsPreviewControl
-			// 
-			this.FrontSheetLabelsPreviewControl.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.FrontSheetLabelsPreviewControl.HideDuplicatePages = true;
-			this.FrontSheetLabelsPreviewControl.LiveReload = true;
-			this.FrontSheetLabelsPreviewControl.Location = new System.Drawing.Point(345, 0);
-			this.FrontSheetLabelsPreviewControl.Name = "FrontSheetLabelsPreviewControl";
-			this.FrontSheetLabelsPreviewControl.Size = new System.Drawing.Size(1043, 919);
-			this.FrontSheetLabelsPreviewControl.TabIndex = 2;
 			// 
 			// panel2
 			// 
@@ -115,6 +72,47 @@
 			this.CopyExcelLineBtn.Text = "Copy Excel Line";
 			this.CopyExcelLineBtn.UseVisualStyleBackColor = true;
 			this.CopyExcelLineBtn.Click += new System.EventHandler(this.CopyExcelLineBtn_Click);
+			// 
+			// LabelDetailsControl
+			// 
+			this.LabelDetailsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LabelDetailsControl.Location = new System.Drawing.Point(0, 440);
+			this.LabelDetailsControl.Name = "LabelDetailsControl";
+			this.LabelDetailsControl.NumLabelsPerPallet = 4;
+			this.LabelDetailsControl.ShowPalletNumber = true;
+			this.LabelDetailsControl.ShowPalletNumberOf = true;
+			this.LabelDetailsControl.ShowTotalPalletNumber = false;
+			this.LabelDetailsControl.Size = new System.Drawing.Size(345, 440);
+			this.LabelDetailsControl.TabIndex = 2;
+			// 
+			// FrontSheetDetailsControl
+			// 
+			this.FrontSheetDetailsControl.Dock = System.Windows.Forms.DockStyle.Top;
+			this.FrontSheetDetailsControl.FullPalletBreakdown = false;
+			this.FrontSheetDetailsControl.FullyFillIn = false;
+			this.FrontSheetDetailsControl.Location = new System.Drawing.Point(0, 325);
+			this.FrontSheetDetailsControl.Name = "FrontSheetDetailsControl";
+			this.FrontSheetDetailsControl.PartiallyFillIn = true;
+			this.FrontSheetDetailsControl.Size = new System.Drawing.Size(345, 115);
+			this.FrontSheetDetailsControl.TabIndex = 1;
+			// 
+			// GeneralDetailsControl
+			// 
+			this.GeneralDetailsControl.Dock = System.Windows.Forms.DockStyle.Top;
+			this.GeneralDetailsControl.Location = new System.Drawing.Point(0, 0);
+			this.GeneralDetailsControl.Name = "GeneralDetailsControl";
+			this.GeneralDetailsControl.Size = new System.Drawing.Size(345, 325);
+			this.GeneralDetailsControl.TabIndex = 0;
+			// 
+			// FrontSheetLabelsPreviewControl
+			// 
+			this.FrontSheetLabelsPreviewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.FrontSheetLabelsPreviewControl.HideDuplicatePages = true;
+			this.FrontSheetLabelsPreviewControl.LiveReload = true;
+			this.FrontSheetLabelsPreviewControl.Location = new System.Drawing.Point(345, 0);
+			this.FrontSheetLabelsPreviewControl.Name = "FrontSheetLabelsPreviewControl";
+			this.FrontSheetLabelsPreviewControl.Size = new System.Drawing.Size(1043, 919);
+			this.FrontSheetLabelsPreviewControl.TabIndex = 2;
 			// 
 			// FrontSheetLabelsControl
 			// 

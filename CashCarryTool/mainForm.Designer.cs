@@ -32,7 +32,6 @@
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.PickSheetControl = new Eden_Farm_Cash___Carry_Tool.UserControls.PickSheetControl();
-			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.FrontSheetLabelsControl = new Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabelsControl();
 			this.tabControl1.SuspendLayout();
@@ -43,7 +42,6 @@
 			// tabControl1
 			// 
 			this.tabControl1.Controls.Add(this.tabPage2);
-			this.tabControl1.Controls.Add(this.tabPage3);
 			this.tabControl1.Controls.Add(this.tabPage1);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -69,15 +67,6 @@
 			this.PickSheetControl.Name = "PickSheetControl";
 			this.PickSheetControl.Size = new System.Drawing.Size(1327, 927);
 			this.PickSheetControl.TabIndex = 0;
-			// 
-			// tabPage3
-			// 
-			this.tabPage3.Location = new System.Drawing.Point(4, 22);
-			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Size = new System.Drawing.Size(1327, 927);
-			this.tabPage3.TabIndex = 2;
-			this.tabPage3.Text = "Info";
-			this.tabPage3.UseVisualStyleBackColor = true;
 			// 
 			// tabPage1
 			// 
@@ -107,6 +96,7 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "MainForm";
 			this.Text = "EF Cash + Carry Tool";
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
@@ -121,7 +111,6 @@
 		private UserControls.FrontSheetLabelsControl FrontSheetLabelsControl;
 		private System.Windows.Forms.TabPage tabPage2;
 		private UserControls.PickSheetControl PickSheetControl;
-		private System.Windows.Forms.TabPage tabPage3;
 	}
 }
 

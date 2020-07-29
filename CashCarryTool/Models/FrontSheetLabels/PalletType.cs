@@ -9,8 +9,9 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 	public enum PalletType : ushort
 	{
 		Ice,
-		Bulk,
-		Mixed,
-		Ambient
+		BulkFrozen,
+		Frozen,
+		Ambient,
+		BulkAmbient
 	}
 }

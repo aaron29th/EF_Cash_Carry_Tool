@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CsvHelper;
 using Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels;
+using Eden_Farm_Cash___Carry_Tool.Models.Pick;
 using Eden_Farm_Cash___Carry_Tool.StaticClasses;
 
 namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
@@ -61,6 +62,16 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 
 			// Init pick date to today
 			PickDateSel.Value = DateTime.Now;
+		}
+
+		public void LoadInvoicesData(List<Invoice> invoices)
+		{
+			if (invoices.Count == 0)
+				return;
+
+			TitleTxt.Text = invoices[0].CustomerName;
+			CustomerCodeTxt.Text = invoices[0].CustomerCode;
+			DeliveryDateSel.Value = invoices[0].DeliveryBy;
 		}
 
 		private void TitleTxt_TextChanged(object sender, EventArgs e)

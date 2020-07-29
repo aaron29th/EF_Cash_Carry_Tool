@@ -21,6 +21,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 	public partial class PickSheetControl : UserControl
 	{
 		private MainForm _parent;
+		private Models.PickSheet _loadedPickSheet;
 
 		public PickSheetControl()
 		{
@@ -41,12 +42,11 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 			{
 				FilePaths = PickSheetLoadControl.SelectedFilePaths,
 				SelectedLines = PickSheetLoadControl.Lines
-
 			};
 
 			pickSheet.ImportPdfs();
 
-			pickSheet.OverLayPdf(false);
+			pickSheet.OverLayPdf(guideLines);
 
 			return pickSheet;
 		}
@@ -64,6 +64,8 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 
 			PickSheetPreviewControl.LoadPdfPreview(pickSheet);
 			PickSheetLoadControl.Lines = pickSheet.SelectedLines;
+
+			_loadedPickSheet = pickSheet;
 		}
 
 		public void PrintDocument()
@@ -92,7 +94,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 
 		public void LineClicked(float clickYLocation, int pageIndex)
 		{
-			var result = Models.PickSheet.ProcessLineClick(PickSheetLoadControl.Lines, clickYLocation, pageIndex);
+			var result = _loadedPickSheet.ProcessLineClick(clickYLocation, pageIndex);
 			if (result == null)
 				return;
 

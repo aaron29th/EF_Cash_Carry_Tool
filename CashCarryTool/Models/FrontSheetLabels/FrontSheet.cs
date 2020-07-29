@@ -88,19 +88,19 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 					continue;
 
 				var invoiceNumberText = new FormattedTextHelper(Invoices[i].InvoiceNumber.ToString());
-				invoiceNumberText.Size = 9;
+				invoiceNumberText.Size = 8;
 				invoiceNumberText.Bold = true;
 				invoicePara.Add(invoiceNumberText);
 
 				// Unit totals
-				int totalUnits = Invoices[i].AmbientUnits + Invoices[i].BulkUnits + Invoices[i].MixedUnits;
+				int totalUnits = Invoices[i].BulkAmbientUnits + Invoices[i].AmbientUnits + Invoices[i].BulkFrozenUnits + Invoices[i].MixedUnits;
 				if (totalUnits <= 0)
 					continue;
 
 				invoicePara.AddSpace(1);
 
-				var unitsText = new FormattedTextHelper($"| {totalUnits} T | {Invoices[i].MixedUnits} M | {Invoices[i].BulkUnits} B | {Invoices[i].AmbientUnits} A");
-				unitsText.Size = 8;
+				var unitsText = new FormattedTextHelper($"| {totalUnits} T | {Invoices[i].MixedUnits} F | {Invoices[i].BulkFrozenUnits} B/F | {Invoices[i].AmbientUnits} A | {Invoices[i].BulkAmbientUnits} B/A ");
+				unitsText.Size = 7;
 				invoicePara.Add(unitsText);
 
 			}
@@ -142,18 +142,20 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 						}
 							
 
-						if (FullyFillIn && PartiallyFillIn && Pallets[palletNumber - 1].Type == PalletType.Mixed)
-							description = "Mixed";
+						if (FullyFillIn && PartiallyFillIn && Pallets[palletNumber - 1].Type == PalletType.Frozen)
+							description = "F";
 						else if (PartiallyFillIn && Pallets[palletNumber - 1].Type == PalletType.Ice)
 							description = "Ice";
-						else if (PartiallyFillIn && Pallets[palletNumber - 1].Type == PalletType.Bulk)
-							description = "Bulk";
+						else if (PartiallyFillIn && Pallets[palletNumber - 1].Type == PalletType.BulkFrozen)
+							description = "B/F";
 						else if (PartiallyFillIn && Pallets[palletNumber - 1].Type == PalletType.Ambient)
-							description = "Ambient";
+							description = "A";
+						else if (PartiallyFillIn && Pallets[palletNumber - 1].Type == PalletType.BulkAmbient)
+							description = "B/A";
 					}
 
 					LayoutHelper.CellAddParagraphWithSpace(table.Rows[rowIndex].Cells[palletNumberColumnIndex + 1],
-						description, 1, 10);
+						description, 1, 7);
 
 					// Add blue pallets column, 1 if ice pallet empty otherwise
 					string numBluePalletsText =
@@ -199,7 +201,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 
 		private void AddPalletColourTotal()
 		{
-			var table = LayoutHelper.AddEqualWidthTable(5, 6, _currentSection, _borderWidth);
+			var table = LayoutHelper.AddEqualWidthTable(5, 7, _currentSection, _borderWidth);
 			table.Format.Font.Size = 15;
 
 			const float headerTextSize = 8;
@@ -215,10 +217,11 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 
 			// Add header column
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[0], "6 x 12kg Ice", 1, headerTextSize);
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[0], "Bulk", 1, headerTextSize);
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[3].Cells[0], "Mixed", 1, headerTextSize);
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[0], "Bulk Frozen", 1, headerTextSize);
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[3].Cells[0], "Frozen", 1, headerTextSize);
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[4].Cells[0], "Ambient", 1, headerTextSize);
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[5].Cells[0], "Total", 1, headerTextSize);
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[5].Cells[0], "Bulk Ambient", 1, headerTextSize);
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[6].Cells[0], "Total", 1, headerTextSize);
 
 			// FIll in ice row
 			if (PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.Ice) > 0)
@@ -235,7 +238,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 
 
 			// Add empty spaces
-			for (int rowIndex = 2; rowIndex < 6; rowIndex++)
+			for (int rowIndex = 2; rowIndex < 7; rowIndex++)
 			{
 				for (int columnIndex = 1; columnIndex < 5; columnIndex++)
 				{
@@ -263,8 +266,8 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 
 		private void AddPalletTotals()
 		{
-			var table = LayoutHelper.AddEqualWidthTable(5, 2, _currentSection, _borderWidth, true);
-			table.Format.Font.Size = 8;
+			var table = LayoutHelper.AddEqualWidthTable(6, 2, _currentSection, _borderWidth, true);
+			table.Format.Font.Size = 7;
 			table.Rows[1].Format.Font.Size = 20;
 
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[0], "Total Pallets");
@@ -276,41 +279,48 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 			if (PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.Ice) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[1], Pallets.Count(x => x.Type == PalletType.Ice).ToString());
 			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[1], "");
 
-
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[2], "Total Bulk Pallets");
-			if (PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.Bulk) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[2], Pallets.Count(x => x.Type == PalletType.Bulk).ToString());
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[2], "Total Bulk Frozen Pallets");
+			if (PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.BulkFrozen) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[2], Pallets.Count(x => x.Type == PalletType.BulkFrozen).ToString());
 			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[2], "");
 
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[3], "Total Mixed Pallets");
-			if (FullyFillIn && PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.Mixed) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[3], Pallets.Count(x => x.Type == PalletType.Mixed).ToString());
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[3], "Total Frozen Pallets");
+			if (FullyFillIn && PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.Frozen) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[3], Pallets.Count(x => x.Type == PalletType.Frozen).ToString());
 			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[3], "");
 
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[4], "Total Ambient Pallets");
 			if (FullyFillIn && PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.Ambient) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[4], Pallets.Count(x => x.Type == PalletType.Ambient).ToString());
 			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[4], "");
+
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[5], "Total Bulk Ambient Pallets");
+			if (PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.BulkAmbient) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[5], Pallets.Count(x => x.Type == PalletType.BulkAmbient).ToString());
+			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[5], "");
 		}
 
 		private void AddUnitTotals()
 		{
-			var table = LayoutHelper.AddEqualWidthTable(4, 2, _currentSection, _borderWidth, true);
+			var table = LayoutHelper.AddEqualWidthTable(5, 2, _currentSection, _borderWidth, true);
 			table.Format.Font.Size = 8;
 			table.Rows[1].Format.Font.Size = 20;
 
-			int totalUnits = Invoices.Sum(x => x.AmbientUnits + x.BulkUnits + x.MixedUnits);
+			int totalUnits = Invoices.Sum(x => x.BulkAmbientUnits + x.AmbientUnits + x.BulkFrozenUnits + x.MixedUnits);
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[0], "Total Units");
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[0], totalUnits > 0 ? totalUnits.ToString() : "", 1, 12);
 
-			int totalAmbientUnits = Invoices.Sum(x => x.AmbientUnits);
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[1], "Total Ambient Units");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[1], totalAmbientUnits > 0 ? totalAmbientUnits.ToString() : "", 1, 12);
-
-			int totalBulkUnits = Invoices.Sum(x => x.BulkUnits);
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[2], "Total Bulk Units");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[2], totalBulkUnits > 0 ? totalBulkUnits.ToString() : "", 1, 12);
-
 			int totalMixedUnits = Invoices.Sum(x => x.MixedUnits);
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[3], "Total Mixed Units");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[3], totalMixedUnits > 0 ? totalMixedUnits.ToString() : "", 1, 12);
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[1], "Total Frozen Units");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[1], totalMixedUnits > 0 ? totalMixedUnits.ToString() : "", 1, 12);
+
+			int totalBulkFrozenUnits = Invoices.Sum(x => x.BulkFrozenUnits);
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[2], "Total Bulk Frozen Units");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[2], totalBulkFrozenUnits > 0 ? totalBulkFrozenUnits.ToString() : "", 1, 12);
+
+			int totalAmbientUnits = Invoices.Sum(x => x.AmbientUnits);
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[3], "Total Ambient Units");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[3], totalAmbientUnits > 0 ? totalAmbientUnits.ToString() : "", 1, 12);
+
+			int totalBulkAmbientUnits = Invoices.Sum(x => x.BulkAmbientUnits);
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[4], "Total Bulk Ambient Units");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[4], totalBulkAmbientUnits > 0 ? totalBulkAmbientUnits.ToString() : "", 1, 12);
 		}
 
 		private void AddPickerAndTimes()
@@ -362,6 +372,15 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 					LayoutHelper.CellAddParagraphWithSpace(table.Rows[rowIndex].Cells[columnIndex], "");
 				}
 			}
+		}
+
+		private void AddNote(string note)
+		{
+			var table = LayoutHelper.AddEqualWidthTable(1, 1, _currentSection);
+
+			table.Rows[0].Format.Font.Size = 10;
+
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[0], note);
 		}
 
 		private void InitDocument()
@@ -417,6 +436,9 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 			AddPickerAndTimes();
 			AddSpace(10);
 			AddMissings();
+			
+			AddSpace(20);
+			AddNote("Please note: Pallets of \"6 x 2kg ice\" are separated from \"bulk frozen\" for all but the unit totals");
 		}
 	}
 }

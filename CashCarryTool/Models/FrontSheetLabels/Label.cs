@@ -126,7 +126,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 
 		private void AddAdditionalText(Pallet pallet)
 		{
-			if (pallet.Type == PalletType.Mixed) return;
+			if (pallet.Type == PalletType.Frozen) return;
 
 			Table table = LayoutHelper.AddTableFillLastColumn(new List<float>() { 470 }, 1, _currentSection, _borderWidth);
 			table.Format.Font.Size = 40;
@@ -141,14 +141,17 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 				paragraph.Add(FormattedTextHelper.Snowflake());
 				paragraph.AddText(" ICE ");
 				paragraph.Add(FormattedTextHelper.Snowflake());
-			} else if (pallet.Type == PalletType.Bulk)
+			} else if (pallet.Type == PalletType.BulkFrozen)
 			{
-				paragraph.AddText("BULK");
+				paragraph.AddText("BULK FROZEN");
 			} else if (pallet.Type == PalletType.Ambient)
 			{
 				paragraph.AddText("AMBIENT");
 			}
-			
+			else if (pallet.Type == PalletType.BulkAmbient)
+			{
+				paragraph.AddText("BULK AMBIENT");
+			}
 		}
 
 		private void AddFooter()

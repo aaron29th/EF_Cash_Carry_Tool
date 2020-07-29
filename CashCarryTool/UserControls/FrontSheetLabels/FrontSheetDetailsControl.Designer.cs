@@ -43,6 +43,7 @@
 			this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.AmbientBulkUnits = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.groupBox2.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
@@ -131,7 +132,8 @@
             this.invoiceNumberDataGridViewTextBoxColumn,
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn1});
+            this.dataGridViewTextBoxColumn1,
+            this.AmbientBulkUnits});
 			this.InvoiceNumbersGridView.DataSource = this.invoiceBindingSource;
 			this.InvoiceNumbersGridView.Location = new System.Drawing.Point(0, 29);
 			this.InvoiceNumbersGridView.Name = "InvoiceNumbersGridView";
@@ -162,13 +164,13 @@
 			// dataGridViewTextBoxColumn3
 			// 
 			this.dataGridViewTextBoxColumn3.DataPropertyName = "MixedUnits";
-			this.dataGridViewTextBoxColumn3.HeaderText = "Mixed";
+			this.dataGridViewTextBoxColumn3.HeaderText = "Frozen";
 			this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
 			// 
 			// dataGridViewTextBoxColumn2
 			// 
-			this.dataGridViewTextBoxColumn2.DataPropertyName = "BulkUnits";
-			this.dataGridViewTextBoxColumn2.HeaderText = "Bulk";
+			this.dataGridViewTextBoxColumn2.DataPropertyName = "BulkFrozenUnits";
+			this.dataGridViewTextBoxColumn2.HeaderText = "BulkFrozen";
 			this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
 			// 
 			// dataGridViewTextBoxColumn1
@@ -176,6 +178,12 @@
 			this.dataGridViewTextBoxColumn1.DataPropertyName = "AmbientUnits";
 			this.dataGridViewTextBoxColumn1.HeaderText = "Ambient";
 			this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+			// 
+			// BulkAmbientUnits
+			// 
+			this.AmbientBulkUnits.DataPropertyName = "BulkAmbientUnits";
+			this.AmbientBulkUnits.HeaderText = "Ambient BulkFrozen";
+			this.AmbientBulkUnits.Name = "AmbientBulkUnits";
 			// 
 			// FrontSheetDetailsControl
 			// 
@@ -215,5 +223,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+		private System.Windows.Forms.DataGridViewTextBoxColumn AmbientBulkUnits;
 	}
 }
