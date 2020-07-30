@@ -14,7 +14,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet
 {
 	public partial class PickSheetLoadControl : PickSheetControlBase
 	{
-		private readonly string _picksFolderPath = $"{Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\Pick PDFs\\";
+		private readonly string _picksFolderPath = $"{Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\..\\Pick PDFs\\";
 		
 		private readonly BindingList<CheckedDataViewItem> _files = new BindingList<CheckedDataViewItem>();
 		public List<string> SelectedFilePaths

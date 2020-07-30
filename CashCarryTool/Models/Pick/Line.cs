@@ -26,9 +26,9 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 			
 		}
 
-		public Line(string text)
+		public Line(string lineText)
 		{
-			//Regex rg = new Regex(pattern);
+			// Extract all elements of line
 			var pattern = @"(^[a-zA-Z 0-9]+\/[a-zA-z0-9]+) " + // Location
 			              @"([0-9]{4,}) " + // Code
 			              @"((1 )|([0-9]+ ))" + // Pack
@@ -40,6 +40,8 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 			              @"( _____ )" + // Del
 			              @"([0-9]+)" + // Line
 			              @"( [0-9]+|)"; // Barcode
+
+			Regex rg = new Regex(pattern);
 		}
 	}
 }

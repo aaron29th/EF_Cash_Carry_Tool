@@ -157,6 +157,8 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 					                Environment.NewLine + 
 					                ex.Message, "Error parsing invoice",
 						MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+					return;
 				}
 			}
 

@@ -31,7 +31,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 		public int AmbientUnits { get; set; }
 		public int BulkAmbientUnits { get; set; }
 		public int BulkFrozenUnits { get; set; }
-		public int MixedUnits { get; set; }
+		public int FrozenUnits { get; set; }
 
 		public Section Frozen { get; set; }
 		public Section Bulk { get; set; }
@@ -71,18 +71,22 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 			switch (sectionType)
 			{
 				case SectionType.Frozen:
+					Frozen.ProcessPage(pageNumber, _pagesText[pageIndex]);
 					if (pageNumber == 1)
-						MixedUnits = ExtractTotalCount(pageIndex);
+						FrozenUnits = ExtractTotalCount(pageIndex);
 					break;
 				case SectionType.Bulk:
+					Bulk.ProcessPage(pageNumber, _pagesText[pageIndex]);
 					if (pageNumber == 1)
 						BulkFrozenUnits = ExtractTotalCount(pageIndex);
 					break;
 				case SectionType.Ambient:
+					Ambient.ProcessPage(pageNumber, _pagesText[pageIndex]);
 					if (pageNumber == 1)
 						AmbientUnits = ExtractTotalCount(pageIndex);
 					break;
 				case SectionType.AmbientBulk:
+					AmbientBulk.ProcessPage(pageNumber, _pagesText[pageIndex]);
 					if (pageNumber == 1)
 						BulkAmbientUnits = ExtractTotalCount(pageIndex);
 					break;

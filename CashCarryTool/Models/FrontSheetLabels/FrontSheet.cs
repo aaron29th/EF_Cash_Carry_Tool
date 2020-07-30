@@ -93,13 +93,13 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 				invoicePara.Add(invoiceNumberText);
 
 				// Unit totals
-				int totalUnits = Invoices[i].BulkAmbientUnits + Invoices[i].AmbientUnits + Invoices[i].BulkFrozenUnits + Invoices[i].MixedUnits;
+				int totalUnits = Invoices[i].BulkAmbientUnits + Invoices[i].AmbientUnits + Invoices[i].BulkFrozenUnits + Invoices[i].FrozenUnits;
 				if (totalUnits <= 0)
 					continue;
 
 				invoicePara.AddSpace(1);
 
-				var unitsText = new FormattedTextHelper($"| {totalUnits} T | {Invoices[i].MixedUnits} F | {Invoices[i].BulkFrozenUnits} B/F | {Invoices[i].AmbientUnits} A | {Invoices[i].BulkAmbientUnits} B/A ");
+				var unitsText = new FormattedTextHelper($"| {totalUnits} T | {Invoices[i].FrozenUnits} F | {Invoices[i].BulkFrozenUnits} B/F | {Invoices[i].AmbientUnits} A | {Invoices[i].BulkAmbientUnits} B/A ");
 				unitsText.Size = 7;
 				invoicePara.Add(unitsText);
 
@@ -302,11 +302,11 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 			table.Format.Font.Size = 8;
 			table.Rows[1].Format.Font.Size = 20;
 
-			int totalUnits = Invoices.Sum(x => x.BulkAmbientUnits + x.AmbientUnits + x.BulkFrozenUnits + x.MixedUnits);
+			int totalUnits = Invoices.Sum(x => x.BulkAmbientUnits + x.AmbientUnits + x.BulkFrozenUnits + x.FrozenUnits);
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[0], "Total Units");
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[0], totalUnits > 0 ? totalUnits.ToString() : "", 1, 12);
 
-			int totalMixedUnits = Invoices.Sum(x => x.MixedUnits);
+			int totalMixedUnits = Invoices.Sum(x => x.FrozenUnits);
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[1], "Total Frozen Units");
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[1], totalMixedUnits > 0 ? totalMixedUnits.ToString() : "", 1, 12);
 

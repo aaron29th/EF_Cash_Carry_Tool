@@ -20,7 +20,7 @@ namespace Eden_Farm_Cash___Carry_Tool.StaticClasses
 			{
 				var exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
 				var exeDirectory = System.IO.Path.GetDirectoryName(exePath);
-				_path = $"{exeDirectory}\\res";
+				_path = $"{exeDirectory}\\..\\Resources";
 
 				Directory.CreateDirectory(_path);
 

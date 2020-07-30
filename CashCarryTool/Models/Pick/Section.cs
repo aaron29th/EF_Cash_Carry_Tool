@@ -14,5 +14,10 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.Pick
 		{
 			ProcessedPages = new List<int>();
 		}
+
+		public void ProcessPage(int pageNumber, string pageText)
+		{
+
+		}
 	}
 }

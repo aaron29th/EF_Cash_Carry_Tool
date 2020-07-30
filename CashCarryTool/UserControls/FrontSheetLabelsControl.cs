@@ -204,19 +204,31 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 		private void CopyExcelLineBtn_Click(object sender, EventArgs e)
 		{
 			string totalPallets = FrontSheetDetailsControl.FullyFillIn ? LabelDetailsControl.Pallets.Count.ToString() : "";
-			string totalAmbientPallets = LabelDetailsControl.Pallets.Count(x => x.Type == PalletType.Ambient).ToString();
-			string totalIcePallets = LabelDetailsControl.Pallets.Count(x => x.Type == PalletType.Ice).ToString();
-			string totalBulkPallets = LabelDetailsControl.Pallets.Count(x => x.Type == PalletType.BulkFrozen).ToString();
-			string totalMixedPallets = FrontSheetDetailsControl.FullyFillIn ? LabelDetailsControl.Pallets.Count(x => x.Type == PalletType.Frozen).ToString() : "";
-			
-			int totalUnits = FrontSheetDetailsControl.Invoices.Sum(x => x.AmbientUnits + x.BulkFrozenUnits + x.MixedUnits);
-			int totalAmbientUnits = FrontSheetDetailsControl.Invoices.Sum(x => x.AmbientUnits);
-			int totalBulkUnits = FrontSheetDetailsControl.Invoices.Sum(x => x.BulkFrozenUnits);
-			int totalMixedUnits = FrontSheetDetailsControl.Invoices.Sum(x => x.MixedUnits);
 
-			Clipboard.SetText($"{GeneralDetailsControl.CustomerCode},{GeneralDetailsControl.Title},{GeneralDetailsControl.PickDate}," +
-			                  $"{totalPallets},{totalAmbientPallets},{totalIcePallets},{totalBulkPallets},{totalMixedPallets}," +
-			                  $"{totalUnits},{totalAmbientUnits},{totalBulkUnits},{totalMixedUnits}");
+			string totalAmbientPallets = LabelDetailsControl.Pallets.Count(x => x.Type == PalletType.Ambient).ToString();
+			string totalBulkAmbientPallets = LabelDetailsControl.Pallets.Count(x => x.Type == PalletType.BulkAmbient).ToString();
+
+			string totalIcePallets = LabelDetailsControl.Pallets.Count(x => x.Type == PalletType.Ice).ToString();
+			string totalBulkFrozenPallets = LabelDetailsControl.Pallets.Count(x => x.Type == PalletType.BulkFrozen).ToString();
+			string totalFrozenPallets = FrontSheetDetailsControl.FullyFillIn ? LabelDetailsControl.Pallets.Count(x => x.Type == PalletType.Frozen).ToString() : "";
+			
+			int totalUnits = FrontSheetDetailsControl.Invoices.Sum(x => x.AmbientUnits + x.BulkAmbientUnits + x.BulkFrozenUnits + x.FrozenUnits);
+
+			int totalAmbientUnits = FrontSheetDetailsControl.Invoices.Sum(x => x.AmbientUnits);
+			int totalBulkAmbientUnits = FrontSheetDetailsControl.Invoices.Sum(x => x.BulkAmbientUnits);
+
+			int totalBulkFrozenUnits = FrontSheetDetailsControl.Invoices.Sum(x => x.BulkFrozenUnits);
+			int totalFrozenUnits = FrontSheetDetailsControl.Invoices.Sum(x => x.FrozenUnits);
+
+			Clipboard.SetText($"{GeneralDetailsControl.CustomerCode}|{GeneralDetailsControl.Title}|" +
+							  // Pallets
+			                  $"=OFFSET(INDIRECT(ADDRESS(ROW(),COLUMN())),0,1,1,1) + OFFSET(INDIRECT(ADDRESS(ROW(),COLUMN())),0,5,1,1)|=SUM(OFFSET(INDIRECT(ADDRESS(ROW(),COLUMN())),0,1,1,3))|{totalIcePallets}|{totalBulkFrozenPallets}|{totalFrozenPallets}|" + // Frozen
+			                  $"=SUM(OFFSET(INDIRECT(ADDRESS(ROW(),COLUMN())),0,1,1,2))|{totalBulkAmbientPallets}|{totalAmbientPallets}|" + // Ambient
+							  // Units
+			                  $"=OFFSET(INDIRECT(ADDRESS(ROW(),COLUMN())),0,1,1,1) + OFFSET(INDIRECT(ADDRESS(ROW(),COLUMN())),0,4,1,1)|=SUM(OFFSET(INDIRECT(ADDRESS(ROW(),COLUMN())),0,1,1,2))|{totalBulkFrozenUnits}|{totalFrozenUnits}|" + // Frozen
+							  $"=SUM(OFFSET(INDIRECT(ADDRESS(ROW(),COLUMN())),0,1,1,2))|{totalBulkAmbientUnits}|{totalAmbientUnits}|" + // Ambient
+							  // Pick Date
+			                  $"{GeneralDetailsControl.PickDate}");
 		}
 	}
 }

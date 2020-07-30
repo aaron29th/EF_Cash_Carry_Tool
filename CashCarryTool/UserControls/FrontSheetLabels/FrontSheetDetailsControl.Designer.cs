@@ -163,7 +163,7 @@
 			// 
 			// dataGridViewTextBoxColumn3
 			// 
-			this.dataGridViewTextBoxColumn3.DataPropertyName = "MixedUnits";
+			this.dataGridViewTextBoxColumn3.DataPropertyName = "FrozenUnits";
 			this.dataGridViewTextBoxColumn3.HeaderText = "Frozen";
 			this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
 			// 
