@@ -1,17 +1,17 @@
 using InvoiceParser;
-using NUnit.Framework;
-using NUnit.Framework.Internal;
-
-namespace InvoiceParserTests
+using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+namespace InvoiceParserUnitTests
 {
+	[TestClass]
 	public class PickLineTests
 	{
-		[SetUp]
+		[TestInitialize]
 		public void Setup()
 		{
 		}
 
-		[Test]
+		[TestMethod]
 		public void LineParsing_Simple()
 		{
 			var lineText = "E4600/B 8651 12 Franco's Splendor Chocolate 200ml 10 _____ 34 05038486410100";
@@ -27,7 +27,7 @@ namespace InvoiceParserTests
 			Assert.AreEqual(05038486410100, line.Barcode);
 		}
 
-		[Test]
+		[TestMethod]
 		public void LineParsing_Single()
 		{
 			var lineText = "E4600/B 8651 1 Franco's Splendor Chocolate 200ml Single 10 _____ 34 05038486410100";
@@ -43,7 +43,7 @@ namespace InvoiceParserTests
 			Assert.AreEqual(05038486410100, line.Barcode);
 		}
 
-		[Test]
+		[TestMethod]
 		public void LineParsing_Free()
 		{
 			var lineText = "E4600/B 8651 12 Franco's Splendor Chocolate 200ml *FREE* 10 _____ 34 05038486410100";
@@ -59,7 +59,7 @@ namespace InvoiceParserTests
 			Assert.AreEqual(05038486410100, line.Barcode);
 		}
 
-		[Test]
+		[TestMethod]
 		public void LineParsing_SingleFree()
 		{
 			var lineText = "E4600/B 8651 1 Franco's Splendor Chocolate 200ml Single *FREE* 10 _____ 34 05038486410100";
@@ -75,7 +75,7 @@ namespace InvoiceParserTests
 			Assert.AreEqual(05038486410100, line.Barcode);
 		}
 
-		[Test]
+		[TestMethod]
 		public void LineParsing_NoBarcode()
 		{
 			var lineText = "A 100/A 3915 24 Calippo Orange FOC 105ml 2 _____ 37";
@@ -91,7 +91,7 @@ namespace InvoiceParserTests
 			Assert.AreEqual(-1, line.Barcode);
 		}
 
-		[Test]
+		[TestMethod]
 		public void LineParsing_SingleNoBarcode()
 		{
 			var lineText = "A 100/A 3915 1 Calippo Orange FOC 105ml Single 2 _____ 37";
@@ -107,7 +107,7 @@ namespace InvoiceParserTests
 			Assert.AreEqual(-1, line.Barcode);
 		}
 
-		[Test]
+		[TestMethod]
 		public void LineParsing_FreeNoBarcode()
 		{
 			var lineText = "A 100/A 3915 24 Calippo Orange FOC 105ml *FREE* 2 _____ 37";
@@ -123,7 +123,7 @@ namespace InvoiceParserTests
 			Assert.AreEqual(-1, line.Barcode);
 		}
 
-		[Test]
+		[TestMethod]
 		public void LineParsing_SingleFreeNoBarcode()
 		{
 			var lineText = "A 100/A 3915 1 Calippo Orange FOC 105ml Single *FREE* 2 _____ 37";
@@ -139,7 +139,7 @@ namespace InvoiceParserTests
 			Assert.AreEqual(-1, line.Barcode);
 		}
 
-		[Test]
+		[TestMethod]
 		public void LineParsing_MaxDescriptionSingle()
 		{
 			var lineText = "C2900/B 6233 1 Kellys of Cornwall Clotted Cream Vanilla Bean Seed4.5ltr Single 10 _____ 6 15026646000596";

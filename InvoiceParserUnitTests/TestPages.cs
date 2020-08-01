@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using PdfiumViewer;
 
-namespace InvoiceParserTests
+namespace InvoiceParserUnitTests
 {
 	static class TestPages
 	{
