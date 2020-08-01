@@ -14,7 +14,7 @@ namespace InvoiceParser
 		public string Description { get; set; }
 		public int Ordered { get; set; }
 
-		public string Pack { get; set; }
+		public int Pack { get; set; }
 		public string Size { get; set; }
 		
 		public bool Free { get; set; }
@@ -31,8 +31,8 @@ namespace InvoiceParser
 			// Extract all elements of line
 			var pattern = @"(^[a-zA-Z 0-9]+\/[a-zA-z0-9]+) " +	// Location
 			              @"([0-9]{4,}) " +						// Code
-			              @"((1 )|([0-9]+ ))" +					// Pack
-			              @"((.{1,49} )|(.{50}))" +				// Description
+			              @"((1 )|([0-9]+ ))" +                 // Pack
+						  @"((.{50})|(.{1,49} ))" +				// Description
 			              @"([a-zA-Z.0-9]+) " +					// Size
 			              @"(?(4)Single |)" +					// If pack == 1 then single
 			              @"((\*FREE\* )|)" +					// Free?
@@ -41,7 +41,19 @@ namespace InvoiceParser
 			              @"([0-9]+)" +							// Line
 			              @"( [0-9]+|)";						// Barcode
 
-			Regex rg = new Regex(pattern);
+			var lineRegex = new Regex(pattern);
+			var lineMatches = lineRegex.Match(lineText);
+
+			Location = lineMatches.Groups[1].Value;
+			Code = Convert.ToInt32(lineMatches.Groups[2].Value);
+			Pack = Convert.ToInt32(lineMatches.Groups[3].Value.Trim());
+			Description = lineMatches.Groups[6].Value.Trim();
+			Size = lineMatches.Groups[9].Value;
+			Ordered = Convert.ToInt32(lineMatches.Groups[12].Value);
+			LineNumber = Convert.ToInt32(lineMatches.Groups[14].Value);
+			Barcode = lineMatches.Groups[15].Value.Trim() == ""
+				? -1
+				: Convert.ToInt64(lineMatches.Groups[15].Value.Trim());
 		}
 	}
 }

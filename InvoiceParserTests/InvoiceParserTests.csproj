@@ -7,13 +7,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
     <PackageReference Include="nunit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+    <PackageReference Include="PdfiumViewer.Native.x86.v8-xfa" Version="2018.4.8.256" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\PdfiumViewer\PdfiumViewer\PdfiumViewer.csproj" />
     <ProjectReference Include="..\InvoiceParser\InvoiceParser.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TestInvoices\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestInvoices\McNabs-OnePage-NotFull.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

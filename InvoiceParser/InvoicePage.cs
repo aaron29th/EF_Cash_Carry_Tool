@@ -10,7 +10,7 @@ namespace InvoiceParser
 {
 	public class InvoicePage
 	{
-		private string _pageText;
+		private readonly string _pageText;
 		private string[] _pageLines
 		{
 			get
