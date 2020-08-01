@@ -50,9 +50,10 @@ namespace InvoiceParser
 			Lines = new List<PickLine>();
 		}
 
-		public InvoicePage(string pageText) : this()
+		public InvoicePage(string pageText, string customerName = null) : this()
 		{
 			_pageText = pageText;
+			CustomerName = customerName;
 
 			ExtractCustomerCode();
 			ExtractPostCode();
@@ -107,10 +108,12 @@ namespace InvoiceParser
 		{
 			// Split customer code and address line 1
 			//? A/C MCN812 Bannerley Buildings
-			Regex customerCodeRegex = new Regex(@"(A\/C )([A-Z0-9]+) (.+)");
-			var customerCodeMatch = customerCodeRegex.Match(_pageText);
-			if (customerCodeMatch.Groups.Count < 4)
+			Regex addressLineRegex = new Regex(@"(A\/C )([A-Z0-9]+) (.+)");
+			var addressLineMatch = addressLineRegex.Match(_pageText);
+			if (addressLineMatch.Groups.Count < 4)
 				Address[0] = "";
+			else
+				Address[0] = addressLineMatch.Groups[3].Value.Trim();
 		}
 
 		private void ExtractAddressLine2()
@@ -227,14 +230,14 @@ namespace InvoiceParser
 		{
 			if (_pageText.Contains("1-Frozen"))
 				Section = SectionType.Frozen;
-			if (_pageText.Contains("2-Bulk Frozen"))
+			else if (_pageText.Contains("2-Bulk Frozen"))
 				Section = SectionType.Bulk;
-			if (_pageText.Contains("5-Ambient"))
+			else if (_pageText.Contains("5-Ambient"))
 				Section = SectionType.Ambient;
-			if (_pageText.Contains("6-Bulk Ambient"))
-				Section = SectionType.AmbientBulk;
-
-			Section = SectionType.Invalid;
+			else if (_pageText.Contains("6-Bulk Ambient"))
+				Section = SectionType.AmbientBulk; 
+			else 
+				Section = SectionType.Invalid;
 		}
 
 		private void ExtractTotalCount()
@@ -244,7 +247,7 @@ namespace InvoiceParser
 			var totalCountMatch = totalCountRegex.Match(_pageText);
 			if (totalCountMatch.Groups.Count == 3)
 			{
-				TotalCount = Convert.ToInt32(totalCountMatch.Groups[3].Value);
+				TotalCount = Convert.ToInt32(totalCountMatch.Groups[2].Value);
 				return;
 			}
 
@@ -253,7 +256,7 @@ namespace InvoiceParser
 			var totalUnitsMatch = totalUnitsRegex.Match(_pageText);
 			if (totalUnitsMatch.Groups.Count == 3)
 			{
-				TotalCount = Convert.ToInt32(totalUnitsMatch.Groups[3].Value);
+				TotalCount = Convert.ToInt32(totalUnitsMatch.Groups[2].Value);
 				return;
 			}
 

@@ -57,7 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="TestInvoices\McNabs-OnePage-NotFull.pdf" />
+    <None Include="TestInvoices\McNabs-OnePage-NotFull.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\PdfiumViewer\PdfiumViewer\PdfiumViewer.csproj">
