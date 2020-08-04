@@ -209,7 +209,7 @@ namespace InvoiceParser
 				return;
 			}
 
-			Reference = referenceMatch.Groups[2].Value;
+			Reference = referenceMatch.Groups[2].Value.Trim();
 		}
 
 		private void ExtractPageNumber()
