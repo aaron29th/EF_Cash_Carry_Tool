@@ -5,6 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using Eden_Farm_Cash___Carry_Tool.Models;
+using Newtonsoft.Json;
 
 namespace Eden_Farm_Cash___Carry_Tool.StaticClasses
 {
@@ -12,12 +15,12 @@ namespace Eden_Farm_Cash___Carry_Tool.StaticClasses
 	{
 		public static bool GetStartPermission()
 		{
-			string urlAddress = "https://aaronrosser.xyz/ef/ef";
+			string urlAddress = "https://aaronrosser.xyz/ef/cc.json";
 
 			try
 			{
-				HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlAddress);
-				HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+				HttpWebRequest request = (HttpWebRequest) WebRequest.Create(urlAddress);
+				HttpWebResponse response = (HttpWebResponse) request.GetResponse();
 
 				if (response.StatusCode != HttpStatusCode.OK)
 					return false;
@@ -30,14 +33,31 @@ namespace Eden_Farm_Cash___Carry_Tool.StaticClasses
 				else
 					readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
 
-				string data = readStream.ReadToEnd();
+				string jsonData = readStream.ReadToEnd();
 
 				response.Close();
 				readStream.Close();
 
-				return data.Contains("ok");
+				var res = JsonConvert.DeserializeObject<StartUpRequestResponse>(jsonData);
+
+				if (res.ShowDialog)
+				{
+					MessageBox.Show(res.DialogText, res.DialogTitle, MessageBoxButtons.OK,
+						(MessageBoxIcon) res.DialogCode);
+				}
+
+				return res.StartUp;
 			}
-			catch
+			catch (WebException ex)
+			{
+				MessageBox.Show($"Network error occured. {Environment.NewLine}Please ensure the computer has a strong stable network connection.", "Network Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return false;
+			}
+			catch (JsonReaderException ex)
+			{
+				return false;
+			}
+			catch (Exception ex)
 			{
 				return false;
 			}

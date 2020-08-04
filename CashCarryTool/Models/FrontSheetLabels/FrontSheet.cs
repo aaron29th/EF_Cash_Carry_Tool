@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Eden_Farm_Cash___Carry_Tool.Models.Pick;
 using Eden_Farm_Cash___Carry_Tool.StaticClasses;
 using MigraDoc.DocumentObjectModel;
+using MigraDoc.DocumentObjectModel.Tables;
 using Section = MigraDoc.DocumentObjectModel.Section;
 
 namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
@@ -266,34 +267,51 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 
 		private void AddPalletTotals()
 		{
-			var table = LayoutHelper.AddEqualWidthTable(6, 2, _currentSection, _borderWidth, true);
+			var table = LayoutHelper.AddEqualWidthTable(6, 3, _currentSection, _borderWidth, true);
 			table.Format.Font.Size = 7;
-			table.Rows[1].Format.Font.Size = 20;
+			table.Rows[2].Format.Font.Size = 20;
 
+			table.Rows[0].Cells[1].Borders.Right.Width = 0;
+			table.Rows[0].Cells[2].Borders.Left.Width = 0;
+
+
+			// Total Pallets
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[0], "Total Pallets");
-			table.Rows[1].Cells[0].Format.Font.Size = 40;
-			if (FullyFillIn && PartiallyFillIn && Pallets.Any()) LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[0], Pallets.Count().ToString());
-			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[0], "");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[0], "");
+			table.Rows[2].Cells[0].Format.Font.Size = 40;
+			if (FullyFillIn && PartiallyFillIn && Pallets.Any()) LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[0], Pallets.Count().ToString());
+			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[0], "");
 
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[1], "Total 6 x 12kg Ice Pallets");
-			if (PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.Ice) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[1], Pallets.Count(x => x.Type == PalletType.Ice).ToString());
-			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[1], "");
+			// 2-Bulk Frozen
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[1], "2-Bulk Frozen Pallets");
+			table.Rows[0].Cells[1].MergeRight = 1;
 
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[2], "Total Bulk Frozen Pallets");
-			if (PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.BulkFrozen) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[2], Pallets.Count(x => x.Type == PalletType.BulkFrozen).ToString());
-			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[2], "");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[1], "6 x 12kg Ice Pallets");
+			if (PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.Ice) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[1], Pallets.Count(x => x.Type == PalletType.Ice).ToString());
+			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[1], "");
 
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[3], "Total Frozen Pallets");
-			if (FullyFillIn && PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.Frozen) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[3], Pallets.Count(x => x.Type == PalletType.Frozen).ToString());
-			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[3], "");
+			//LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[2], "").Format.Borders.Left.Width = 0;
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[2], "Other");
+			if (PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.BulkFrozen) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[2], Pallets.Count(x => x.Type == PalletType.BulkFrozen).ToString());
+			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[2], "");
 
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[4], "Total Ambient Pallets");
-			if (FullyFillIn && PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.Ambient) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[4], Pallets.Count(x => x.Type == PalletType.Ambient).ToString());
-			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[4], "");
+			// 1-Frozen
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[3], "1-Frozen Pallets");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[3], "");
+			if (FullyFillIn && PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.Frozen) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[3], Pallets.Count(x => x.Type == PalletType.Frozen).ToString());
+			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[3], "");
 
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[5], "Total Bulk Ambient Pallets");
-			if (PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.BulkAmbient) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[5], Pallets.Count(x => x.Type == PalletType.BulkAmbient).ToString());
-			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[5], "");
+			// 5-Ambient
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[4], "5-Ambient Pallets");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[4], "");
+			if (FullyFillIn && PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.Ambient) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[4], Pallets.Count(x => x.Type == PalletType.Ambient).ToString());
+			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[4], "");
+
+			// 6-Bulk Ambient
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[5], "6-Bulk Ambient Pallets");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[5], "");
+			if (PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.BulkAmbient) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[5], Pallets.Count(x => x.Type == PalletType.BulkAmbient).ToString());
+			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[5], "");
 		}
 
 		private void AddUnitTotals()
@@ -438,7 +456,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 			AddMissings();
 			
 			AddSpace(20);
-			AddNote("Please note: Pallets of \"6 x 2kg ice\" are separated from \"bulk frozen\" for all but the unit totals");
+			//AddNote("Please note: Pallets of \"6 x 2kg ice\" are separated from \"bulk frozen\" for all but the unit totals");
 		}
 	}
 }
