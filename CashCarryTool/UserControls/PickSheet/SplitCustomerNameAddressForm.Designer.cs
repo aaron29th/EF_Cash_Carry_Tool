@@ -66,6 +66,7 @@
 			this.CustomerNameTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.CustomerNameTextbox.Location = new System.Drawing.Point(15, 30);
 			this.CustomerNameTextbox.Name = "CustomerNameTextbox";
+			this.CustomerNameTextbox.ReadOnly = true;
 			this.CustomerNameTextbox.Size = new System.Drawing.Size(482, 29);
 			this.CustomerNameTextbox.TabIndex = 2;
 			this.CustomerNameTextbox.TextChanged += new System.EventHandler(this.CustomerNameTextbox_TextChanged);
@@ -77,6 +78,7 @@
 			this.CustomerAddressLineTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.CustomerAddressLineTextbox.Location = new System.Drawing.Point(15, 90);
 			this.CustomerAddressLineTextbox.Name = "CustomerAddressLineTextbox";
+			this.CustomerAddressLineTextbox.ReadOnly = true;
 			this.CustomerAddressLineTextbox.Size = new System.Drawing.Size(482, 29);
 			this.CustomerAddressLineTextbox.TabIndex = 3;
 			this.CustomerAddressLineTextbox.TextChanged += new System.EventHandler(this.CustomerAddressLineTextbox_TextChanged);
@@ -128,7 +130,7 @@
 			this.tableLayoutPanel1.AutoSize = true;
 			this.tableLayoutPanel1.ColumnCount = 2;
 			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 500F));
+			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 512F));
 			this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
 			this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 0);
 			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;

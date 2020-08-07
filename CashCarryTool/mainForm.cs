@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -43,6 +44,16 @@ namespace Eden_Farm_Cash___Carry_Tool
 			{
 
 			}
+		}
+
+		private void RestartBtn_Click(object sender, EventArgs e)
+		{
+			if (MessageBox.Show("Are you sure you wish to restart?", "Restart Program", MessageBoxButtons.YesNo) ==
+			    DialogResult.No)
+				return;
+
+			Application.Restart();
+			Environment.Exit(0);
 		}
 	}
 }

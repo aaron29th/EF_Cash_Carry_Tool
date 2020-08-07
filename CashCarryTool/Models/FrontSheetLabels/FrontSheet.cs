@@ -202,7 +202,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 
 		private void AddPalletColourTotal()
 		{
-			var table = LayoutHelper.AddEqualWidthTable(5, 7, _currentSection, _borderWidth);
+			var table = LayoutHelper.AddEqualWidthTable(6, 7, _currentSection, _borderWidth);
 			table.Format.Font.Size = 15;
 
 			const float headerTextSize = 8;
@@ -210,38 +210,58 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 
 			// Add header row
 			var headerRow = table.Rows[0];
-			//LayoutHelper.CellAddParagraphWithSpace(headerRow.Cells[0], "");
-			LayoutHelper.CellAddParagraphWithSpace(headerRow.Cells[1], "Blue (CHEP)");
-			LayoutHelper.CellAddParagraphWithSpace(headerRow.Cells[2], "Red (LPR)");
-			LayoutHelper.CellAddParagraphWithSpace(headerRow.Cells[3], "Brown (PP)");
-			LayoutHelper.CellAddParagraphWithSpace(headerRow.Cells[4], "White (EPAL)");
+
+			LayoutHelper.CellAddParagraphWithSpace(headerRow.Cells[2], "Blue (CHEP)");
+			LayoutHelper.CellAddParagraphWithSpace(headerRow.Cells[3], "Red (LPR)");
+			LayoutHelper.CellAddParagraphWithSpace(headerRow.Cells[4], "Brown (PP)");
+			LayoutHelper.CellAddParagraphWithSpace(headerRow.Cells[5], "White (EPAL)");
 
 			// Add header column
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[0], "6 x 12kg Ice", 1, headerTextSize);
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[0], "Bulk Frozen", 1, headerTextSize);
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[3].Cells[0], "Frozen", 1, headerTextSize);
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[4].Cells[0], "Ambient", 1, headerTextSize);
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[5].Cells[0], "Bulk Ambient", 1, headerTextSize);
+			table.Rows[1].Cells[0].MergeRight = 1;
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[0], "1-Frozen", 1, headerTextSize);
+
+			table.Rows[2].Cells[0].MergeDown = 1;
+			var bulkFrozenHeader = LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[0], "2-Bulk Frozen", 1, headerTextSize);
+			
+			// Space with larger font to account for border width
+			var space = new FormattedText();
+			space.AddSpace(1);
+			space.Font.Size = table.Format.Font.Size + _borderWidth;
+			bulkFrozenHeader.AddLineBreak();
+			bulkFrozenHeader.Add(space);
+
+			bulkFrozenHeader.Format.Borders.Right.Width = 0;
+			bulkFrozenHeader.Format.Borders.Bottom.Width = 0;
+
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[1], "6 x 12kg Ice", 1, headerTextSize);
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[3].Cells[1], "Other", 1, headerTextSize);
+
+			table.Rows[4].Cells[0].MergeRight = 1;
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[4].Cells[0], "5-Ambient", 1, headerTextSize);
+			table.Rows[5].Cells[0].MergeRight = 1;
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[5].Cells[0], "6-Bulk Ambient", 1, headerTextSize);
+			table.Rows[6].Cells[0].MergeRight = 1;
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[6].Cells[0], "Total", 1, headerTextSize);
 
 			// FIll in ice row
 			if (PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.Ice) > 0)
 			{
-				LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[1], Pallets.Count(x => x.Type == PalletType.Ice).ToString());
+				LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[2], Pallets.Count(x => x.Type == PalletType.Ice).ToString());
 			}
 			else
 			{
-				LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[1], "");
+				LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[2], "");
 			}
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[2], "");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[3], "");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[4], "");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[3], "");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[4], "");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[5], "");
 
 
 			// Add empty spaces
-			for (int rowIndex = 2; rowIndex < 7; rowIndex++)
+			for (int rowIndex = 1; rowIndex < 7; rowIndex++)
 			{
-				for (int columnIndex = 1; columnIndex < 5; columnIndex++)
+				if (rowIndex == 2) continue;
+				for (int columnIndex = 2; columnIndex < 6; columnIndex++)
 				{
 					LayoutHelper.CellAddParagraphWithSpace(table.Rows[rowIndex].Cells[columnIndex], "");
 				}
@@ -267,51 +287,55 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 
 		private void AddPalletTotals()
 		{
-			var table = LayoutHelper.AddEqualWidthTable(6, 3, _currentSection, _borderWidth, true);
+			var table = LayoutHelper.AddWeightedWidthTable(new List<float>(){ 1, 1, 1, 1, 0.2f, 1, 1} , 3, _currentSection, _borderWidth, true);
 			table.Format.Font.Size = 7;
+
 			table.Rows[2].Format.Font.Size = 20;
 
-			table.Rows[0].Cells[1].Borders.Right.Width = 0;
-			table.Rows[0].Cells[2].Borders.Left.Width = 0;
-
-
 			// Total Pallets
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[0], "Total Pallets");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[0], "Total Freezer Pallets");
 			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[0], "");
-			table.Rows[2].Cells[0].Format.Font.Size = 40;
-			if (FullyFillIn && PartiallyFillIn && Pallets.Any()) LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[0], Pallets.Count().ToString());
+
+			int totalPallets = Pallets.Count(x => x.Type == PalletType.Frozen ||
+			                                      x.Type == PalletType.BulkFrozen ||
+			                                      x.Type == PalletType.Ice);
+			if (FullyFillIn && PartiallyFillIn && Pallets.Any()) LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[0], totalPallets.ToString());
 			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[0], "");
-
-			// 2-Bulk Frozen
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[1], "2-Bulk Frozen Pallets");
-			table.Rows[0].Cells[1].MergeRight = 1;
-
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[1], "6 x 12kg Ice Pallets");
-			if (PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.Ice) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[1], Pallets.Count(x => x.Type == PalletType.Ice).ToString());
-			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[1], "");
-
-			//LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[2], "").Format.Borders.Left.Width = 0;
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[2], "Other");
-			if (PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.BulkFrozen) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[2], Pallets.Count(x => x.Type == PalletType.BulkFrozen).ToString());
-			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[2], "");
+			table.Rows[2].Cells[0].Format.Font.Size = 30;
 
 			// 1-Frozen
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[3], "1-Frozen Pallets");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[3], "");
-			if (FullyFillIn && PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.Frozen) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[3], Pallets.Count(x => x.Type == PalletType.Frozen).ToString());
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[1], "1-Frozen Pallets");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[1], "");
+			if (FullyFillIn && PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.Frozen) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[1], Pallets.Count(x => x.Type == PalletType.Frozen).ToString());
+			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[1], "");
+
+			// 2-Bulk Frozen
+			var bulkFrozenPara = LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[2], "2-Bulk Frozen Pallets");
+			bulkFrozenPara.Format.Borders.Bottom.Width = _borderWidth;
+			//bulkFrozenPara.Format.Font.Bold = true;
+			table.Rows[0].Cells[2].MergeRight = 1;
+
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[2], "6 x 12kg Ice Pallets");
+			if (PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.Ice) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[2], Pallets.Count(x => x.Type == PalletType.Ice).ToString());
+			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[2], "");
+
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[3], "Other");
+			if (PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.BulkFrozen) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[3], Pallets.Count(x => x.Type == PalletType.BulkFrozen).ToString());
 			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[3], "");
 
+			
+
 			// 5-Ambient
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[4], "5-Ambient Pallets");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[4], "");
-			if (FullyFillIn && PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.Ambient) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[4], Pallets.Count(x => x.Type == PalletType.Ambient).ToString());
-			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[4], "");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[5], "5-Ambient Pallets");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[5], "");
+			if (FullyFillIn && PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.Ambient) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[5], Pallets.Count(x => x.Type == PalletType.Ambient).ToString());
+			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[5], "");
 
 			// 6-Bulk Ambient
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[5], "6-Bulk Ambient Pallets");
-			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[5], "");
-			if (PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.BulkAmbient) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[5], Pallets.Count(x => x.Type == PalletType.BulkAmbient).ToString());
-			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[5], "");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[0].Cells[6], "6-Bulk Ambient Pallets");
+			LayoutHelper.CellAddParagraphWithSpace(table.Rows[1].Cells[6], "");
+			if (PartiallyFillIn && Pallets.Count(x => x.Type == PalletType.BulkAmbient) > 0) LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[6], Pallets.Count(x => x.Type == PalletType.BulkAmbient).ToString());
+			else LayoutHelper.CellAddParagraphWithSpace(table.Rows[2].Cells[6], "");
 		}
 
 		private void AddUnitTotals()

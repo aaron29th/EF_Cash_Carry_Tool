@@ -246,6 +246,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 			                  "||" + // Picker, Missings,
 							  "||||" + // Pallet colours * 4
 							  "|||=[@[End Time]]-[@[Start Time]]-[@Break]|=[@[Normal UF]]/(HOUR([@[Time Picking]])+MINUTE([@[Time Picking]])/60)|" + // Start Time, End time, Break, Time picking, Pick Rate
+							  "|" + // 1-Frozen Lines 
 							  "|||" + // Median, Mean, Mode
 							  $"{route}"); // Route
 		}
