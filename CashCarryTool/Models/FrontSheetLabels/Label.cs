@@ -85,7 +85,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 			cellParagraph.Add(FormattedTextHelper.WarningSign());
 		}
 
-		private void AddPalletNumberAndLogo(int palletNumber)
+		private void AddPalletNumberAndLogo(int palletIndex)
 		{
 			Table table = LayoutHelper.AddTableFillLastColumn(
 				new List<float>() { 170, 100, 100, 100, 30 }, 1, _currentSection, _borderWidth + 1);
@@ -94,9 +94,20 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 
 			var row = table.Rows[0];
 
+			// "Pallet Number"
 			row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
 			row.Cells[0].Format.Font.Size = table.Format.Font.Size + 3;
 			LayoutHelper.CellAddParagraphWithSpace(row.Cells[0], "Pallet Number", 1, 20);
+
+			// Pallet number
+			int palletNumber = -1;
+			if (Pallets[palletIndex].Type == PalletType.Frozen || Pallets[palletIndex].Type == PalletType.Ice ||
+			    Pallets[palletIndex].Type == PalletType.BulkFrozen)
+				palletNumber = Pallets.Take(palletIndex + 1).Count(x =>
+					x.Type == PalletType.Frozen || x.Type == PalletType.Ice || x.Type == PalletType.BulkFrozen);
+			else
+				palletNumber = Pallets.Take(palletIndex + 1)
+					.Count(x => x.Type == PalletType.Ambient || x.Type == PalletType.BulkAmbient);
 
 			var palletNumPara = row.Cells[1].AddParagraph();
 			if (ShowPalletNumber) palletNumPara.AddText(palletNumber.ToString());
@@ -105,12 +116,19 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 
 			if (ShowPalletNumberOf)
 			{
+				// Of
 				row.Cells[2].Format.Font.Size = table.Format.Font.Size + 3;
 				var ofPara = LayoutHelper.CellAddParagraphWithSpace(row.Cells[2], "of", 1, 20);
 				ofPara.AddSpace(1);
 
+				// Total
+				int totalPallets = Pallets.Count(x => x.Type == PalletType.Frozen || x.Type == PalletType.Ice || x.Type == PalletType.BulkFrozen);
+				if (Pallets[palletIndex].Type == PalletType.Ambient ||
+				    Pallets[palletIndex].Type == PalletType.BulkAmbient)
+					totalPallets = Pallets.Count(x => x.Type == PalletType.Ambient || x.Type == PalletType.BulkAmbient);
+
 				var totalPalletNumPara = row.Cells[3].AddParagraph();
-				if (ShowTotalPalletNumber) totalPalletNumPara.AddText(Pallets.Count.ToString());
+				if (ShowTotalPalletNumber) totalPalletNumPara.AddText(totalPallets.ToString());
 				else totalPalletNumPara.AddSpace(1);
 				totalPalletNumPara.Format.Font.Name = "Impact";
 			}
@@ -238,7 +256,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 					}
 					
 
-					AddPalletNumberAndLogo(i + 1);
+					AddPalletNumberAndLogo(i);
 
 					AddAdditionalText(Pallets[i]);
 

@@ -94,7 +94,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 
 		public void LineClicked(float clickYLocation, int pageIndex)
 		{
-			var result = _loadedPickSheet.ProcessLineClick(clickYLocation, pageIndex);
+			var result = _loadedPickSheet?.ProcessLineClick(clickYLocation, pageIndex);
 			if (result == null)
 				return;
 

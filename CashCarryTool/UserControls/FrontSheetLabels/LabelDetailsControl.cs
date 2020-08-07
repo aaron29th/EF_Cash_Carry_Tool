@@ -140,8 +140,13 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 				_totalFrozen--;
 			}
 
-			int totalPallets = newTotalBulkAmbient + newTotalAmbient + newTotalIce + newTotalBulkFrozen + newTotalFrozen;
-			TotalPalletsLabel.Text = $"Total Pallets: {totalPallets}";
+			int totalFrozenPallets = newTotalIce + newTotalBulkFrozen + newTotalFrozen;
+			TotalFrozenPalletsLabel.Text = $"Total Pallets: {totalFrozenPallets}";
+
+			int totalAmbientPallets = newTotalAmbient + newTotalBulkAmbient;
+			TotalAmbientPalletsLabel.Text = $"Total Pallets: {totalAmbientPallets}";
+
+			UpdateHeaderColumn(PalletsGridView);
 			DetailsUpdated();
 		}
 
@@ -164,9 +169,9 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			// Init pallet type column
 			List<ComboboxItem> palletTypeItems = new List<ComboboxItem>()
 			{
-				new ComboboxItem() { Text = "Ice", Value = PalletType.Ice },
-				new ComboboxItem() { Text = "Bulk Frozen", Value = PalletType.BulkFrozen },
 				new ComboboxItem() { Text = "Frozen", Value = PalletType.Frozen },
+				new ComboboxItem() { Text = "Bulk Frozen - Ice", Value = PalletType.Ice },
+				new ComboboxItem() { Text = "Bulk Frozen - Other", Value = PalletType.BulkFrozen },
 				new ComboboxItem() { Text = "Ambient", Value = PalletType.Ambient },
 				new ComboboxItem() { Text = "Bulk Ambient", Value = PalletType.BulkAmbient }
 			};
@@ -219,17 +224,27 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		#endregion
 
 		#region Pallets GridView
-
-		private void PalletsGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+		private void UpdateHeaderColumn(DataGridView gridView)
 		{
-			// Add row numbers
-			if (sender is DataGridView gridView)
+			foreach (DataGridViewRow r in gridView.Rows)
 			{
-				foreach (DataGridViewRow r in gridView.Rows)
-				{
-					gridView.Rows[r.Index].HeaderCell.Value =
-						(r.Index + 1).ToString();
-				}
+				int palletIndex = r.Index;
+				int palletNumber;
+
+				bool isFrozenType = _pallets[palletIndex].Type == PalletType.Frozen ||
+				                    _pallets[palletIndex].Type == PalletType.Ice ||
+				                    _pallets[palletIndex].Type == PalletType.BulkFrozen;
+
+				if (isFrozenType)
+					palletNumber = _pallets.Take(palletIndex + 1).Count(x =>
+						x.Type == PalletType.Frozen || x.Type == PalletType.Ice || x.Type == PalletType.BulkFrozen);
+				else
+					palletNumber = _pallets.Take(palletIndex + 1)
+						.Count(x => x.Type == PalletType.Ambient || x.Type == PalletType.BulkAmbient);
+
+				string typeStr = isFrozenType ? "F" : "A";
+
+				gridView.Rows[r.Index].HeaderCell.Value = $"{typeStr}-{palletNumber.ToString()}";
 			}
 		}
 
@@ -249,14 +264,6 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		#endregion
 
 		#region Check / uncheck all
-
-		private void PalletsCheckAll_Click(object sender, EventArgs e)
-		{
-			_pallets.ToList().ForEach(x => x.Selected = true);
-			PalletsGridView.InvalidateColumn(PalletsGridViewSelectedColumn.Index);
-			DetailsUpdated();
-		}
-
 		private void CheckPalletType(PalletType type)
 		{
 			var pallets = _pallets.Where(x => x.Type == type);
@@ -266,6 +273,13 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			}
 			PalletsGridView.InvalidateColumn(PalletsGridViewSelectedColumn.Index);
 			DetailsUpdated();
+		}
+
+		private void TotalFrozenPalletsCheckAll_Click(object sender, EventArgs e)
+		{
+			CheckPalletType(PalletType.Frozen);
+			CheckPalletType(PalletType.Ice);
+			CheckPalletType(PalletType.BulkFrozen);
 		}
 
 		private void IcePalletsCheckAll_Click(object sender, EventArgs e)
@@ -283,6 +297,12 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			CheckPalletType(PalletType.Frozen);
 		}
 
+		private void TotalAmbientPalletsCheckAll_Click(object sender, EventArgs e)
+		{
+			CheckPalletType(PalletType.Ambient);
+			CheckPalletType(PalletType.BulkAmbient);
+		}
+
 		private void AmbientPalletsCheckAll_Click(object sender, EventArgs e)
 		{
 			CheckPalletType(PalletType.Ambient);
@@ -293,15 +313,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			CheckPalletType(PalletType.BulkAmbient);
 		}
 
-
 		// Uncheck
-		private void PalletsUncheckAll_Click(object sender, EventArgs e)
-		{
-			_pallets.ToList().ForEach(x => x.Selected = false);
-			PalletsGridView.InvalidateColumn(PalletsGridViewSelectedColumn.Index);
-			DetailsUpdated();
-		}
-
 		private void UncheckPalletType(PalletType type)
 		{
 			var pallets = _pallets.Where(x => x.Type == type);
@@ -311,6 +323,13 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			}
 			PalletsGridView.InvalidateColumn(PalletsGridViewSelectedColumn.Index);
 			DetailsUpdated();
+		}
+
+		private void TotalFrozenPalletsUncheckAll_Click(object sender, EventArgs e)
+		{
+			UncheckPalletType(PalletType.Frozen);
+			UncheckPalletType(PalletType.Ice);
+			UncheckPalletType(PalletType.BulkFrozen);
 		}
 
 		private void IcePalletsUncheckAll_Click(object sender, EventArgs e)
@@ -326,6 +345,12 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		private void MixedPalletsUncheckAll_Click(object sender, EventArgs e)
 		{
 			UncheckPalletType(PalletType.Frozen);
+		}
+
+		private void TotalAmbientPalletsUncheckAll_Click(object sender, EventArgs e)
+		{
+			UncheckPalletType(PalletType.Ambient);
+			UncheckPalletType(PalletType.BulkAmbient);
 		}
 
 		private void AmbientPalletsUncheckAll_Click(object sender, EventArgs e)
