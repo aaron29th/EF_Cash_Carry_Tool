@@ -57,6 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="TestInvoices\Hadfield27th-4pages-Frozen-BulkAmbient.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="TestInvoices\Hadfield30th-5Pages-Frozen-BulkFrozen.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -69,9 +72,9 @@
       <Project>{438914b6-5d1c-482c-b942-5c0e057eef6f}</Project>
       <Name>PdfiumViewer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\InvoiceParser\InvoiceParser.csproj">
+    <ProjectReference Include="..\InvoiceTools\InvoiceTools.csproj">
       <Project>{c0b28cc6-6d22-455c-a30a-f058969eed72}</Project>
-      <Name>InvoiceParser</Name>
+      <Name>InvoiceTools</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

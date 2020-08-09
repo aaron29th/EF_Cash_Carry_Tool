@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashCarryTool", "CashCarryT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfiumViewer", "..\..\PdfiumViewer\PdfiumViewer\PdfiumViewer.csproj", "{438914B6-5D1C-482C-B942-5C0E057EEF6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvoiceParser", "InvoiceParser\InvoiceParser.csproj", "{C0B28CC6-6D22-455C-A30A-F058969EED72}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvoiceTools", "InvoiceTools\InvoiceTools.csproj", "{C0B28CC6-6D22-455C-A30A-F058969EED72}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvoiceParserUnitTests", "InvoiceParserUnitTests\InvoiceParserUnitTests.csproj", "{F5A7667A-95AE-4E07-942F-FDBE96CDC548}"
 EndProject

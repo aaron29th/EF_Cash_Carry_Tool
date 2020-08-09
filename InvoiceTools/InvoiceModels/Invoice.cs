@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Eden_Farm_Cash___Carry_Tool.Models.Pick;
 
-namespace InvoiceParser
+namespace InvoiceTools.InvoiceModels
 {
 	public class Invoice
 	{
@@ -26,23 +22,31 @@ namespace InvoiceParser
 		public string[] Address { get; set; }
 		public string PostCode { get; set; }
 
+		// Duplicated so can be overriden by user
 		public int AmbientUnits { get; set; }
 		public int BulkAmbientUnits { get; set; }
 		public int BulkFrozenUnits { get; set; }
 		public int FrozenUnits { get; set; }
 
-		public List<InvoicePage> Pages { get; set; }
+		public List<PickLine> Frozen { get; set; }
+		public List<PickLine> BulkFrozen { get; set; }
+
+		public List<PickLine> Ambient { get; set; }
+		public List<PickLine> BulkAmbient { get; set; }
 
 		public Invoice()
 		{
 			Address = new string[4];
-			Pages = new List<InvoicePage>();
 		}
 
 		public Invoice(InvoicePage page)
 		{
-			Pages = new List<InvoicePage>();
+			InitProperties(page);
+			AddPage(page);
+		}
 
+		private void InitProperties(InvoicePage page)
+		{
 			InvoiceNumber = page.InvoiceNumber;
 
 			CustomerCode = page.CustomerCode;
@@ -59,6 +63,12 @@ namespace InvoiceParser
 			PostCode = page.PostCode;
 		}
 
+		private void CheckDuplicate(List<PickLine> lines, InvoicePage page)
+		{
+			if (lines.Count(x => x.PageNumber == page.PageNumber) > 0)
+				throw new InvoiceException($"Duplicate page, invoice: {page.InvoiceNumber} page: {page.PageNumber}");
+		}
+
 		public void AddPage(InvoicePage page)
 		{
 			if (page.InvoiceNumber != InvoiceNumber)
@@ -67,14 +77,26 @@ namespace InvoiceParser
 			if (page.DeliveryBy.Equals(page.DeliveryBy))
 				throw new InvoiceException($"Inconsistent delivery dates, invoice: {page.InvoiceNumber} page: {page.PageNumber} deliver by: {page.DeliveryBy.ToShortDateString()} " + $"" +
 				                           $"attempted to be added to invoice: ${InvoiceNumber} deliver by ${DeliveryBy.ToShortDateString()}");
-
-			if (Pages.Contains(page))
-				throw new InvoiceException($"Duplicate page, invoice: {page.InvoiceNumber} page: {page.PageNumber}");
-
-			if (Pages.Count(x => x.Section == page.Section && x.PageNumber == page.PageNumber) > 0)
-				throw new InvoiceException($"Duplicate page, invoice: {page.InvoiceNumber} page: {page.PageNumber}");
-
-			Pages.Add(page);
+			
+			switch (page.Section)
+			{
+				case SectionType.Frozen:
+					CheckDuplicate(Frozen, page);
+					Frozen.AddRange(page.Lines);
+					break;
+				case SectionType.Bulk:
+					CheckDuplicate(BulkFrozen, page);
+					BulkFrozen.AddRange(page.Lines);
+					break;
+				case SectionType.Ambient:
+					CheckDuplicate(Ambient, page);
+					Ambient.AddRange(page.Lines);
+					break;
+				case SectionType.AmbientBulk:
+					CheckDuplicate(BulkAmbient, page);
+					BulkAmbient.AddRange(page.Lines);
+					break;
+			}
 		}
 	}
 }

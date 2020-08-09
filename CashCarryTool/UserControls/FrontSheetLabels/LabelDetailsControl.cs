@@ -146,7 +146,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			int totalAmbientPallets = newTotalAmbient + newTotalBulkAmbient;
 			TotalAmbientPalletsLabel.Text = $"Total Pallets: {totalAmbientPallets}";
 
-			UpdateHeaderColumn(PalletsGridView);
+			UpdateHeaderColumn();
 			DetailsUpdated();
 		}
 
@@ -224,9 +224,9 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 		#endregion
 
 		#region Pallets GridView
-		private void UpdateHeaderColumn(DataGridView gridView)
+		private void UpdateHeaderColumn()
 		{
-			foreach (DataGridViewRow r in gridView.Rows)
+			foreach (DataGridViewRow r in PalletsGridView.Rows)
 			{
 				int palletIndex = r.Index;
 				int palletNumber;
@@ -244,7 +244,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 
 				string typeStr = isFrozenType ? "F" : "A";
 
-				gridView.Rows[r.Index].HeaderCell.Value = $"{typeStr}-{palletNumber.ToString()}";
+				PalletsGridView.Rows[r.Index].HeaderCell.Value = $"{typeStr}-{palletNumber.ToString()}";
 			}
 		}
 

@@ -1,26 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Eden_Farm_Cash___Carry_Tool.Models.Pick;
 
-namespace InvoiceParser
+namespace InvoiceTools.InvoiceModels
 {
 	public class InvoicePage
 	{
 		private readonly string _pageText;
-		private string[] _pageLines
-		{
-			get
-			{
-				return _pageText.Split(
-					new[] { Environment.NewLine },
-					StringSplitOptions.None
-				);
-			}
-		}
+		private readonly string[] _pageLines;
 
 		public int InvoiceNumber { get; set; }
 
@@ -53,6 +41,8 @@ namespace InvoiceParser
 		public InvoicePage(string pageText, string customerName = null) : this()
 		{
 			_pageText = pageText;
+			_pageLines = pageText.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
+
 			CustomerName = customerName;
 
 			ExtractCustomerCode();
@@ -66,14 +56,18 @@ namespace InvoiceParser
 			ExtractPageNumber();
 			ExtractSectionType();
 			ExtractTotalCount();
+
+			ExtractPickLines();
 		}
+
+		#region region Invoice Details
 
 		private void ExtractCustomerCode()
 		{
 			// Match customer code
 			Regex customerCodeRegex = new Regex(@"(A\/C )([A-Z0-9]+)");
-			var customerCodeMatch = customerCodeRegex.Match(_pageText);
-			if (customerCodeMatch.Groups.Count < 3)
+			var customerCodeMatch = customerCodeRegex.Match(_pageLines[2]);
+			if (!customerCodeMatch.Success)
 				throw new InvoiceException("Customer code could not be found");
 
 			string customerCode = customerCodeMatch.Groups[2].Value;
@@ -87,7 +81,7 @@ namespace InvoiceParser
 			// Match customer code
 			Regex postCodeRegex = new Regex(@"(([A-Z]{1,2}[0-9][A-Z0-9]?|ASCN|STHL|TDCU|BBND|[BFS]IQQ|PCRN|TKCA) ?[0-9][A-Z]{2}|BFPO ?[0-9]{1,4}|(KY[0-9]|MSR|VG|AI)[ -]?[0-9]{4}|[A-Z]{2} ?[0-9]{2}|GE ?CX|GIR ?0A{2}|SAN ?TA1)$");
 			var postCodeMatch = postCodeRegex.Match(postCodeLine);
-			if (postCodeMatch.Groups.Count < 1)
+			if (!postCodeMatch.Success)
 			{
 				PostCode = "";
 				return;
@@ -109,8 +103,8 @@ namespace InvoiceParser
 			// Split customer code and address line 1
 			//? A/C MCN812 Bannerley Buildings
 			Regex addressLineRegex = new Regex(@"(A\/C )([A-Z0-9]+) (.+)");
-			var addressLineMatch = addressLineRegex.Match(_pageText);
-			if (addressLineMatch.Groups.Count < 4)
+			var addressLineMatch = addressLineRegex.Match(_pageLines[2]);
+			if (!addressLineMatch.Success)
 				Address[0] = "";
 			else
 				Address[0] = addressLineMatch.Groups[3].Value.Trim();
@@ -143,9 +137,9 @@ namespace InvoiceParser
 		{
 			// Match invoice number
 			Regex invoiceNumberRegex = new Regex(@"(Order:)([0-9]+)");
-			var invoiceNumberMatch = invoiceNumberRegex.Match(_pageText);
-			if (invoiceNumberMatch.Groups.Count < 3)
-				throw new InvoiceException();
+			var invoiceNumberMatch = invoiceNumberRegex.Match(_pageLines[0]);
+			if (!invoiceNumberMatch.Success)
+				throw new InvoiceException("Invoice number not found");
 
 			// If possible remove trailing 00's
 			var invoiceNumber = Convert.ToInt32(invoiceNumberMatch.Groups[2].Value);
@@ -159,8 +153,8 @@ namespace InvoiceParser
 		{
 			// Match delivery date
 			Regex deliveryDateRegex = new Regex(@"(Deliver by:)([0-9]{2})(\/)([0-9]{2})(\/)([0-9]{2})");
-			var deliveryDateMatch = deliveryDateRegex.Match(_pageText);
-			if (deliveryDateMatch.Groups.Count < 7)
+			var deliveryDateMatch = deliveryDateRegex.Match(_pageLines[0]);
+			if (!deliveryDateMatch.Success)
 				throw new InvoiceException("Delivery date could not be found");
 
 			int dayNumber = Convert.ToInt32(deliveryDateMatch.Groups[2].Value);
@@ -174,8 +168,8 @@ namespace InvoiceParser
 		{
 			// Match delivery date
 			Regex invoiceDateRegex = new Regex(@"(Date :)([0-9]{2})(\/)([0-9]{2})(\/)([0-9]{2})");
-			var invoiceDateMatch = invoiceDateRegex.Match(_pageText);
-			if (invoiceDateMatch.Groups.Count < 7)
+			var invoiceDateMatch = invoiceDateRegex.Match(_pageLines[1]);
+			if (!invoiceDateMatch.Success)
 				throw new InvoiceException("Invoice date could not be found");
 
 			int dayNumber = Convert.ToInt32(invoiceDateMatch.Groups[2].Value);
@@ -189,8 +183,8 @@ namespace InvoiceParser
 		{
 			// Match route number
 			Regex routeDropRegex = new Regex(@"(Route : )([0-9]+)( \/ )([0-9]+)");
-			var routeDropMatch = routeDropRegex.Match(_pageText);
-			if (routeDropMatch.Groups.Count < 5)
+			var routeDropMatch = routeDropRegex.Match(_pageLines[0]);
+			if (!routeDropMatch.Success)
 				throw new InvoiceException("Route and drop numbers could not be found");
 
 			Route = Convert.ToInt32(routeDropMatch.Groups[2].Value);
@@ -201,9 +195,9 @@ namespace InvoiceParser
 		{
 			// Match reference
 			Regex referenceRegex = new Regex(@"(Ref:)([a-zA-Z0-9 ]+)");
-			var referenceMatch = referenceRegex.Match(_pageText);
+			var referenceMatch = referenceRegex.Match(_pageLines[1]);
 
-			if (referenceMatch.Groups.Count < 3)
+			if (!referenceMatch.Success)
 			{
 				Reference = "";
 				return;
@@ -216,8 +210,8 @@ namespace InvoiceParser
 		{
 			// Match page number
 			Regex pageNumberRegex = new Regex(@"(Page: )([0-9]+)");
-			var pageNumberMatch = pageNumberRegex.Match(_pageText);
-			if (pageNumberMatch.Groups.Count < 3)
+			var pageNumberMatch = pageNumberRegex.Match(_pageLines[0]);
+			if (!pageNumberMatch.Success)
 			{
 				PageNumber = -1;
 				return;
@@ -228,13 +222,13 @@ namespace InvoiceParser
 
 		private void ExtractSectionType()
 		{
-			if (_pageText.Contains("1-Frozen"))
+			if (_pageLines[3].Contains("1-Frozen"))
 				Section = SectionType.Frozen;
-			else if (_pageText.Contains("2-Bulk Frozen"))
+			else if (_pageLines[3].Contains("2-Bulk Frozen"))
 				Section = SectionType.Bulk;
-			else if (_pageText.Contains("5-Ambient"))
+			else if (_pageLines[3].Contains("5-Ambient"))
 				Section = SectionType.Ambient;
-			else if (_pageText.Contains("6-Bulk Ambient"))
+			else if (_pageLines[3].Contains("6-Bulk Ambient"))
 				Section = SectionType.AmbientBulk; 
 			else 
 				Section = SectionType.Invalid;
@@ -244,8 +238,8 @@ namespace InvoiceParser
 		{ 
 			// Match total count
 			Regex totalCountRegex = new Regex(@"(Total count \| )([0-9]+)");
-			var totalCountMatch = totalCountRegex.Match(_pageText);
-			if (totalCountMatch.Groups.Count == 3)
+			var totalCountMatch = totalCountRegex.Match(_pageLines[9]);
+			if (totalCountMatch.Success)
 			{
 				TotalCount = Convert.ToInt32(totalCountMatch.Groups[2].Value);
 				return;
@@ -254,7 +248,7 @@ namespace InvoiceParser
 			// Match total units
 			Regex totalUnitsRegex = new Regex(@"(Total units : )([0-9]+)");
 			var totalUnitsMatch = totalUnitsRegex.Match(_pageText);
-			if (totalUnitsMatch.Groups.Count == 3)
+			if (totalUnitsMatch.Success)
 			{
 				TotalCount = Convert.ToInt32(totalUnitsMatch.Groups[2].Value);
 				return;
@@ -273,6 +267,34 @@ namespace InvoiceParser
 				.Replace("5-Ambient", "")
 				.Replace("6-Bulk Ambient", "")
 				.Trim();
+		}
+
+		#endregion
+
+		private void ExtractPickLines()
+		{
+			int firstLineIndex = PageNumber == 1 ? 14 : 7;
+			int numInvalidLinesAtEnd = _pageLines.Last().StartsWith(" Est") ? 3 : 0;
+			int totalLines = _pageLines.Length - firstLineIndex - numInvalidLinesAtEnd;
+
+			var lines = _pageLines.Skip(firstLineIndex).Take(totalLines).ToArray();
+
+			for (int lineIndex = 0; lineIndex < lines.Count(); lineIndex++)
+			{
+				// Null if last element
+				var secondLine = lineIndex == totalLines - 1 ? null : lines[lineIndex + 1];
+				var pickLine = new PickLine(lines[lineIndex], secondLine)
+				{
+					PickLineNumber = lineIndex + 1,
+					PageNumber = PageNumber
+				};
+
+				Lines.Add(pickLine);
+
+				// If second line is location skip
+				if (pickLine.SecondLocation != null)
+					lineIndex++;
+			}
 		}
 	}
 }

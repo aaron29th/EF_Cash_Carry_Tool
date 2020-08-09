@@ -57,8 +57,13 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			// Init quick selects
 			InitQuickSelects();
 
-			// Init delivery date to tomorrow
-			DeliveryDateSel.Value = DateTime.Now.AddDays(1);
+			// Init delivery date to tomorrow or monday on fri / dat
+			if (DateTime.Now.DayOfWeek == DayOfWeek.Friday)
+				DeliveryDateSel.Value = DateTime.Now.AddDays(3);
+			else if (DateTime.Now.DayOfWeek == DayOfWeek.Saturday)
+				DeliveryDateSel.Value = DateTime.Now.AddDays(2);
+			else
+				DeliveryDateSel.Value = DateTime.Now.AddDays(1);
 
 			// Init pick date to today
 			PickDateSel.Value = DateTime.Now;

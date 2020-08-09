@@ -8,7 +8,7 @@
     <ProjectGuid>{C74EE449-FCF0-4E81-B97E-71F2EAAC0BCD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Eden_Farm_Cash___Carry_Tool</RootNamespace>
-    <AssemblyName>Eden Farm Cash + Carry Tool</AssemblyName>
+    <AssemblyName>EF Cash + Carry Tool</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -1,4 +1,4 @@
-﻿namespace InvoiceParser.Forms
+﻿namespace InvoiceTools.Forms
 {
 	partial class SplitCustomerNameAddressForm
 	{

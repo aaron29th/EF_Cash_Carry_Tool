@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-namespace InvoiceParser
+namespace InvoiceTools.InvoiceModels
 {
 	public class PickLine
 	{
 		public string Location { get; set; }
+		public string SecondLocation { get; set; }
+
 		public int Code { get; set; }
 		public string Description { get; set; }
 		public int Ordered { get; set; }
@@ -18,8 +17,11 @@ namespace InvoiceParser
 		public string Size { get; set; }
 		
 		public bool Free { get; set; }
-		public int LineNumber { get; set; }
-		public long Barcode { get; set; }
+		public int InvoiceLineNumber { get; set; } = -1;
+		public long Barcode { get; set; } = -1;
+
+		public int PageNumber { get; set; } = -1;
+		public int PickLineNumber { get; set; } = -1;
 
 		public PickLine()
 		{
@@ -50,10 +52,26 @@ namespace InvoiceParser
 			Description = lineMatches.Groups[6].Value.Trim();
 			Size = lineMatches.Groups[9].Value;
 			Ordered = Convert.ToInt32(lineMatches.Groups[12].Value);
-			LineNumber = Convert.ToInt32(lineMatches.Groups[14].Value);
+			InvoiceLineNumber = Convert.ToInt32(lineMatches.Groups[14].Value);
 			Barcode = lineMatches.Groups[15].Value.Trim() == ""
 				? -1
 				: Convert.ToInt64(lineMatches.Groups[15].Value.Trim());
+		}
+
+		public PickLine(string lineText, string secondLine) : this(lineText)
+		{
+			if (secondLine == null)
+				return;
+
+			// Check if line is just a location
+			var pattern = @"^([a-zA-Z 0-9]+\/[a-zA-z0-9]+)$";
+			var lineRegex = new Regex(pattern);
+			var lineMatches = lineRegex.Match(secondLine);
+
+			if (!lineMatches.Success)
+				return;
+
+			SecondLocation = lineMatches.Groups[1].Value;
 		}
 	}
 }
