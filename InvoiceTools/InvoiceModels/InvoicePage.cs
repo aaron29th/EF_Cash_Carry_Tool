@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using InvoiceTools.DirectoryModels;
+using InvoiceTools.Forms;
 
 namespace InvoiceTools.InvoiceModels
 {
@@ -90,10 +92,12 @@ namespace InvoiceTools.InvoiceModels
 			PostCode = postCodeMatch.Groups[0].Value;
 		}
 
+		
+
 		private void ExtractAddress()
 		{
 			ExtractAddressLine1();
-			ExtractAddressLine2();
+			FindCustomerNameAndAddressLine2();
 			ExtractAddressLine3();
 			ExtractAddressLine4();
 		}
@@ -110,12 +114,27 @@ namespace InvoiceTools.InvoiceModels
 				Address[0] = addressLineMatch.Groups[3].Value.Trim();
 		}
 
-		private void ExtractAddressLine2()
+		private void FindCustomerNameAndAddressLine2()
 		{
 			var nameLine = ExtractCustomerNameAndAddressLine();
+			var customers = ResourcesDirectory.GetCustomers();
 
-			if (CustomerName != null)
+			var customer = customers.FirstOrDefault(x => x.Code == CustomerCode);
+
+			if (customer == null)
 			{
+				// Split line with for manually
+				using (var form = new SplitCustomerNameAddressForm(nameLine))
+				{
+					form.ShowDialog();
+
+					CustomerName = form.CustomerName;
+					Address[1] = form.CustomerAddressLine;
+				}
+			}
+			else
+			{
+				CustomerName = customer.Name;
 				Address[1] = nameLine.Replace(CustomerName, "").Trim();
 			}
 		}
