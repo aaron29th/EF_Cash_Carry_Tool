@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using InvoiceTools.DirectoryModels;
 using InvoiceTools.Forms;
+using InvoiceTools.Models;
 
 namespace InvoiceTools.InvoiceModels
 {
@@ -40,12 +41,10 @@ namespace InvoiceTools.InvoiceModels
 			Lines = new List<PickLine>();
 		}
 
-		public InvoicePage(string pageText, string customerName = null) : this()
+		public InvoicePage(string pageText) : this()
 		{
 			_pageText = pageText;
 			_pageLines = pageText.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
-
-			CustomerName = customerName;
 
 			ExtractCustomerCode();
 			ExtractPostCode();
@@ -60,6 +59,19 @@ namespace InvoiceTools.InvoiceModels
 			ExtractTotalCount();
 
 			ExtractPickLines();
+
+			ResourcesDirectory.AddCustomer(new Customer()
+			{
+				Code = CustomerCode,
+				PreferredName = CustomerName,
+				QuickSelectText = CustomerName,
+				Name = CustomerName,
+				AddressLine1 = Address[0],
+				AddressLine2 = Address[1],
+				AddressLine3 = Address[2],
+				AddressLine4 = Address[3],
+				PostCode = PostCode
+			});
 		}
 
 		#region region Invoice Details

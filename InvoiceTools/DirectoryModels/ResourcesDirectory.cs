@@ -15,6 +15,7 @@ namespace InvoiceTools.DirectoryModels
 		#region Paths
 
 		private static string _path;
+
 		public static string Path
 		{
 			get
@@ -34,7 +35,7 @@ namespace InvoiceTools.DirectoryModels
 			get
 			{
 				string path = $"{Path}\\Customers.csv";
-				if (File.Exists(path)) 
+				if (File.Exists(path))
 					return path;
 
 				InitCustomerList(path);
@@ -65,13 +66,10 @@ namespace InvoiceTools.DirectoryModels
 					PreferredName = "Batleys Hadfield Road",
 					QuickSelectText = "Batleys - Hadfield",
 					Name = "Batleys Hadfield Road 730",
-					Address = new[]
-					{
-						"Leckwith Industrial Estate",
-						"24 Hadfield Road",
-						"Cardiff",
-						""
-					},
+					AddressLine1 = "Leckwith Industrial Estate",
+					AddressLine2 = "24 Hadfield Road",
+					AddressLine3 = "Cardiff",
+					AddressLine4 = "",
 					PostCode = "CF11 8AQ"
 				}
 			};
@@ -96,6 +94,30 @@ namespace InvoiceTools.DirectoryModels
 			catch (IOException ex)
 			{
 				return null;
+			}
+		}
+
+		public static void AddCustomer(Customer customer)
+		{
+			var customers = GetCustomers();
+
+			if (customers.Count(x => x.Code == customer.Code) > 0)
+				return;
+
+			customers.Add(customer);
+
+			try
+			{
+				using (var writer = new StreamWriter(CustomersListPath))
+				using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+				{
+					csv.WriteRecords(customers);
+				}
+
+			}
+			catch (IOException ex)
+			{
+
 			}
 		}
 	}
