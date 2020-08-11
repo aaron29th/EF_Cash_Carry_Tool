@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Eden_Farm_Cash___Carry_Tool.Models;
 using Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels;
 using Eden_Farm_Cash___Carry_Tool.Models.Pick;
+using InvoiceTools.InvoiceModels;
 using MigraDoc.DocumentObjectModel;
 
 namespace Eden_Farm_Cash___Carry_Tool.UserControls

@@ -106,6 +106,12 @@ namespace InvoiceTools.InvoiceModels
 					BulkAmbient.AddRange(page.Lines);
 					break;
 			}
+
+			FrozenUnits = Frozen.Sum(x => x.Ordered);
+			BulkFrozenUnits = BulkFrozen.Sum(x => x.Ordered);
+
+			AmbientUnits = Ambient.Sum(x => x.Ordered);
+			BulkAmbientUnits = BulkAmbient.Sum(x => x.Ordered);
 		}
 	}
 }

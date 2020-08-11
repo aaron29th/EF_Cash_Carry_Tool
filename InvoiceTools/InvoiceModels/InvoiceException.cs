@@ -2,7 +2,7 @@
 
 namespace InvoiceTools.InvoiceModels
 {
-	class InvoiceException : Exception
+	public class InvoiceException : Exception
 	{
 		public InvoiceException()
 		{

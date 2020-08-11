@@ -99,12 +99,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Models\Pick\PickSheet.cs" />
-    <Compile Include="Models\Pick\InvoiceException.cs" />
     <Compile Include="Models\Pick\PickSheetException.cs" />
-    <Compile Include="Models\Pick\SectionType.cs" />
-    <Compile Include="Models\Pick\Invoice.cs" />
-    <Compile Include="Models\Pick\Line.cs" />
-    <Compile Include="Models\Pick\Section.cs" />
     <Compile Include="Models\StartUpRequestResponse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

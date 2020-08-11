@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using Eden_Farm_Cash___Carry_Tool.Models.Pick;
 using Eden_Farm_Cash___Carry_Tool.StaticClasses;
 using Eden_Farm_Cash___Carry_Tool.UserControls.PickSheet;
+using InvoiceTools.InvoiceModels;
 
 namespace Eden_Farm_Cash___Carry_Tool
 {

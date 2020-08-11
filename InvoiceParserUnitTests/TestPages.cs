@@ -34,7 +34,6 @@ namespace InvoiceParserUnitTests
 		{
 			McNabs_Page1_NotFull = GetPageText($"{_testInvoicesFolderPath}McNabs-OnePage-NotFull.pdf", 0);
 
-			var 
 			Hadfield30th_Frozen_Pages = new []
 			{
 				GetPageText(Hadfield30thPath, 0),
@@ -45,7 +44,6 @@ namespace InvoiceParserUnitTests
 
 			Hadfield30th_Page1_BulkFrozen = GetPageText(Hadfield30thPath, 4);
 
-			var 
 			Hadfield27th_Frozen_Pages = new[]
 			{
 				GetPageText(Hadfield27thPath, 0),

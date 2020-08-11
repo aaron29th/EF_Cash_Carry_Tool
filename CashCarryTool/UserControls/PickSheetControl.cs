@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Eden_Farm_Cash___Carry_Tool.Models.Pick;
 using Eden_Farm_Cash___Carry_Tool.StaticClasses;
+using InvoiceTools;
+using InvoiceTools.InvoiceModels;
 using PdfiumViewer;
 using PdfSharp.Pdf.IO;
 
@@ -106,16 +108,9 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 		{
 			using (var doc = PdfDocument.Load(filePath))
 			{
-				var lines = new string[doc.PageCount];
-				for (int pageIndex = 0; pageIndex < doc.PageCount; pageIndex++)
-				{
-					lines[pageIndex] = doc.GetPdfText(pageIndex);
-				}
+				var invoices = InvoiceParser.PdfDocToInvoices(doc);
 
-				var invoice = new Invoice();
-				invoice.ProcessInvoice(lines, customerName);
-
-				return invoice;
+				return invoices.FirstOrDefault();
 			}
 		}
 

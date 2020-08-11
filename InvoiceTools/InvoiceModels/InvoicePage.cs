@@ -30,8 +30,8 @@ namespace InvoiceTools.InvoiceModels
 
 		public SectionType Section { get; set; }
 
-		public int PageNumber { get; set; }
-		public int TotalCount { get; set; }
+		public int PageNumber { get; set; } = -1;
+		public int TotalCount { get; set; } = -1;
 
 		public List<PickLine> Lines { get; set; }
 

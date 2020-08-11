@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Eden_Farm_Cash___Carry_Tool.Models.Pick;
 using Eden_Farm_Cash___Carry_Tool.StaticClasses;
+using InvoiceTools.InvoiceModels;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using Section = MigraDoc.DocumentObjectModel.Section;

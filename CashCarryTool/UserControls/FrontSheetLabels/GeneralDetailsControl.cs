@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using Eden_Farm_Cash___Carry_Tool.Models.Pick;
 using InvoiceTools.DirectoryModels;
+using InvoiceTools.InvoiceModels;
 using InvoiceTools.Models;
 
 namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
@@ -58,6 +59,8 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 			TitleTxt.Text = invoices[0].CustomerName;
 			CustomerCodeTxt.Text = invoices[0].CustomerCode;
 			DeliveryDateSel.Value = invoices[0].DeliveryBy;
+
+			InitQuickSelects();
 		}
 
 		private void TitleTxt_TextChanged(object sender, EventArgs e)

@@ -145,11 +145,7 @@
 			// 
 			// invoiceBindingSource
 			// 
-			this.invoiceBindingSource.DataSource = typeof(Eden_Farm_Cash___Carry_Tool.Models.Pick.Invoice);
-			// 
-			// invoiceBindingSource1
-			// 
-			this.invoiceBindingSource1.DataSource = typeof(Eden_Farm_Cash___Carry_Tool.Models.Pick.Invoice);
+			this.invoiceBindingSource.DataSource = typeof(InvoiceTools.InvoiceModels.Invoice);
 			// 
 			// invoiceNumberDataGridViewTextBoxColumn
 			// 
