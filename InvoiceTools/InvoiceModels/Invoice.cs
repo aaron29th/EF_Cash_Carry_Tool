@@ -34,6 +34,30 @@ namespace InvoiceTools.InvoiceModels
 		public List<PickLine> Ambient { get; set; }
 		public List<PickLine> BulkAmbient { get; set; }
 
+		public int FrozenLines => Frozen.Count;
+		public double FrozenMean => Frozen.Average(x => x.Ordered);
+		public int FrozenMode => Frozen.Select(x => x.Ordered).GroupBy(n => n).
+			OrderByDescending(g => g.Count()).
+			Select(g => g.Key).FirstOrDefault();
+
+		public int FrozenMedian
+		{
+			get
+			{
+				int halfIndex = FrozenLines / 2;
+				var sortedNumbers = Frozen.Select(x => x.Ordered).OrderBy(n => n);
+
+				// If perfect middle return
+				if ((FrozenLines % 2) != 0)
+					return sortedNumbers.ElementAt(halfIndex);
+
+				// Else average middle two
+				int middleFirst = sortedNumbers.ElementAt(halfIndex - 1);
+				int middleSecond = sortedNumbers.ElementAt(halfIndex);
+				return (middleFirst + middleSecond) / 2;
+			}
+		}
+
 		public Invoice()
 		{
 			Address = new string[4];

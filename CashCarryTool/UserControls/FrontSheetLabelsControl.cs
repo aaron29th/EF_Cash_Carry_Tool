@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Eden_Farm_Cash___Carry_Tool.Models;
 using Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels;
 using Eden_Farm_Cash___Carry_Tool.Models.Pick;
+using InvoiceTools;
 using InvoiceTools.InvoiceModels;
 using MigraDoc.DocumentObjectModel;
 
@@ -204,6 +205,7 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 
 		private void CopyExcelLineBtn_Click(object sender, EventArgs e)
 		{
+			var invoices = FrontSheetDetailsControl.Invoices;
 			string totalAmbientPallets = LabelDetailsControl.Pallets.Count(x => x.Type == PalletType.Ambient).ToString();
 			if (totalAmbientPallets == "0")
 				totalAmbientPallets = "";
@@ -224,14 +226,14 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 			if (totalFrozenPallets == "0")
 				totalFrozenPallets = "";
 
-			int totalAmbientUnits = FrontSheetDetailsControl.Invoices.Sum(x => x.AmbientUnits);
-			int totalBulkAmbientUnits = FrontSheetDetailsControl.Invoices.Sum(x => x.BulkAmbientUnits);
+			int totalAmbientUnits = invoices.Sum(x => x.AmbientUnits);
+			int totalBulkAmbientUnits = invoices.Sum(x => x.BulkAmbientUnits);
 
-			int totalBulkFrozenUnits = FrontSheetDetailsControl.Invoices.Sum(x => x.BulkFrozenUnits);
-			int totalFrozenUnits = FrontSheetDetailsControl.Invoices.Sum(x => x.FrozenUnits);
+			int totalBulkFrozenUnits = invoices.Sum(x => x.BulkFrozenUnits);
+			int totalFrozenUnits = invoices.Sum(x => x.FrozenUnits);
 
 			int route = -1;
-			if (FrontSheetDetailsControl.Invoices.Count > 0)
+			if (invoices.Count > 0)
 				route = FrontSheetDetailsControl.Invoices.First().Route;
 
 			Clipboard.SetText($"{GeneralDetailsControl.CustomerCode}|{GeneralDetailsControl.Title}|" +
@@ -247,8 +249,10 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls
 			                  "||" + // Picker, Missings,
 							  "||||" + // Pallet colours * 4
 							  "|||=[@[End Time]]-[@[Start Time]]-[@Break]|=[@[Normal UF]]/(HOUR([@[Time Picking]])+MINUTE([@[Time Picking]])/60)|" + // Start Time, End time, Break, Time picking, Pick Rate
-							  "|" + // 1-Frozen Lines 
-							  "|||" + // Median, Mean, Mode
+							  $"{invoices.Sum(x => x.FrozenLines)}|" + // 1-Frozen Lines 
+							  $"{InvoiceHelper.GetMedianFrozen(invoices)}|" + // Median
+							  $"{InvoiceHelper.GetMeanFrozen(invoices)}|" + // Mean
+							  $"{InvoiceHelper.GetModeFrozen(invoices)}|" + // Mode
 							  $"{route}"); // Route
 		}
 	}

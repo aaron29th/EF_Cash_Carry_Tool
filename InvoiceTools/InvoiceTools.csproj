@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InvoiceHelper.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="DirectoryModels\PickPdfDirectory.cs" />
     <Compile Include="DirectoryModels\ResourcesDirectory.cs" />
