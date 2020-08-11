@@ -1,9 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace InvoiceTools.InvoiceModels
 {
+	[DebuggerDisplay("{Description} | {Ordered}")]
 	public class PickLine
 	{
 		public string Location { get; set; }

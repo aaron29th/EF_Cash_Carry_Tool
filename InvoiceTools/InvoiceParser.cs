@@ -34,11 +34,9 @@ namespace InvoiceTools
 				var invoice = invoices.FirstOrDefault(x => x.InvoiceNumber == page.InvoiceNumber);
 
 				if (invoice == null)
-				{
-
-				}
-
-				invoice.AddPage(page);
+					invoices.Add(new Invoice(page));
+				else
+					invoice.AddPage(page);
 			}
 
 			return invoices;

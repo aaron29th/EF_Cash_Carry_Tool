@@ -7,7 +7,7 @@ namespace InvoiceTools.InvoiceModels
 {
 	public class Invoice
 	{
-		public int InvoiceNumber { get; set; }
+		public int InvoiceNumber { get; set; } = -1;
 
 		public string CustomerCode { get; set; }
 		public string CustomerName { get; set; }
@@ -37,9 +37,15 @@ namespace InvoiceTools.InvoiceModels
 		public Invoice()
 		{
 			Address = new string[4];
+
+			Frozen = new List<PickLine>();
+			BulkFrozen = new List<PickLine>();
+
+			Ambient = new List<PickLine>();
+			BulkAmbient = new List<PickLine>();
 		}
 
-		public Invoice(InvoicePage page)
+		public Invoice(InvoicePage page) : this()
 		{
 			InitProperties(page);
 			AddPage(page);
@@ -71,12 +77,15 @@ namespace InvoiceTools.InvoiceModels
 
 		public void AddPage(InvoicePage page)
 		{
+			if (InvoiceNumber == -1)
+				InitProperties(page);
+
 			if (page.InvoiceNumber != InvoiceNumber)
 				throw new InvoiceException($"Inconsistent Invoice numbers, invoice: {page.InvoiceNumber} page: {page.PageNumber} attempted to be added to invoice: ${InvoiceNumber}");
 
-			if (page.DeliveryBy.Equals(page.DeliveryBy))
-				throw new InvoiceException($"Inconsistent delivery dates, invoice: {page.InvoiceNumber} page: {page.PageNumber} deliver by: {page.DeliveryBy.ToShortDateString()} " + $"" +
-				                           $"attempted to be added to invoice: ${InvoiceNumber} deliver by ${DeliveryBy.ToShortDateString()}");
+			if (!page.DeliveryBy.Equals(DeliveryBy))
+				throw new InvoiceException($"Inconsistent delivery dates, invoice: {page.InvoiceNumber} page: {page.PageNumber} deliver by: {page.DeliveryBy.ToShortDateString()} " +
+				                           $"attempted to be added to invoice: {InvoiceNumber} deliver by {DeliveryBy.ToShortDateString()}");
 			
 			switch (page.Section)
 			{

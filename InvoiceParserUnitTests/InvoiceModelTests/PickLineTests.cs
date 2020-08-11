@@ -1,7 +1,7 @@
-using System;
 using InvoiceTools.InvoiceModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-namespace InvoiceParserUnitTests
+
+namespace InvoiceParserUnitTests.InvoiceModelTests
 {
 	[TestClass]
 	public class PickLineTests
