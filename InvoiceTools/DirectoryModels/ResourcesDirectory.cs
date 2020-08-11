@@ -62,6 +62,10 @@ namespace InvoiceTools.DirectoryModels
 			{
 				new Customer()
 				{
+					QuickSelectText = "Custom"
+				},
+				new Customer()
+				{
 					Code = "BES730",
 					PreferredName = "Batleys Hadfield Road",
 					QuickSelectText = "Batleys - Hadfield",

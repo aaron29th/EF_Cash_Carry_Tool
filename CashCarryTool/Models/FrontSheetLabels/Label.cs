@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Eden_Farm_Cash___Carry_Tool.StaticClasses;
+using InvoiceTools.DirectoryModels;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
@@ -136,7 +137,7 @@ namespace Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels
 			row.Cells[5].Borders.Width = 0;
 			var logoPara = row.Cells[5].AddParagraph();
 			logoPara.Format.Borders.Width = 0;
-			var logo = logoPara.AddImage(ResourcesDirectory.FrontSheetLabel.LogoPath);
+			var logo = logoPara.AddImage(ResourcesDirectory.LogoPath);
 			logo.ScaleHeight = 5;
 			logo.ScaleWidth = 5;
 			

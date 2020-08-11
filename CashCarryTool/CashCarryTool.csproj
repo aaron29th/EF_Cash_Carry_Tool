@@ -92,7 +92,6 @@
     <Compile Include="Models\ComboboxItem.cs" />
     <Compile Include="Models\FormattedTextHelper.cs" />
     <Compile Include="Models\FrontSheetLabels\FrontSheet.cs" />
-    <Compile Include="Models\FrontSheetLabels\GeneralDetailsQuickSelect.cs" />
     <Compile Include="Models\FrontSheetLabels\Label.cs" />
     <Compile Include="Models\FrontSheetLabels\Pallet.cs" />
     <Compile Include="Models\FrontSheetLabels\PalletType.cs" />
@@ -112,7 +111,6 @@
     <Compile Include="StaticClasses\LayoutHelper.cs" />
     <Compile Include="StaticClasses\NetworkHelper.cs" />
     <Compile Include="StaticClasses\TempDirectory.cs" />
-    <Compile Include="StaticClasses\ResourcesDirectory.cs" />
     <Compile Include="UserControls\FrontSheetLabelsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -247,6 +245,10 @@
     <ProjectReference Include="..\..\..\PdfiumViewer\PdfiumViewer\PdfiumViewer.csproj">
       <Project>{438914b6-5d1c-482c-b942-5c0e057eef6f}</Project>
       <Name>PdfiumViewer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InvoiceTools\InvoiceTools.csproj">
+      <Project>{c0b28cc6-6d22-455c-a30a-f058969eed72}</Project>
+      <Name>InvoiceTools</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

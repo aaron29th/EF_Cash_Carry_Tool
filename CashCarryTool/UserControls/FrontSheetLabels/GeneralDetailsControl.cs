@@ -2,23 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using CsvHelper;
-using Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels;
 using Eden_Farm_Cash___Carry_Tool.Models.Pick;
-using Eden_Farm_Cash___Carry_Tool.StaticClasses;
+using InvoiceTools.DirectoryModels;
+using InvoiceTools.Models;
 
 namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 {
 	public partial class GeneralDetailsControl : FrontSheetLabelsBase
 	{
-		private BindingList<GeneralDetailsQuickSelect> _quickSelects;
+		private BindingList<Customer> _quickSelects;
 
 		public string Title { get; private set; }
 		public float TitleSize { get; private set; }
@@ -28,21 +20,10 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 
 		private void InitQuickSelects()
 		{
-			try
-			{
-				using (var reader = new StreamReader(ResourcesDirectory.FrontSheetLabel.GeneralDetailsQuickSelectPath))
-				using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-				{
-					var quickSelectsList = csv.GetRecords<GeneralDetailsQuickSelect>().ToList();
-					_quickSelects = new BindingList<GeneralDetailsQuickSelect>(quickSelectsList);
-					DetailsQuickSelect.DataSource = _quickSelects;
-					DetailsQuickSelect.SelectedItem = null;
-				}
-			}
-			catch (IOException ex)
-			{
-
-			}
+			var customers = ResourcesDirectory.GetCustomers();
+			_quickSelects = new BindingList<Customer>(customers);
+			DetailsQuickSelect.DataSource = _quickSelects;
+			DetailsQuickSelect.SelectedItem = null;
 		}
 
 		public GeneralDetailsControl()
@@ -116,11 +97,11 @@ namespace Eden_Farm_Cash___Carry_Tool.UserControls.FrontSheetLabels
 
 		private void DetailsQuickSelect_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			GeneralDetailsQuickSelect selected = (GeneralDetailsQuickSelect)DetailsQuickSelect.SelectedItem;
-			if (selected == null || selected.SelectionText == "Custom") return;
+			Customer selected = (Customer)DetailsQuickSelect.SelectedItem;
+			if (selected == null || selected.QuickSelectText == "Custom") return;
 
-			TitleTxt.Text = selected.Title;
-			CustomerCodeTxt.Text = selected.CustomerCode;
+			TitleTxt.Text = selected.PreferredName;
+			CustomerCodeTxt.Text = selected.Code;
 		}
 
 		private void DeliveryDateSel_ValueChanged(object sender, EventArgs e)

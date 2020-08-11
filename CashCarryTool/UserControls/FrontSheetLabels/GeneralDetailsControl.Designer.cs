@@ -300,7 +300,7 @@
 			// 
 			this.DetailsQuickSelect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.DetailsQuickSelect.DisplayMember = "SelectionText";
+			this.DetailsQuickSelect.DisplayMember = "QuickSelectText";
 			this.DetailsQuickSelect.FormattingEnabled = true;
 			this.DetailsQuickSelect.Location = new System.Drawing.Point(5, 131);
 			this.DetailsQuickSelect.Name = "DetailsQuickSelect";
