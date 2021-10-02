@@ -217,6 +217,7 @@
     <EmbeddedResource Include="UserControls\PickSheet\SplitCustomerNameAddressForm.resx">
       <DependentUpon>SplitCustomerNameAddressForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Eden_Farm_Cash___Carry_Tool.Models.CheckedDataViewItem.datasource" />
     <None Include="Properties\DataSources\Eden_Farm_Cash___Carry_Tool.Models.FrontSheetLabels.Invoice.datasource" />
