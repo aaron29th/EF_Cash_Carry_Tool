@@ -338,3 +338,9 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+*/...bfg-report/
+.git.bfg-report/
+bfg-1.14.0.jar
+InvoiceParserUnitTests/TestInvoices/
+InvoiceParserUnitTests/InvoiceModelTests/InvoicePageTests.cs

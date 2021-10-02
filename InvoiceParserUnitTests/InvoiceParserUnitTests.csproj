@@ -50,7 +50,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InvoiceModelTests\InvoicePageTests.cs" />
     <Compile Include="InvoiceModelTests\PickLineTests.cs" />
     <Compile Include="TestPages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
